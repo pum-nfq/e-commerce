@@ -1,0 +1,21 @@
+.mobileNav__wrapper {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.mobileNav {
+    width: 280px;
+    background: #fff;
+    height: auto;
+}
+
+.mobileNav__overlays {
+    flex: 1;
+}

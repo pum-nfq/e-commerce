@@ -5,6 +5,7 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { useCallback, useState } from "react";
+import MobileNav from "../MobileNav/MobileNav";
 import NavbarItem from "../NavbarItem/NavbarItem";
 import Search from "../Search/Search";
 import "./Navbar.scss";
@@ -28,7 +29,7 @@ export default function Navbar() {
               <MenuOutlined />
             </div>
           </div>
-
+          <MobileNav />
           <ul className="header__menu">
             <NavbarItem href="#" title="home" />
             <NavbarItem href="#" title="collection" />
