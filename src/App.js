@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
 import './general.scss';
 import ProductPage from './pages/ProductPage/ProductPage';
 
