@@ -1,9 +1,11 @@
-import 'antd/dist/antd.css';
-import './App.css';
+import 'antd/dist/antd.less';
+import './general.scss';
+import ProductPage from './pages/ProductPage/ProductPage';
 
 function App() {
   return (
-    <div>
+    <div className="app">
+      <ProductPage />
     </div>
   );
 }
