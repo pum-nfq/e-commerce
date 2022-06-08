@@ -1,4 +1,4 @@
-<h1>Akatsuki</h1>
+<h1 align="center">Akatsuki</h1>
 
 ## About Project
 
@@ -6,7 +6,7 @@ This is a website that sells sports shoes with a variety of products from many b
 
 ### Tech
 
-In this project, we develop using:
+In this project, we develop by:
 - ReactJS
 - Redux - Toolkit
 - MockAPI
