@@ -1,8 +1,5 @@
 import "./Subnav.scss";
 
-
-export default function Subnav(){
-    return (
-        
-    )
+export default function Subnav() {
+  return null;
 }

@@ -3,6 +3,8 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import NavbarItem from "../NavbarItem/NavbarItem";
+import SubnavItem from "../SubnavItem/SubnavItem";
 import "./Navbar.scss";
 
 export default function Navbar() {
@@ -16,64 +18,32 @@ export default function Navbar() {
             </div>
           </div>
           <ul className="header__menu">
-            <li className="header__menu-item">
-              <a href="#" className="header__item-link">
-                home
-              </a>
-            </li>
-            <li className="header__menu-item">
-              <a href="#" className="header__item-link">
-                collection
-              </a>
-            </li>
-            <li className="header__menu-item">
-              <a href="#" className="header__item-link">
-                brands
-              </a>
-
-              <ul className="header__subnav">
-                <li className="header__subnav-item">
-                  <a href="" className="header__subnav-link">
-                    nike
-                  </a>
-                </li>
-                <li className="header__subnav-item">
-                  <a href="#" className="header__subnav-link">
-                    air jordan
-                  </a>
-                </li>
-                <li className="header__subnav-item">
-                  <a href="#" className="header__subnav-link">
-                    adidas
-                  </a>
-                </li>
-                <li className="header__subnav-item">
-                  <a href="#" className="header__subnav-link">
-                    puma
-                  </a>
-                </li>
-                <li className="header__subnav-item">
-                  <a href="#" className="header__subnav-link">
-                    reebok
-                  </a>
-                </li>
-                <li className="header__subnav-item">
-                  <a href="#" className="header__subnav-link">
-                    mlb
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li className="header__menu-item">
-              <a href="#" className="header__item-link">
-                categories
-              </a>
-            </li>
-            <li className="header__menu-item">
-              <a href="#" className="header__item-link">
-                sale
-              </a>
-            </li>
+            <NavbarItem href="#" title="home" />
+            <NavbarItem href="#" title="collection" />
+            <NavbarItem
+              href="#"
+              title="brands"
+              haveSubnav={true}
+              subnavFeature={[
+                { href: "#", title: "nike" },
+                { href: "#", title: "air jordan" },
+                { href: "#", title: "adidas" },
+                { href: "#", title: "puma" },
+                { href: "#", title: "reebok" },
+                { href: "#", title: "mlb" },
+              ]}
+            />
+            <NavbarItem
+              href="#"
+              title="categories"
+              haveSubnav={true}
+              subnavFeature={[
+                { href: "#", title: "sneakers" },
+                { href: "#", title: "apparels" },
+                { href: "#", title: "accessories" },
+              ]}
+            />
+            <NavbarItem href="#" title="sale" />
           </ul>
         </div>
         <div className="header__logo">

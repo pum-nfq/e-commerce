@@ -1,0 +1,40 @@
+.header__menu-item {
+  position: relative;
+
+  &:hover > .header__subnav {
+    -webkit-transform: perspective(600px) rotateX(0);
+    transform: perspective(600px) rotateX(0);
+    -webkit-transform-origin: 0 0 0;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.7s;
+  }
+}
+
+.header__item-link {
+  color: #000;
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0 12px;
+  margin: auto;
+  line-height: 90px;
+  display: block;
+}
+
+.header__subnav {
+  top: 100%;
+  position: absolute;
+  min-width: 200px;
+  background: #fff;
+  box-shadow: 0 3px 11px 0 rgb(0 0 0 / 10%);
+  list-style-type: none;
+  -webkit-transform: perspective(600px) rotateX(-90deg);
+  transform: perspective(600px) rotateX(-90deg);
+  -webkit-transform-origin: 0 0 0;
+  transform-origin: 0 0 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s;
+}
