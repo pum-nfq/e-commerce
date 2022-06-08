@@ -1,13 +1,24 @@
 import {
+  CloseOutlined,
   MenuOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import { useCallback, useState } from "react";
 import NavbarItem from "../NavbarItem/NavbarItem";
-import SubnavItem from "../SubnavItem/SubnavItem";
+import Search from "../Search/Search";
 import "./Navbar.scss";
 
 export default function Navbar() {
+  const [searchStatus, setSearchStatus] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleChangeInput = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  console.log(searchInput);
+
   return (
     <header className="header">
       <div className="header__wrapper">
@@ -17,6 +28,7 @@ export default function Navbar() {
               <MenuOutlined />
             </div>
           </div>
+
           <ul className="header__menu">
             <NavbarItem href="#" title="home" />
             <NavbarItem href="#" title="collection" />
@@ -73,11 +85,21 @@ export default function Navbar() {
               </a>
             </li>
           </ul>
-          <a href="#" className="header__search">
-            <SearchOutlined className="header__search-icon" />
+          <a
+            href="#"
+            className="header__search"
+            onClick={() => setSearchStatus(!searchStatus)}
+          >
+            <SearchOutlined />
           </a>
+          <Search
+            searchStatus={searchStatus}
+            hideSearch={() => setSearchStatus(false)}
+            searchInput={searchInput}
+            changeInput={handleChangeInput}
+          />
           <a href="#" className="header__cart">
-            <ShoppingCartOutlined className="header__cart-icon" />
+            <ShoppingCartOutlined />
           </a>
         </div>
       </div>

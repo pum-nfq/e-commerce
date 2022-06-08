@@ -10,8 +10,10 @@ export default function NavbarItem(props) {
       </a>
       {haveSubnav && (
         <ul className="header__subnav">
-          {subnavFeature.map((subnav) => {
-            return <SubnavItem href={subnav.href} title={subnav.title} />;
+          {subnavFeature.map((subnav, index) => {
+            return (
+              <SubnavItem key={index} href={subnav.href} title={subnav.title} />
+            );
           })}
         </ul>
       )}
