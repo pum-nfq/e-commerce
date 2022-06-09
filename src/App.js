@@ -1,4 +1,4 @@
-import "antd/dist/antd.less";
+import "antd/dist/antd.min.css";
 import Navbar from "./components/Navbar/Navbar";
 import "./general.scss";
 
