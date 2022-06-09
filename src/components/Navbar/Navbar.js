@@ -3,7 +3,7 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileNav from "../MobileNav/MobileNav";
 import NavbarItem from "../NavbarItem/NavbarItem";
 import Search from "../Search/Search";
@@ -17,6 +17,17 @@ export default function Navbar(props) {
   const handleHideMobileNav = () => {
     setMobileNavStatus(false);
   };
+
+  useEffect(() => {
+    window.onscroll = () => {
+      const header__wrapper = document.querySelector(".header__wrapper");
+      if (window.pageYOffset) {
+        header__wrapper.classList.add("header__wrapper--transition");
+      } else {
+        header__wrapper.classList.remove("header__wrapper--transition");
+      }
+    };
+  }, []);
 
   return (
     <header className="header">
