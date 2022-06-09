@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "./Search.scss";
 
 export default function Search(props) {
-  const { searchStatus, hideSearch, searchInput, changeInput } = props;
+  const { searchStatus, hideSearch, changeInput } = props;
 
   useEffect(() => {
     const searchWrapper = document.querySelector(".search__wrapper");

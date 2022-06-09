@@ -1,35 +1,39 @@
 import {
-  CloseOutlined,
   MenuOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import MobileNav from "../MobileNav/MobileNav";
 import NavbarItem from "../NavbarItem/NavbarItem";
 import Search from "../Search/Search";
 import "./Navbar.scss";
 
-export default function Navbar() {
+export default function Navbar(props) {
+  const { handleChangeInput } = props;
   const [searchStatus, setSearchStatus] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
+  const [mobileNavStatus, setMobileNavStatus] = useState(false);
 
-  const handleChangeInput = (e) => {
-    setSearchInput(e.target.value);
+  const handleHideMobileNav = () => {
+    setMobileNavStatus(false);
   };
-
-  console.log(searchInput);
 
   return (
     <header className="header">
       <div className="header__wrapper">
         <div className="header__left-menu">
           <div className="header__navbar-mobile">
-            <div className="header__navbar-mobile-icon">
+            <div
+              className="header__navbar-mobile-icon"
+              onClick={() => setMobileNavStatus(!mobileNavStatus)}
+            >
               <MenuOutlined />
             </div>
           </div>
-          <MobileNav />
+          <MobileNav
+            mobileNavStatus={mobileNavStatus}
+            hideMobileNav={handleHideMobileNav}
+          />
           <ul className="header__menu">
             <NavbarItem href="#" title="home" />
             <NavbarItem href="#" title="collection" />
@@ -96,7 +100,6 @@ export default function Navbar() {
           <Search
             searchStatus={searchStatus}
             hideSearch={() => setSearchStatus(false)}
-            searchInput={searchInput}
             changeInput={handleChangeInput}
           />
           <a href="#" className="header__cart">
