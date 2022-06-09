@@ -72,6 +72,23 @@
   }
 }
 
+.mobileNav__search-wrapper {
+  padding: 0 15px;
+  margin-top: 15px;
+  position: relative;
+}
+
+.mobileNav_search-input {
+  width: 100%;
+  outline: none;
+  border: 1px solid #00000085;
+  padding: 6px 16px;
+}
+
+.mobileNav_search-icon {
+  position: absolute;
+}
+
 @media (max-width: 400px) {
   .mobileNav {
     &.mobileNav--display {

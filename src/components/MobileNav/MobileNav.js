@@ -1,4 +1,4 @@
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
 import "./MobileNav.scss";
@@ -84,6 +84,16 @@ export default function MobileNav(props) {
             }}
             items={items}
           />
+        </div>
+        <div className="mobileNav__search-wrapper">
+          <input
+            type="text"
+            className="mobileNav_search-input"
+            placeholder="search our store"
+          />
+          <div className="mobileNav_search-icon">
+            <SearchOutlined />
+          </div>
         </div>
       </div>
       <div className="mobileNav__overlays" onClick={hideMobileNav}></div>
