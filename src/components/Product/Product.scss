@@ -1,6 +1,6 @@
 $text-color: #000000;
 
-.Product-card {
+.product-card {
     width: 100%;
     position: relative;
     text-align: center;
@@ -28,6 +28,9 @@ $text-color: #000000;
         font-size: 20px;
         font-weight: 500px;
         margin: 10px 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     &__link {
@@ -37,6 +40,9 @@ $text-color: #000000;
     &__text {
         color: $text-color;
         margin-bottom: 5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     &__price {
