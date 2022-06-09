@@ -12,19 +12,29 @@
   justify-content: space-between;
   height: 90px;
   padding: 0 18px;
+  transition: all 0.2s linear;
+}
+
+.header__wrapper--transition {
+  box-shadow: 0 3px 11px 0 rgb(0 0 0 / 10%);
+  height: 75px;
 }
 
 .header__left-menu {
   flex: 1;
   height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .header__menu {
   display: flex;
   list-style-type: none;
   justify-content: space-evenly;
+  align-items: center;
   height: 100%;
   flex: 1;
+  margin-bottom: unset;
 }
 
 .header__logo {
