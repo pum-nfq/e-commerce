@@ -1,12 +1,7 @@
 import React from 'react';
-import Filter from '../../components/Filter/Filter';
 import './ProductPage.scss';
 
 const ProductPage = () => {
-  const onCheckFilter = (e) => {
-    console.log(e.target.checked);
-  };
-
   return (
     <div className="product-page-container">
       <div className="product-page-container__filter-container"></div>
