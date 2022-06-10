@@ -10,7 +10,7 @@ import Search from "../Search/Search";
 import "./Navbar.scss";
 
 export default function Navbar(props) {
-  const { handleChangeInput } = props;
+  const { handleSearch, searchInput, handleChangeInput } = props;
   const [searchStatus, setSearchStatus] = useState(false);
   const [mobileNavStatus, setMobileNavStatus] = useState(false);
 
@@ -44,6 +44,9 @@ export default function Navbar(props) {
           <MobileNav
             mobileNavStatus={mobileNavStatus}
             hideMobileNav={handleHideMobileNav}
+            searchInput={searchInput}
+            onSearch={handleSearch}
+            onChangeInput={handleChangeInput}
           />
           <ul className="header__menu">
             <NavbarItem href="#" title="home" />
@@ -109,9 +112,11 @@ export default function Navbar(props) {
             <SearchOutlined />
           </a>
           <Search
+            searchInput={searchInput}
             searchStatus={searchStatus}
             hideSearch={() => setSearchStatus(false)}
-            changeInput={handleChangeInput}
+            onSearch={handleSearch}
+            onChangeInput={handleChangeInput}
           />
           <a href="#" className="header__cart">
             <ShoppingCartOutlined />

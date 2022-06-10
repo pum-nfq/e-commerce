@@ -21,6 +21,10 @@
   margin: auto;
   line-height: 90px;
   display: block;
+
+  &:hover {
+    color: #000;
+  }
 }
 
 .header__subnav {

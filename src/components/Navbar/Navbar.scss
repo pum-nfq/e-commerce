@@ -92,6 +92,10 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+
+  &:hover {
+    color: #000;
+  }
 }
 
 .header__cart {
@@ -130,13 +134,14 @@
     top: 4px;
     right: -4px;
   }
+
+  &:hover {
+    color: #000;
+  }
 }
 
 .header__navbar-mobile {
   display: none;
-}
-
-.header__navbar-mobile-icon {
 }
 
 @keyframes light-left {

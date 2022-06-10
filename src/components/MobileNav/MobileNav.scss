@@ -62,10 +62,6 @@
         border-top: unset;
       }
 
-      &:hover {
-        color: #000 !important;
-      }
-
       &:first-child {
         border-top: none;
       }
@@ -82,7 +78,7 @@
   width: 100%;
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.5215686275);
-  padding: 6px 16px;
+  padding: 6px 30px 6px 16px;
 }
 
 .mobileNav_search-icon {
