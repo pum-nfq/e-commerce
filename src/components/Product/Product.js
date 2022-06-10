@@ -4,14 +4,14 @@ import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 
-export default function Product({imgSource, linkToDetail, productBrand, productName, productPrice}) {
+export default function Product({productImage, linkToDetail, productBrand, productName, productPrice}) {
     return (
         <div className="product-card">
             <div style={{ overflow: "hidden" }}>
                 <a href={linkToDetail} className="product-card__link">
                     <img
                         className="product-card__img"
-                        src={imgSource}
+                        src={productImage}
                     />
                 </a>
             </div>
@@ -21,7 +21,7 @@ export default function Product({imgSource, linkToDetail, productBrand, productN
                     {productName}
                 </p>
             </a>
-            <p className="product-card__price">{productPrice}</p>
+            <p className="product-card__price">{productPrice || "Liên hệ"}</p>
             <Button
                 className="product-card__button"
                 block
