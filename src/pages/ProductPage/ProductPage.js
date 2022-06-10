@@ -4,6 +4,7 @@ import './ProductPage.scss';
 const ProductPage = () => {
   return (
     <div className='product-page-container'>
+      ProductPage
       <div className='product-page-container__filter-container'></div>
       <div className='product-page-container__products-list-view-container'></div>
     </div>
