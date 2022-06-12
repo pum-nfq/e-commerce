@@ -63,10 +63,15 @@ export default function MobileNav(props) {
     const mobileNav = document.querySelector(".mobileNav");
     if (mobileNavStatus) {
       mobileNavWrapper.classList.add("mobileNav__wrapper--display");
-      mobileNav.classList.add("mobileNav--display");
+
+      setTimeout(() => {
+        mobileNavWrapper.classList.add("mobileNav__wrapper--transition");
+        mobileNav.classList.add("mobileNav--display");
+      }, 10);
     } else {
       setTimeout(() => {
         mobileNavWrapper.classList.remove("mobileNav__wrapper--display");
+        mobileNavWrapper.classList.remove("mobileNav__wrapper--transition");
       }, 200);
       mobileNav.classList.remove("mobileNav--display");
     }

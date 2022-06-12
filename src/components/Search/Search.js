@@ -11,11 +11,15 @@ export default function Search(props) {
     const search = document.querySelector(".search");
     if (searchStatus) {
       searchWrapper.classList.add("search__wrapper--display");
-      search.classList.add("search--display");
+      setTimeout(() => {
+        searchWrapper.classList.add("search__wrapper--transition");
+        search.classList.add("search--display");
+      }, 10);
     } else {
       setTimeout(() => {
         searchWrapper.classList.remove("search__wrapper--display");
-      }, 200);
+        searchWrapper.classList.remove("search__wrapper--transition");
+      }, 210);
       search.classList.remove("search--display");
     }
   }, [searchStatus]);

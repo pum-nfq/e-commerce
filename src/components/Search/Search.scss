@@ -1,5 +1,5 @@
 .search__wrapper {
-  display: flex;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -11,9 +11,13 @@
   flex-direction: column;
 }
 
-.search__wrapper--display {
+.search__wrapper--transition {
   z-index: 1;
   opacity: 1;
+}
+
+.search__wrapper--display {
+  display: flex;
 }
 
 .search {
