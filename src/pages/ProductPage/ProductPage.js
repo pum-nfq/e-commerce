@@ -117,8 +117,6 @@ const ProductPage = () => {
         dispatch(getAllProduct());
     }, []);
 
-    console.log(productList);
-
     return (
         <div className="product-page-container">
             <div className="product-page-container__filter-container">
