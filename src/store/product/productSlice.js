@@ -83,7 +83,20 @@ export const productSlice = createSlice({
     });
     builder.addCase(getAllProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.list = payload;
+
+      const result = Object.values(
+        payload.reduce(
+          (r, { brand, createdAt, image, name, price, quantity, size }) => {
+            if (!r[name])
+              r[name] = { brand, createdAt, image, name, price, sizes: [] };
+            r[name].sizes.push({ quantity, size });
+            return r;
+          },
+          {}
+        )
+      );
+
+      state.list = result;
     });
 
     builder.addCase(updateProduct.pending, (state) => {
