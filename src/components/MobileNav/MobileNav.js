@@ -33,18 +33,13 @@ const items = [
   getItem("RELEASES", "13"),
   getItem("BLOG", "14"),
   getItem("LOCATIONS", "15"),
+  getItem("YOUR CART", "16"),
 ];
 
 const rootSubmenuKeys = ["sub1", "sub2"];
 
 export default function MobileNav(props) {
-  const {
-    mobileNavStatus,
-    hideMobileNav,
-    searchInput,
-    onSearch,
-    onChangeInput,
-  } = props;
+  const { mobileNavStatus, hideMobileNav } = props;
 
   const [openKeys, setOpenKeys] = useState(["1"]);
 
@@ -95,20 +90,6 @@ export default function MobileNav(props) {
             }}
             items={items}
           />
-        </div>
-        <div className="mobileNav__search-wrapper">
-          <input
-            value={searchInput}
-            onInput={(e) => {
-              onChangeInput(e);
-            }}
-            type="text"
-            className="mobileNav_search-input"
-            placeholder="Search our store"
-          />
-          <div className="mobileNav_search-icon" onClick={onSearch}>
-            <SearchOutlined />
-          </div>
         </div>
       </div>
       <div className="mobileNav__overlays" onClick={hideMobileNav}></div>
