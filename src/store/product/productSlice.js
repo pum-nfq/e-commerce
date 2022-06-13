@@ -86,9 +86,9 @@ export const productSlice = createSlice({
 
       const result = Object.values(
         payload.reduce(
-          (r, { brand, createdAt, image, name, price, quantity, size }) => {
+          (r, { brand, createdAt, image, name, price, quantity, size, id }) => {
             if (!r[name])
-              r[name] = { brand, createdAt, image, name, price, sizes: [] };
+              r[name] = { id ,brand, createdAt, image, name, price, sizes: [] };
             r[name].sizes.push({ quantity, size });
             return r;
           },
