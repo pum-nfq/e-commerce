@@ -172,16 +172,29 @@ export const productSlice = createSlice({
             });
         });
 
-        builder.addCase(getAllProduct.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(getAllProduct.rejected, (state) => {
-            state.loading = false;
-        });
-        builder.addCase(getAllProduct.fulfilled, (state, { payload }) => {
-            state.loading = false;
-            state.list = payload;
-        });
+    builder.addCase(getAllProduct.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getAllProduct.rejected, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(getAllProduct.fulfilled, (state, { payload }) => {
+      state.loading = false;
+
+      const result = Object.values(
+        payload.reduce(
+          (r, { brand, createdAt, image, name, price, quantity, size }) => {
+            if (!r[name])
+              r[name] = { brand, createdAt, image, name, price, sizes: [] };
+            r[name].sizes.push({ quantity, size });
+            return r;
+          },
+          {}
+        )
+      );
+
+      state.list = result;
+    });
 
         builder.addCase(updateProduct.pending, (state) => {
             state.loading = true;
