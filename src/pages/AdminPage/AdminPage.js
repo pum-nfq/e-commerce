@@ -532,7 +532,8 @@ const AdminPage = () => {
                           width: '20%',
                           render: (_, record) => (
                             <p style={{ margin: '0' }}>
-                              {record.price || 'Liên hệ'}
+                              {record.price.toLocaleString('vi-VN') + ' VND' ||
+                                'Liên hệ'}
                             </p>
                           ),
                           sorter: (a, b) => a.price - b.price,
