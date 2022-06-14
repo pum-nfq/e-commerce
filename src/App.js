@@ -1,12 +1,10 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
-import 'antd/dist/antd.min.css';
-import './general.scss';
-
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
-import PageNotFound from './pages/PageNotFound/PageNotFound';
-import ProductPage from './pages/ProductPage/ProductPage';
-import AdminPage from './pages/AdminPage/AdminPage';
+import { Routes, Route, Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import ProductPage from "./pages/ProductPage/ProductPage";
+import AdminPage from "./pages/AdminPage/AdminPage";
+import DetailProductPage from "./pages/DetailProductPage/DetailProductPage";
 
 function App() {
   return (
@@ -24,9 +22,10 @@ function App() {
         >
           <Route index element={<div>home</div>} />
           <Route path="product" element={<ProductPage />} />
-          <Route path="detail/*" element={'detail'} />
+          <Route path="admin" element={<AdminPage />} />
+          <Route path="detail/:id" element={<DetailProductPage />} />
         </Route>
-        <Route path="admin" element={<AdminPage />} />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
