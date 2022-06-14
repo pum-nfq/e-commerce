@@ -1,5 +1,6 @@
-import { CloseOutlined } from "@ant-design/icons";
+import { ClearOutlined, CloseOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
+import SearchList from "../SearchList/SearchList";
 import "./SearchBox.scss";
 
 export default function SearchBox(props) {
@@ -18,21 +19,29 @@ export default function SearchBox(props) {
   return (
     <>
       <div className="searchBox__wrapper">
-        <input
-          value={searchInput}
-          onInput={(e) => onChangeInput(e.target.value)}
-          type="text"
-          className="searchBox__input"
-          placeholder="Search our store..."
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              onSearch();
-            }
-          }}
-        />
-        <div className="searchBox__close-btn" onClick={hideSearch}>
-          <CloseOutlined />
+        <div className="searchBox">
+          <div className="searchBox__input-wrapper">
+            <input
+              value={searchInput}
+              onInput={(e) => onChangeInput(e.target.value)}
+              type="text"
+              className="searchBox__input"
+              placeholder="Search our store..."
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  onSearch();
+                }
+              }}
+            />
+            <div className="searchBox__clear-btn">
+              <ClearOutlined />
+            </div>
+          </div>
+          <div className="searchBox__close-btn" onClick={hideSearch}>
+            <CloseOutlined />
+          </div>
         </div>
+        <SearchList />
       </div>
     </>
   );

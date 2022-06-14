@@ -1,5 +1,6 @@
 import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
+import SearchList from "../SearchList/SearchList";
 import "./Search.scss";
 
 export default function Search(props) {
@@ -42,6 +43,7 @@ export default function Search(props) {
         <div className="search__close-btn" onClick={hideSearch}>
           <CloseOutlined />
         </div>
+        <SearchList />
       </div>
       <div className="search__overlays" onClick={hideSearch}></div>
     </div>
