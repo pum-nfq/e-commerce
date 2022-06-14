@@ -65,6 +65,11 @@
   outline: none;
   padding: 4px 30px 4px 12px;
   font-size: 1rem;
+  position: relative;
+
+  & .ant-select-selection-search input.ant-select-selection-search-input {
+    width: 92%;
+  }
 }
 
 .searchBox__close-btn {
