@@ -23,8 +23,7 @@ function App() {
           <Route index element={<div>home</div>} />
           <Route path="product" element={<ProductPage />} />
           <Route path="admin" element={<AdminPage />} />
-          <Route path="detail/*" element={"detail"} />
-          <Route path="detail/*" element={<DetailProductPage />} />
+          <Route path="detail/:id" element={<DetailProductPage />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />
