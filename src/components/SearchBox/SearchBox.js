@@ -3,27 +3,6 @@ import { useEffect } from "react";
 import SearchList from "../SearchList/SearchList";
 import "./SearchBox.scss";
 
-const options = [
-  {
-    value: "Nike",
-  },
-  {
-    value: "Air Jordan",
-  },
-  {
-    value: "Puma",
-  },
-  {
-    value: "Adidas",
-  },
-  {
-    value: "Reebok",
-  },
-  {
-    value: "MLB",
-  },
-];
-
 export default function SearchBox(props) {
   const { searchInput, searchStatus, hideSearch, onSearch, onChangeInput } =
     props;

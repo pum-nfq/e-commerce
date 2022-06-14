@@ -10,11 +10,19 @@ import Search from "../Search/Search";
 import SearchBox from "../SearchBox/SearchBox";
 import "./Navbar.scss";
 
-export default function Navbar(props) {
-  const { handleSearch, searchInput, handleChangeInput } = props;
+export default function Navbar() {
   const [searchStatus, setSearchStatus] = useState(false);
   const [mobileNavStatus, setMobileNavStatus] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
+  const [searchInput, setSearchInput] = useState("");
+  console.log(searchInput);
+
+  const handleSearch = () => {};
+
+  const handleChangeInput = (input) => {
+    setSearchInput(input);
+  };
+
   const handleHideMobileNav = () => {
     setMobileNavStatus(false);
   };

@@ -37,7 +37,7 @@ export default function Search(props) {
           className="search__input"
           placeholder="Search our store"
           onInput={(e) => {
-            onChangeInput(e);
+            onChangeInput(e.target.value);
           }}
         />
         <div className="search__close-btn" onClick={hideSearch}>
