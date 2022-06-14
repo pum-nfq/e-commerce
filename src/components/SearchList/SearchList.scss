@@ -4,7 +4,7 @@
 .searchList__list {
   margin: 0;
   list-style-type: none;
-  max-height: 400px;
+  max-height: 403px;
   overflow-y: auto;
 }
 
@@ -75,8 +75,7 @@
   }
 
   .searchList__list {
-    overflow-y: auto;
-    max-height: unset;
+    max-height: 550px;
   }
 
   .searchList__name {

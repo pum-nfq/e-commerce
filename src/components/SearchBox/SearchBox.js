@@ -4,8 +4,14 @@ import SearchList from "../SearchList/SearchList";
 import "./SearchBox.scss";
 
 export default function SearchBox(props) {
-  const { searchInput, searchStatus, hideSearch, onSearch, onChangeInput } =
-    props;
+  const {
+    searchProducts,
+    searchInput,
+    searchStatus,
+    hideSearch,
+    onSearch,
+    onChangeInput,
+  } = props;
 
   useEffect(() => {
     const searchBox = document.querySelector(".searchBox__wrapper");
@@ -33,15 +39,26 @@ export default function SearchBox(props) {
                 }
               }}
             />
-            <div className="searchBox__clear-btn">
+            <div
+              className="searchBox__clear-btn"
+              onClick={() => {
+                onChangeInput("");
+              }}
+            >
               <ClearOutlined />
             </div>
           </div>
-          <div className="searchBox__close-btn" onClick={hideSearch}>
+          <div
+            className="searchBox__close-btn"
+            onClick={() => {
+              hideSearch();
+              onChangeInput("");
+            }}
+          >
             <CloseOutlined />
           </div>
         </div>
-        <SearchList />
+        <SearchList searchProducts={searchProducts} />
       </div>
     </>
   );

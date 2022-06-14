@@ -1,14 +1,14 @@
 import "./SearchList.scss";
 
 export default function SearchList(props) {
-  const { searchList = [] } = props;
+  const { searchProducts = [] } = props;
   return (
     <>
       <div className="searchList__container">
         <ul className="searchList__list">
-          {searchList.map((item) => {
+          {searchProducts.map((item, index) => {
             return (
-              <li className="searchList__item">
+              <li key={index} className="searchList__item">
                 <a href="#" className="searchList__item-link">
                   <img
                     src={item.image}

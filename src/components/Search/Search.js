@@ -4,8 +4,14 @@ import SearchList from "../SearchList/SearchList";
 import "./Search.scss";
 
 export default function Search(props) {
-  const { searchInput, searchStatus, hideSearch, onSearch, onChangeInput } =
-    props;
+  const {
+    searchProducts,
+    searchInput,
+    searchStatus,
+    hideSearch,
+    onSearch,
+    onChangeInput,
+  } = props;
 
   useEffect(() => {
     const searchWrapper = document.querySelector(".search__wrapper");
@@ -43,7 +49,7 @@ export default function Search(props) {
         <div className="search__close-btn" onClick={hideSearch}>
           <CloseOutlined />
         </div>
-        <SearchList />
+        <SearchList searchProducts={searchProducts} />
       </div>
       <div className="search__overlays" onClick={hideSearch}></div>
     </div>

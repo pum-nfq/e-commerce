@@ -3,7 +3,11 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux/es/exports";
+import { searchChange } from "../../store/searchFilter/searchFilterSlice";
+import { remainingProductList } from "../../store/selectors";
 import MobileNav from "../MobileNav/MobileNav";
 import NavbarItem from "../NavbarItem/NavbarItem";
 import Search from "../Search/Search";
@@ -11,11 +15,13 @@ import SearchBox from "../SearchBox/SearchBox";
 import "./Navbar.scss";
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+  const searchProducts = useSelector(remainingProductList);
   const [searchStatus, setSearchStatus] = useState(false);
   const [mobileNavStatus, setMobileNavStatus] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [searchInput, setSearchInput] = useState("");
-  console.log(searchInput);
+  const timerId = useRef(0);
 
   const handleSearch = () => {};
 
@@ -43,6 +49,14 @@ export default function Navbar() {
       setWidth(window.innerWidth);
     };
   }, [width]);
+
+  useEffect(() => {
+    clearTimeout(timerId.current);
+    timerId.current = setTimeout(() => {
+      // Dispatch Action Search
+      dispatch(searchChange(searchInput));
+    }, 500);
+  }, [searchInput]);
 
   return (
     <header className="header">
@@ -120,12 +134,16 @@ export default function Navbar() {
             <span
               href="#"
               className="header__search"
-              onClick={() => setSearchStatus(!searchStatus)}
+              onClick={() => {
+                setSearchStatus(!searchStatus);
+                setSearchInput("");
+              }}
             >
               <SearchOutlined />
             </span>
             {width <= 1000 ? (
               <Search
+                searchProducts={!searchInput ? [] : searchProducts}
                 searchInput={searchInput}
                 searchStatus={searchStatus}
                 hideSearch={() => setSearchStatus(false)}
@@ -134,6 +152,7 @@ export default function Navbar() {
               />
             ) : (
               <SearchBox
+                searchProducts={!searchInput ? [] : searchProducts}
                 searchInput={searchInput}
                 searchStatus={searchStatus}
                 hideSearch={() => setSearchStatus(false)}
