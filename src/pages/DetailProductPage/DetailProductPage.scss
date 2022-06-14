@@ -86,11 +86,12 @@
       & .ant-radio-group {
         width: 100%;
       }
+
       &__size-wrapper {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        gap: 8px;
 
         & .ant-radio-button-wrapper {
           border-color: black;
@@ -139,7 +140,7 @@
 .order-wrapper {
   display: flex;
   gap: 8px;
-  width: 60%;
+  width: 100%;
 }
 
 .related-item {
