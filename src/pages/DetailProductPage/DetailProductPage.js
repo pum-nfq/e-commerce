@@ -1,22 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import './DetailProductPage.scss';
 
-import { Button, Form, InputNumber, Radio, Space } from 'antd';
+import {
+  Avatar,
+  Button,
+  Comment,
+  Form,
+  InputNumber,
+  List,
+  Radio,
+  Space,
+  Tabs,
+} from 'antd';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProduct } from '../../store/product/productSlice';
+import Product from '../../components/Product/Product';
+import moment from 'moment';
+import TextArea from 'antd/lib/input/TextArea';
 
 const DetailProductPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
+  const { TabPane } = Tabs;
+
   const products = useSelector((state) => state.product.list);
 
   const [product, setProduct] = useState({});
   const [productSelectedSize, setPrductSelectedSize] = useState();
+  const [relatedProducts, setRelatedProducts] = useState([]);
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+  const [comments, setComments] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [value, setValue] = useState('');
 
   useEffect(() => {
     dispatch(getAllProduct());
@@ -32,10 +53,33 @@ const DetailProductPage = () => {
       })
     );
 
-    if (foundProductById.length > 0) setProduct(foundProductById[0]);
+    if (foundProductById.length > 0) {
+      const temp = products.filter(
+        (item) => item.brand === foundProductById[0].brand
+      );
+      setRelatedProducts(temp);
+      setProduct(foundProductById[0]);
+      setPrductSelectedSize(foundProductById[0].sizes[0]);
+    }
   }, [id, products]);
 
-  console.log(productSelectedSize);
+  const handleSubmit = () => {
+    if (!value) return;
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      setValue('');
+      setComments([
+        ...comments,
+        {
+          author: 'Han Solo',
+          avatar: 'https://joeschmoe.io/api/v1/random',
+          content: <p>{value}</p>,
+          datetime: moment().fromNow(),
+        },
+      ]);
+    }, 600);
+  };
 
   if (
     product &&
@@ -51,6 +95,7 @@ const DetailProductPage = () => {
               style={{
                 '--swiper-navigation-color': '#000',
                 '--swiper-pagination-color': '#000',
+                '--swiper-navigation-size': '32px',
               }}
               loop={true}
               spaceBetween={10}
@@ -58,25 +103,28 @@ const DetailProductPage = () => {
               thumbs={{ swiper: thumbsSwiper }}
               modules={[FreeMode, Navigation, Thumbs]}
             >
-              {/* {product.image.map((img, index) => ( */}
-              <SwiperSlide>
-                <img src={product.image} alt={product.name} />
-              </SwiperSlide>
-              {/* ))} */}
+              {product.detailImage &&
+                [product.image, ...product.detailImage].map((img, index) => (
+                  <SwiperSlide key={index}>
+                    <img src={img} alt={product.name} />
+                  </SwiperSlide>
+                ))}
             </Swiper>
             <Swiper
               className="detail-product__carousel__thumb"
               onSwiper={setThumbsSwiper}
-              loop={true}
               spaceBetween={10}
               slidesPerView={3}
               freeMode={true}
               watchSlidesProgress={true}
               modules={[FreeMode, Navigation, Thumbs]}
             >
-              <SwiperSlide>
-                <img src={product.image} alt="adias" />
-              </SwiperSlide>
+              {product.detailImage &&
+                [product.image, ...product.detailImage].map((img, index) => (
+                  <SwiperSlide key={index}>
+                    <img src={img} alt={product.name} />
+                  </SwiperSlide>
+                ))}
             </Swiper>
           </div>
           <div className="detail-product__content">
@@ -99,7 +147,7 @@ const DetailProductPage = () => {
                   style={{ color: '#999', fontSize: '16px', fontWeight: '200' }}
                 >
                   {productSelectedSize &&
-                    '(Còn ' + productSelectedSize.quantity + ' sản phẩm)'}
+                    '( ' + productSelectedSize.quantity + ' products in stock)'}
                 </i>
               </h2>
             </Space>
@@ -109,7 +157,7 @@ const DetailProductPage = () => {
               autoComplete="off"
             >
               <Space direction="vertical" style={{ width: '60%' }}>
-                <p>KÍCH THƯỚC: </p>
+                <p>SIZE: </p>
                 <Form.Item
                   name="sizeOrder"
                   rules={[
@@ -153,20 +201,99 @@ const DetailProductPage = () => {
                   htmlType="submit"
                   block
                 >
-                  MUA NGAY
+                  BUY NOW
                 </Button>
               </div>
             </Form>
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="Description" key="1">
+                <p style={{ marginBottom: '1rem' }}>
+                  The <i>{product.name}</i> fuses court and street style to give
+                  you a slam dunk sneaker. The mixed material upper features
+                  transparent mesh panels for breathability, while the
+                  collapsible heel brings feminine flair to Nike b-ball.
+                </p>
+                <b style={{ fontSize: '1.25rem' }}>Product details</b>
+                <p>
+                  <b>Package Dimensions:</b> 33.71 x 20.9 x 11.4 cm
+                  <br />
+                  <b>Date First Available:</b> 17 December 2021
+                  <br />
+                  <b>Manufacturer:</b> Nike
+                  <br />
+                  <b>ASIN:</b> B09NMMX1NK
+                  <br />
+                  <b>Item model number:</b> DJ0292-103
+                  <br />
+                  <b>Department:</b> Womens
+                  <br />
+                  <b>Manufacturer:</b> Nike Item
+                  <br />
+                  <b>Weight:</b> 948 g
+                </p>
+              </TabPane>
+              <TabPane tab="Shipping" key="2">
+                <p>No support</p>
+              </TabPane>
+              <TabPane tab="Comments" key="3">
+                {comments.length > 0 && (
+                  <List
+                    dataSource={comments}
+                    header={`${comments.length} ${
+                      comments.length > 1 ? 'replies' : 'reply'
+                    }`}
+                    itemLayout="horizontal"
+                    renderItem={(props) => <Comment {...props} />}
+                  />
+                )}
+                <Comment
+                  avatar={
+                    <Avatar
+                      src="https://joeschmoe.io/api/v1/random"
+                      alt="Han Solo"
+                    />
+                  }
+                  content={
+                    <>
+                      <Form.Item>
+                        <TextArea
+                          rows={2}
+                          onChange={(e) => setValue(e.target.value)}
+                          value={value}
+                        />
+                      </Form.Item>
+                      <Form.Item>
+                        <Button
+                          htmlType="submit"
+                          loading={submitting}
+                          onClick={handleSubmit}
+                          type="primary"
+                        >
+                          Add Comment
+                        </Button>
+                      </Form.Item>
+                    </>
+                  }
+                />
+              </TabPane>
+            </Tabs>
           </div>
         </div>
         <div className="related-item">
           <h2 className="related-item__title">Related Items</h2>
           <Swiper slidesPerView={5} spaceBetween={30} className="ralated-item">
-            {/* {product.image.map((img, index) => (
-            <SwiperSlide key={index}>
-              <Product {...product} image={product.image[0]} />
-            </SwiperSlide>
-          ))} */}
+            {relatedProducts &&
+              relatedProducts.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <Product
+                    {...item}
+                    price={
+                      item.sizes[0].price !== null &&
+                      item.sizes[0].price.toLocaleString('vi-VN') + ' VND'
+                    }
+                  />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </div>
