@@ -1,6 +1,28 @@
-import { CloseOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
+import { ClearOutlined, CloseOutlined } from "@ant-design/icons";
+import { AutoComplete } from "antd";
+import { useEffect, useState } from "react";
 import "./SearchBox.scss";
+
+const options = [
+  {
+    value: "Nike",
+  },
+  {
+    value: "Air Jordan",
+  },
+  {
+    value: "Puma",
+  },
+  {
+    value: "Adidas",
+  },
+  {
+    value: "Reebok",
+  },
+  {
+    value: "MLB",
+  },
+];
 
 export default function SearchBox(props) {
   const { searchInput, searchStatus, hideSearch, onSearch, onChangeInput } =
@@ -18,7 +40,7 @@ export default function SearchBox(props) {
   return (
     <>
       <div className="searchBox__wrapper">
-        <input
+        {/* <input
           value={searchInput}
           onInput={(e) => onChangeInput(e.target.value)}
           type="text"
@@ -29,7 +51,24 @@ export default function SearchBox(props) {
               onSearch();
             }
           }}
-        />
+        /> */}
+        <div className="searchBox__input">
+          <AutoComplete
+            style={{
+              width: "100%",
+            }}
+            options={options}
+            placeholder="Search our store..."
+            filterOption={(inputValue, option) =>
+              option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+              -1
+            }
+          />
+          <div className="searchBox__clear-btn">
+            <ClearOutlined />
+          </div>
+        </div>
+
         <div className="searchBox__close-btn" onClick={hideSearch}>
           <CloseOutlined />
         </div>

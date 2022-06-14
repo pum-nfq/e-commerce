@@ -109,13 +109,13 @@ export default function Navbar(props) {
             </li>
           </ul>
           <div className="header__search--wrapper">
-            <a
+            <span
               href="#"
               className="header__search"
               onClick={() => setSearchStatus(!searchStatus)}
             >
               <SearchOutlined />
-            </a>
+            </span>
             {width <= 1000 ? (
               <Search
                 searchInput={searchInput}

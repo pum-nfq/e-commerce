@@ -26,16 +26,30 @@
 }
 
 .searchBox__input {
-  flex: 1;
+  flex: 1 1;
   border-width: 0 0 1px 0;
-  margin-right: 20px;
+  margin-right: 16px;
   outline: none;
-  padding: 4px 12px;
   font-size: 1rem;
+  position: relative;
+
+  & .ant-select-selection-search input.ant-select-selection-search-input {
+    width: 92%;
+  }
 }
 
 .searchBox__close-btn {
   padding: 4px 8px;
   cursor: pointer;
   border-left: 1px solid #ccc;
+  opacity: 0.5;
+}
+
+.searchBox__clear-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0.5;
+  padding: 3px 10px;
+  cursor: pointer;
 }
