@@ -1,0 +1,143 @@
+.home-page-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+.slide-show {
+  width: 100%;
+  height: 1000px;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 0.45fr;
+  grid-template-areas:
+    'new-arrival new-arrival best-seller'
+    'adidas nike other';
+  margin-bottom: 60px;
+}
+
+.new-arrival {
+  grid-area: new-arrival;
+  background-image: url(http://snkrsg.com/thumbs/982x525x1/upload/photo/aaa-1907-4515.jpg);
+}
+
+.best-seller {
+  grid-area: best-seller;
+  background-image: url(http://snkrsg.com/thumbs/489x525x1/upload/photo/2-5051.jpg);
+}
+
+.adidas {
+  grid-area: adidas;
+  background-image: url(http://snkrsg.com/thumbs/489x264x1/upload/photo/originals-ss21-stansmith-drop2-educate-pdp-statement-1-sustainability-v1-dtcm337-643333-7297.jpg);
+}
+
+.nike {
+  grid-area: nike;
+  background-image: url(http://snkrsg.com/thumbs/489x264x1/upload/photo/6-8012.jpg);
+}
+
+.other {
+  grid-area: other;
+  background-image: url(http://snkrsg.com/thumbs/489x264x1/upload/photo/20181112-puma-rs-x-toys-28-1-3522.jpg);
+}
+
+.panel {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.shadow-box {
+  box-shadow: inset 0px -50px 50px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow: hidden;
+  transition: ease 300ms;
+  cursor: pointer;
+
+  &::before {
+    content: attr(text-bf);
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    z-index: 2;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.85);
+
+    transform: translateY(101%);
+    transition: ease 300ms;
+  }
+
+  &:hover {
+    opacity: 0.85;
+    &::after {
+      transform: translateY(0%);
+    }
+  }
+}
+
+.top-product {
+  width: 100%;
+  & .card-footer {
+    width: 450px;
+    height: 450px;
+    cursor: pointer;
+
+    position: relative;
+    transition: ease 300ms;
+
+    overflow: hidden;
+    &:hover {
+      filter: grayscale(0%);
+      &::before {
+        background-color: black;
+        color: white;
+      }
+    }
+
+    &::before {
+      content: attr(text-bf);
+      position: absolute;
+      width: 70%;
+      height: 50px;
+      background-color: white;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-weight: bold;
+      transition: ease 300ms;
+    }
+  }
+
+  & .air-force-1 {
+    background-image: url(http://snkrsg.com/upload/photo/z2259779602634-fc871114564d062b895219aa7677d4d5-9972.jpg);
+  }
+
+  & .air-jordan-1 {
+    background-image: url(http://snkrsg.com/upload/photo/16489607239744776792407364727650043825883683n-4517.jpg);
+  }
+
+  & .air-max-1 {
+    background-image: url(http://snkrsg.com/upload/photo/21757840740365900064101845820753293603063256n-5097.jpg);
+  }
+
+  & .ultra-boost-1 {
+    background-image: url(http://snkrsg.com/upload/photo/z2259779602634-fc871114564d062b895219aa7677d4d5-1421.jpg);
+  }
+}
