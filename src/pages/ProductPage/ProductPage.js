@@ -7,6 +7,7 @@ import {
     getAllProduct,
     filterProduct,
     setLoading,
+    setListSorter,
 } from "../../store/product/productSlice";
 import ProductList from "../../components/ProductList/ProductList";
 import Filter from "../../components/Filter/Filter";
@@ -15,8 +16,12 @@ const ProductPage = () => {
     const dispatch = useDispatch();
     const productList = useSelector((state) => state.product.list);
     const productListFilter = useSelector((state) => state.product.listFilter);
+    const productListSorter = useSelector((state) => state.product.listSorter);
     const loading = useSelector((state) => state.product.loading);
     const [filters, setFilters] = useState([]);
+    const [isSortRevert, setIsSortRevert] = useState(false);
+    let displayData = filters.length === 0 ? productList : productListFilter;
+    displayData = !!productListSorter.length ? productListSorter : displayData;
 
     useEffect(() => {
         dispatch(getAllProduct());
@@ -46,6 +51,68 @@ const ProductPage = () => {
     // console.log(productList);
     // console.log(productListFilter);
 
+    const handleSort = (e) => {
+        switch (e.target.innerText) {
+            // handle sort by price
+            case "Sort by Price":
+                if (isSortRevert) {
+                    displayData = displayData.slice().sort((a, b) => {
+                        return a.price < b.price
+                            ? 1
+                            : a.price > b.price
+                            ? -1
+                            : 0;
+                    });
+                } else {
+                    displayData = displayData.slice().sort((a, b) => {
+                        return a.price < b.price
+                            ? -1
+                            : a.price > b.price
+                            ? 1
+                            : 0;
+                    });
+                }
+                setIsSortRevert(!isSortRevert);
+                dispatch(setListSorter(displayData));
+                break;
+            // handle sort by name
+            case "Sort by Name":
+                if (isSortRevert) {
+                    displayData = displayData.slice().sort((a, b) => {
+                        return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
+                    });
+                } else {
+                    displayData = displayData.slice().sort((a, b) => {
+                        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                    });
+                }
+                setIsSortRevert(!isSortRevert);
+                dispatch(setListSorter(displayData));
+                break;
+            // handle sort by brand
+            case "Sort by Brand":
+                if (isSortRevert) {
+                    displayData = displayData.slice().sort((a, b) => {
+                        return a.brand < b.brand ? 1 : a.brand > b.brand ? -1 : 0;
+                    });
+                } else {
+                    displayData = displayData.slice().sort((a, b) => {
+                        return a.brand < b.brand ? -1 : a.brand > b.brand ? 1 : 0;
+                    });
+                }
+                setIsSortRevert(!isSortRevert);
+                dispatch(setListSorter(displayData));
+                break;
+            default:
+                // default
+                displayData =
+                    filters.length === 0 ? productList : productListFilter;
+                dispatch(setListSorter([]));
+        }
+    };
+
+    // console.log(displayData);
+
     return (
         <>
             <Spin spinning={loading}>
@@ -56,11 +123,8 @@ const ProductPage = () => {
                     <div className="product-page-container__products-list-view-container">
                         <ProductList
                             title="collection"
-                            data={
-                                filters.length === 0
-                                    ? productList
-                                    : productListFilter
-                            }
+                            sorter={handleSort}
+                            data={displayData}
                         />
                     </div>
                 </div>

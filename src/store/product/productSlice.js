@@ -39,6 +39,7 @@ const initialState = {
     list: [],
     listSearch: [],
     listFilter: [],
+    listSorter: [],
     loading: false,
 };
 
@@ -162,6 +163,9 @@ export const productSlice = createSlice({
         },
         setLoading: (state, {payload}) => {
             state.loading = payload;
+        },
+        setListSorter: (state, {payload}) => {
+            state.listSorter = payload;
         }
     },
     extraReducers: (builder) => {
@@ -264,5 +268,5 @@ export const productSlice = createSlice({
     },
 });
 
-export const { searchProduct, filterProduct, setLoading } = productSlice.actions;
+export const { searchProduct, filterProduct, setLoading, setListSorter } = productSlice.actions;
 export default productSlice.reducer;

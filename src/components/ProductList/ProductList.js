@@ -1,13 +1,28 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import Product from '../Product/Product';
-import { List } from 'antd';
+import { List, Popover, Button } from 'antd';
 import './ProductList.scss';
 
-export default function ProductList({ title, data }) {
+export default function ProductList({ title, data, sorter }) {
+
+  const content = (
+    <div>
+      <Button onClick={sorter} type='text'><strong>Sort by Price</strong></Button>
+      <Button onClick={sorter} type='text'><strong>Sort by Name</strong></Button>
+      <Button onClick={sorter} type='text'><strong>Sort by Brand</strong></Button>
+      <Button onClick={sorter} type='text'><strong>Default</strong></Button>
+    </div>
+  )
+
   return (
     <div className="product-list">
-      <h2 className="product-list__title">{title}</h2>
+      <div className='product-list__header'>
+        <h2 className="product-list__title">{title}</h2>
+        <Popover content={content} trigger="click" placement="bottomLeft">
+          <Button type="text"><strong>SORT</strong></Button>
+        </Popover>
+      </div>
       <List
         className="product-list__list-antd"
         grid={{
