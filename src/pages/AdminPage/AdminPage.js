@@ -333,7 +333,10 @@ const AdminPage = () => {
         formName="add-new-size"
         isVisible={isShowModalAddNewSize}
         handleOk={() => handleAddProduct()}
-        handleCancel={() => setShowModalAdd(false)}
+        handleCancel={() => {
+          setShowModalAdd(false);
+          setShowModalAddNewSize(false);
+        }}
         okText="Create"
         defaultValue={valueToAddNewSize}
       >
