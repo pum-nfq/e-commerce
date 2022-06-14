@@ -56,7 +56,9 @@ export const productSlice = createSlice({
             state.listSearch = convertFuseToObj;
         },
         filterProduct: (state, { payload }) => {
+            state.loading = true;
             if (payload.length !== 0) {
+                // console.log(payload);
                 const filterBrands = current(state).list.filter(
                     (currentListItem) =>
                         payload.includes(currentListItem.brand.toUpperCase())
@@ -64,8 +66,10 @@ export const productSlice = createSlice({
 
                 const filterSizes = current(state).list.filter(
                     (currentListItem) =>
-                        payload.find(
-                            (element) => element == currentListItem.size
+                        currentListItem.sizes.find((sizeItem) =>
+                            payload.find(
+                                (itemPayload) => itemPayload == sizeItem.size
+                            )
                         )
                 );
 
@@ -126,31 +130,39 @@ export const productSlice = createSlice({
                         let filterListCheck = true;
 
                         if (filterBrands.length !== 0 && filterListCheck) {
-                            filterListCheck = filterBrands.find(
+                            filterListCheck = filterBrands.findIndex(
                                 (filterBrandItem) =>
-                                    filterBrandItem.id === currentListItem.id
-                            );
+                                    filterBrandItem.name ===
+                                    currentListItem.name
+                            ) !== -1;
                         }
 
                         if (filterSizes.length !== 0 && filterListCheck) {
-                            filterListCheck = filterSizes.find(
+                            filterListCheck = filterSizes.findIndex(
                                 (filterSizeItem) =>
-                                    filterSizeItem.id === currentListItem.id
-                            );
+                                    filterSizeItem.name === currentListItem.name
+                            ) !== -1;
                         }
 
                         if (filterPrices.length !== 0 && filterListCheck) {
-                            filterListCheck = filterPrices.find(
+                            filterListCheck = filterPrices.findIndex(
                                 (filterPriceItem) =>
-                                    filterPriceItem.id === currentListItem.id
-                            );
+                                    filterPriceItem.name ===
+                                    currentListItem.name
+                            ) !== -1;
                         }
+                        // console.log(filterListCheck)
 
                         return filterListCheck;
                     }
                 );
+
+                // console.log(state.listFilter)
             }
         },
+        setLoading: (state, {payload}) => {
+            state.loading = payload;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(createProduct.pending, (state) => {
@@ -172,29 +184,39 @@ export const productSlice = createSlice({
             });
         });
 
-    builder.addCase(getAllProduct.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(getAllProduct.rejected, (state) => {
-      state.loading = false;
-    });
-    builder.addCase(getAllProduct.fulfilled, (state, { payload }) => {
-      state.loading = false;
+        builder.addCase(getAllProduct.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(getAllProduct.rejected, (state) => {
+            state.loading = false;
+        });
+        builder.addCase(getAllProduct.fulfilled, (state, { payload }) => {
+            state.loading = false;
 
-      const result = Object.values(
-        payload.reduce(
-          (r, { brand, createdAt, image, name, price, quantity, size }) => {
-            if (!r[name])
-              r[name] = { brand, createdAt, image, name, price, sizes: [] };
-            r[name].sizes.push({ quantity, size });
-            return r;
-          },
-          {}
-        )
-      );
+            const result = Object.values(
+                payload.reduce(
+                    (
+                        r,
+                        { brand, createdAt, image, name, price, quantity, size }
+                    ) => {
+                        if (!r[name])
+                            r[name] = {
+                                brand,
+                                createdAt,
+                                image,
+                                name,
+                                price,
+                                sizes: [],
+                            };
+                        r[name].sizes.push({ quantity, size });
+                        return r;
+                    },
+                    {}
+                )
+            );
 
-      state.list = result;
-    });
+            state.list = result;
+        });
 
         builder.addCase(updateProduct.pending, (state) => {
             state.loading = true;
@@ -242,5 +264,5 @@ export const productSlice = createSlice({
     },
 });
 
-export const { searchProduct, filterProduct } = productSlice.actions;
+export const { searchProduct, filterProduct, setLoading } = productSlice.actions;
 export default productSlice.reducer;
