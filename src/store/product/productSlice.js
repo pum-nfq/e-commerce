@@ -13,24 +13,27 @@ export const getAllProduct = createAsyncThunk(
 
 export const createProduct = createAsyncThunk(
   'product/create-product',
-  async (newProduct) => {
+  async (newProduct, thunkAPI) => {
     const response = await productAPI.create(newProduct);
+    thunkAPI.dispatch(getAllProduct());
     return response.data;
   }
 );
 
 export const updateProduct = createAsyncThunk(
   'product/update-product',
-  async (productToUpdate) => {
+  async (productToUpdate, thunkAPI) => {
     const response = await productAPI.update(productToUpdate);
+    thunkAPI.dispatch(getAllProduct());
     return response.data;
   }
 );
 
 export const deleteProduct = createAsyncThunk(
   'product/delete-product',
-  async (idProductToDelete) => {
+  async (idProductToDelete, thunkAPI) => {
     const response = await productAPI.delete(idProductToDelete);
+    thunkAPI.dispatch(getAllProduct());
     return response.data;
   }
 );
@@ -68,7 +71,6 @@ export const productSlice = createSlice({
     });
     builder.addCase(createProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.list.unshift(payload);
       message.success({
         content: 'Add new product success!',
         key: 'create-product',
@@ -86,10 +88,9 @@ export const productSlice = createSlice({
 
       const result = Object.values(
         payload.reduce(
-          (r, { brand, createdAt, image, name, price, quantity, size }) => {
-            if (!r[name])
-              r[name] = { brand, createdAt, image, name, price, sizes: [] };
-            r[name].sizes.push({ quantity, size });
+          (r, { brand, createdAt, image, name, price, quantity, size, id }) => {
+            if (!r[name]) r[name] = { key: id, brand, image, name, sizes: [] };
+            r[name].sizes.push({ quantity, size, id, createdAt, price });
             return r;
           },
           {}
@@ -111,10 +112,6 @@ export const productSlice = createSlice({
     });
     builder.addCase(updateProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
-      const indexOfProduct = state.list.findIndex(
-        (product) => product.id === payload.id
-      );
-      state.list.splice(indexOfProduct, 1, payload);
       message.success({
         content: 'Update this product success!',
         key: 'update-product',
@@ -133,10 +130,6 @@ export const productSlice = createSlice({
     });
     builder.addCase(deleteProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
-      const indexOfProduct = state.list.findIndex(
-        (product) => product.id === payload.id
-      );
-      state.list.splice(indexOfProduct, 1);
       message.success({
         content: 'Delete this product success!',
         key: 'deleted-product',
