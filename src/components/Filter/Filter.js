@@ -7,10 +7,6 @@ const Filter = (props) => {
     const { onCheck } = props;
     const listFilter = [
         {
-            title: "Categories",
-            filters: ["Sneaker", "Apparel", "Accessories"],
-        },
-        {
             title: "Branch",
             filters: ["Nike", "Air Jordan", "Puma", "Adidas", "Reebok", "MLB"],
         },
