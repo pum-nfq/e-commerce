@@ -11,6 +11,9 @@
   flex-direction: column;
 }
 
+.search__block {
+}
+
 .search__wrapper--transition {
   z-index: 1;
   opacity: 1;
@@ -30,6 +33,7 @@
   transform: translateY(-100%);
   transition: all 0.2s ease-out;
   opacity: 0;
+  position: relative;
 }
 
 .search__overlays {
@@ -54,4 +58,19 @@
   outline: none;
   margin: 0 30px;
   border: 1px solid black;
+}
+
+@media (max-width: 600px) {
+  .search__search-btn,
+  .search__close-btn {
+    font-size: 1rem;
+  }
+
+  .search {
+    padding: 40px 12px;
+  }
+
+  .search__input {
+    margin: 0 8px;
+  }
 }
