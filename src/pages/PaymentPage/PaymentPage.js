@@ -27,7 +27,9 @@ export default function PaymentPage() {
               <div className="cart__content-description">
                 Your sneaker cart is empty
               </div>
-              <Button>Back to home</Button>
+              <Button>
+                <Link to="/">Back to home</Link>
+              </Button>
             </div>
           </div>
         </Content>
