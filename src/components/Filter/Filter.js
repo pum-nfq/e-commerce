@@ -1,10 +1,32 @@
 import { Checkbox, Collapse, Space } from 'antd';
-import React from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import './Filter.scss';
 
 const { Panel } = Collapse;
 const Filter = (props) => {
   const { onCheck } = props;
+
+  const [defaultPanelOpen, setDefaultPanelOpen] = useState([
+    '0',
+    '1',
+    '2',
+    '3',
+  ]);
+
+  useLayoutEffect(() => {
+    function updateSize() {
+      // console.log(window.innerWidth)
+      if (window.innerWidth < 768) {
+        setDefaultPanelOpen([]);
+      } else {
+        setDefaultPanelOpen(['0', '1', '2', '3']);
+      }
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
   const listFilter = [
     {
       title: 'Categories',
@@ -45,11 +67,7 @@ const Filter = (props) => {
   ];
   return (
     <div className="filter-wrapper">
-      <Collapse
-        ghost
-        defaultActiveKey={['0', '1', '2', '3']}
-        expandIconPosition={'end'}
-      >
+      <Collapse ghost activeKey={defaultPanelOpen} expandIconPosition={'end'}>
         {listFilter.map((item, index) => {
           return (
             <Panel header={item.title.toUpperCase()} key={index}>
