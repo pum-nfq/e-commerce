@@ -40,7 +40,7 @@ export default function ProductList({ title, data, sorter }) {
         }}
         renderItem={(item) => (
           <List.Item>
-            <Product {...item} />
+            <Product {...item} price={item.sizes[0].price} id={item.key} />
           </List.Item>
         )}
       />
