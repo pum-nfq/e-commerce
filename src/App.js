@@ -1,10 +1,11 @@
-import { Routes, Route, Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
-import PageNotFound from "./pages/PageNotFound/PageNotFound";
-import ProductPage from "./pages/ProductPage/ProductPage";
-import AdminPage from "./pages/AdminPage/AdminPage";
-import DetailProductPage from "./pages/DetailProductPage/DetailProductPage";
+/* eslint-disable react/react-in-jsx-scope */
+import { Routes, Route, Outlet } from 'react-router-dom'
+import Navbar from './components/Navbar/Navbar'
+import Footer from './components/Footer/Footer'
+import PageNotFound from './pages/PageNotFound/PageNotFound'
+import ProductPage from './pages/ProductPage/ProductPage'
+import AdminPage from './pages/AdminPage/AdminPage'
+import DetailProductPage from './pages/DetailProductPage/DetailProductPage'
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
