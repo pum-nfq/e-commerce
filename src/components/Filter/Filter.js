@@ -1,4 +1,4 @@
-import { DownOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { Checkbox, Collapse, Space } from 'antd';
 import React, { useLayoutEffect, useState } from 'react';
 import './Filter.scss';
@@ -73,7 +73,7 @@ const Filter = (props) => {
       }}
     >
       <h3>{title}</h3>
-      <DownOutlined />
+      <PlusOutlined />
     </div>
   );
   return (
