@@ -1,8 +1,15 @@
 .product-list {
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+  }
+
   &__title {
     font-size: 21px;
     text-transform: uppercase;
-    margin: 1.5rem 0;
   }
 
   .ant-list-pagination {
