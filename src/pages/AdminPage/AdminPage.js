@@ -27,10 +27,10 @@ import _ from 'lodash';
 import {PlusOutlined, TagOutlined } from '@ant-design/icons';
 
 const AdminPage = () => {
-  const dispatch = useDispatch();
-  const productList = useSelector((state) => state.product.list);
-  const listSearch = useSelector((state) => state.product.listSearch);
-  const loading = useSelector((state) => state.product.loading);
+    const dispatch = useDispatch();
+    const productList = useSelector((state) => state.product.list);
+    const listSearch = useSelector((state) => state.product.listSearch);
+    const loading = useSelector((state) => state.product.loading);
 
   const [isShowModalAdd, setShowModalAdd] = useState(false);
   const [isShowModalEdit, setShowModalEdit] = useState(false);
@@ -79,26 +79,26 @@ const AdminPage = () => {
       });
   };
 
-  const handleEditProduct = () => {
-    formEditProduct
-      .validateFields()
-      .then(async (values) => {
-        const requestData = {
-          ...values,
-          id: productToEdit.id,
-          createdAt: productToEdit.createdAt,
-        };
-        dispatch(updateProduct(requestData));
-        setShowModalEdit(false);
-      })
-      .catch((info) => {
-        console.log('Validate Failed:', info);
-      });
-  };
+    const handleEditProduct = () => {
+        formEditProduct
+            .validateFields()
+            .then(async (values) => {
+                const requestData = {
+                    ...values,
+                    id: productToEdit.id,
+                    createdAt: productToEdit.createdAt,
+                };
+                dispatch(updateProduct(requestData));
+                setShowModalEdit(false);
+            })
+            .catch((info) => {
+                console.log("Validate Failed:", info);
+            });
+    };
 
-  const handleDeleteProduct = (record) => {
-    dispatch(deleteProduct(record.id));
-  };
+    const handleDeleteProduct = (record) => {
+        dispatch(deleteProduct(record.id));
+    };
 
   const onTableRowExpand = (expanded, record) => {
     const keys = [];
