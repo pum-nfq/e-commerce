@@ -1,5 +1,5 @@
 import { Checkbox, Collapse, Space } from 'antd';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import './Filter.scss';
 
 const { Panel } = Collapse;

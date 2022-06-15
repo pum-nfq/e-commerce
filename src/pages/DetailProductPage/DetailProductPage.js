@@ -47,9 +47,8 @@ const DetailProductPage = () => {
   useEffect(() => {
     const foundProductById = [];
     products.map((item) =>
-      item.sizes.map((item2) => {
+      item.sizes.forEach((item2) => {
         if (item2.id === id) foundProductById.push(item);
-        else return null;
       })
     );
 

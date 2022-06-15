@@ -24,7 +24,7 @@ import {
   updateProduct,
 } from '../../store/product/productSlice';
 import _ from 'lodash';
-import { PieChartOutlined, PlusOutlined, TagOutlined } from '@ant-design/icons';
+import {PlusOutlined, TagOutlined } from '@ant-design/icons';
 
 const AdminPage = () => {
   const dispatch = useDispatch();
@@ -49,10 +49,12 @@ const AdminPage = () => {
 
   useEffect(() => {
     dispatch(getAllProduct());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (searchValue) dispatch(searchProduct(searchValue));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
   const handleAddProduct = () => {
