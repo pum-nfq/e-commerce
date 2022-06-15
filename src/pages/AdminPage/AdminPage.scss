@@ -1,0 +1,40 @@
+.admin-page-wrapper {
+  width: 100%;
+  height: 100%;
+
+  &__space {
+    width: 100%;
+    height: 100%;
+
+    &__control {
+      display: flex;
+      gap: 16px;
+
+      &__search {
+        flex: 9;
+      }
+
+      &__button-add {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.expand-product {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & p {
+    margin: 0;
+  }
+}
+
+.logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
