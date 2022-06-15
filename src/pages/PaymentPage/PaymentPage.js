@@ -1,4 +1,5 @@
-import { Breadcrumb, Layout } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Breadcrumb, Button, Layout } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { Link } from "react-router-dom";
 import "./PaymentPage.scss";
@@ -7,13 +8,7 @@ export default function PaymentPage() {
   return (
     <div className="cart__wrapper">
       <Layout>
-        <Content
-          className="site-layout"
-          style={{
-            padding: "0 50px",
-            marginTop: 64,
-          }}
-        >
+        <Content className="site-layout">
           <Breadcrumb
             style={{
               margin: "16px 0",
@@ -24,14 +19,16 @@ export default function PaymentPage() {
             </Breadcrumb.Item>
             <Breadcrumb.Item>CART</Breadcrumb.Item>
           </Breadcrumb>
-          <div
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              minHeight: 380,
-            }}
-          >
-            <div className="cart__content-wrapper"></div>
+          <div className="cart__content-wrapper">
+            <div className="cart__content">
+              <div className="cart__content-icon">
+                <ShoppingCartOutlined />
+              </div>
+              <div className="cart__content-description">
+                Your sneaker cart is empty
+              </div>
+              <Button>Back to home</Button>
+            </div>
           </div>
         </Content>
       </Layout>
