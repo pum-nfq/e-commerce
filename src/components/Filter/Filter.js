@@ -15,7 +15,6 @@ const Filter = (props) => {
 
   useLayoutEffect(() => {
     function updateSize() {
-      // console.log(window.innerWidth)
       if (window.innerWidth < 768) {
         setDefaultPanelOpen([]);
       } else {
@@ -29,21 +28,12 @@ const Filter = (props) => {
 
   const listFilter = [
     {
-      title: 'Categories',
-      filters: ['Sneaker', 'Apparel', 'Accessories'],
-    },
-    {
-      title: 'Branch',
+      title: 'Brand',
       filters: ['Nike', 'Air Jordan', 'Puma', 'Adidas', 'Reebok', 'MLB'],
     },
     {
-      title: 'Giá',
-      filters: [
-        'Dưới 2.000.000',
-        '2.000.000 - 3.000.000',
-        '3.000.000 - 4.000.000',
-        'Trên 4.000.000',
-      ],
+      title: 'Price',
+      filters: ['Under $100', '$100 - $300', '$300 - $400', 'Over $400'],
     },
     {
       title: 'Size',
