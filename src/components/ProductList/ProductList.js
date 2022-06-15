@@ -25,7 +25,7 @@ export default function ProductList({ title, data }) {
         }}
         renderItem={(item) => (
           <List.Item>
-            <Product {...item} price={item.sizes[0].price} />
+            <Product {...item} price={item.sizes[0].price} id={item.key} />
           </List.Item>
         )}
       />
