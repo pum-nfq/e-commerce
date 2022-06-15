@@ -1,10 +1,17 @@
 import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
+import SearchList from "../SearchList/SearchList";
 import "./Search.scss";
 
 export default function Search(props) {
-  const { searchInput, searchStatus, hideSearch, onSearch, onChangeInput } =
-    props;
+  const {
+    searchProducts,
+    searchInput,
+    searchStatus,
+    hideSearch,
+    onSearch,
+    onChangeInput,
+  } = props;
 
   useEffect(() => {
     const searchWrapper = document.querySelector(".search__wrapper");
@@ -36,12 +43,13 @@ export default function Search(props) {
           className="search__input"
           placeholder="Search our store"
           onInput={(e) => {
-            onChangeInput(e);
+            onChangeInput(e.target.value);
           }}
         />
         <div className="search__close-btn" onClick={hideSearch}>
           <CloseOutlined />
         </div>
+        <SearchList searchProducts={searchProducts} />
       </div>
       <div className="search__overlays" onClick={hideSearch}></div>
     </div>

@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
-import { message } from 'antd';
-import { productAPI } from '../../api/productAPI';
-import Fuse from 'fuse.js';
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { message } from "antd";
+import { productAPI } from "../../api/productAPI";
+import Fuse from "fuse.js";
 
 export const getAllProduct = createAsyncThunk(
-  'product/get-all-product',
+  "product/get-all-product",
   async () => {
     const response = await productAPI.getAll();
     return response.data;
@@ -45,12 +45,12 @@ const initialState = {
 };
 
 export const productSlice = createSlice({
-  name: 'product',
+  name: "product",
   initialState,
   reducers: {
     searchProduct: (state, { payload }) => {
       const options = {
-        keys: ['name', 'brand', 'id'],
+        keys: ["name", "brand", "id"],
       };
       const fuse = new Fuse(current(state).list, options);
       const value = fuse.search(payload);
@@ -65,15 +65,15 @@ export const productSlice = createSlice({
     builder.addCase(createProduct.rejected, (state) => {
       state.loading = false;
       message.error({
-        content: 'Something went wrong!',
-        key: 'create-product',
+        content: "Something went wrong!",
+        key: "create-product",
       });
     });
     builder.addCase(createProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
       message.success({
-        content: 'Add new product success!',
-        key: 'create-product',
+        content: "Add new product success!",
+        key: "create-product",
       });
     });
 
@@ -120,15 +120,15 @@ export const productSlice = createSlice({
     builder.addCase(updateProduct.rejected, (state) => {
       state.loading = false;
       message.error({
-        content: 'Something went wrong!',
-        key: 'update-product',
+        content: "Something went wrong!",
+        key: "update-product",
       });
     });
     builder.addCase(updateProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
       message.success({
-        content: 'Update this product success!',
-        key: 'update-product',
+        content: "Update this product success!",
+        key: "update-product",
       });
     });
 
@@ -138,15 +138,15 @@ export const productSlice = createSlice({
     builder.addCase(deleteProduct.rejected, (state) => {
       state.loading = false;
       message.error({
-        content: 'Something went wrong!',
-        key: 'deleted-product',
+        content: "Something went wrong!",
+        key: "deleted-product",
       });
     });
     builder.addCase(deleteProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
       message.success({
-        content: 'Delete this product success!',
-        key: 'deleted-product',
+        content: "Delete this product success!",
+        key: "deleted-product",
       });
     });
   },

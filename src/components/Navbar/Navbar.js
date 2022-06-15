@@ -3,17 +3,31 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from '@ant-design/icons';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux/es/exports';
+import { searchChange } from '../../store/searchFilter/searchFilterSlice';
+import { remainingProductList } from '../../store/selectors';
 import MobileNav from '../MobileNav/MobileNav';
 import NavbarItem from '../NavbarItem/NavbarItem';
 import Search from '../Search/Search';
+import SearchBox from '../SearchBox/SearchBox';
 import './Navbar.scss';
 
-export default function Navbar(props) {
-  const { handleSearch, searchInput, handleChangeInput } = props;
+export default function Navbar() {
+  const dispatch = useDispatch();
+  const searchProducts = useSelector(remainingProductList);
   const [searchStatus, setSearchStatus] = useState(false);
   const [mobileNavStatus, setMobileNavStatus] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [searchInput, setSearchInput] = useState('');
+  const timerId = useRef(0);
+
+  const handleSearch = () => {};
+
+  const handleChangeInput = (input) => {
+    setSearchInput(input);
+  };
 
   const handleHideMobileNav = () => {
     setMobileNavStatus(false);
@@ -30,6 +44,20 @@ export default function Navbar(props) {
     };
   }, []);
 
+  useEffect(() => {
+    window.onresize = () => {
+      setWidth(window.innerWidth);
+    };
+  }, [width]);
+
+  useEffect(() => {
+    clearTimeout(timerId.current);
+    timerId.current = setTimeout(() => {
+      // Dispatch Action Search
+      dispatch(searchChange(searchInput));
+    }, 500);
+  }, [searchInput]);
+
   return (
     <header className="header">
       <div className="header__wrapper">
@@ -45,9 +73,6 @@ export default function Navbar(props) {
           <MobileNav
             mobileNavStatus={mobileNavStatus}
             hideMobileNav={handleHideMobileNav}
-            searchInput={searchInput}
-            onSearch={handleSearch}
-            onChangeInput={handleChangeInput}
           />
           <ul className="header__menu">
             <NavbarItem href="/" title="home" />
@@ -90,38 +115,55 @@ export default function Navbar(props) {
         <div className="header__right-menu">
           <ul className="header__menu">
             <li className="header__menu-item">
-              <Link to="#" className="header__item-link">
+              <a href="#" className="header__item-link">
                 releases
-              </Link>
+              </a>
             </li>
             <li className="header__menu-item">
-              <Link to="#" className="header__item-link">
+              <a href="#" className="header__item-link">
                 blog
-              </Link>
+              </a>
             </li>
             <li className="header__menu-item">
-              <Link to="#" className="header__item-link">
+              <a href="#" className="header__item-link">
                 locations
-              </Link>
+              </a>
             </li>
           </ul>
-          <Link
-            to="#"
-            className="header__search"
-            onClick={() => setSearchStatus(!searchStatus)}
-          >
-            <SearchOutlined />
-          </Link>
-          <Search
-            searchInput={searchInput}
-            searchStatus={searchStatus}
-            hideSearch={() => setSearchStatus(false)}
-            onSearch={handleSearch}
-            onChangeInput={handleChangeInput}
-          />
-          <Link to="#" className="header__cart">
+          <div className="header__search--wrapper">
+            <span
+              href="#"
+              className="header__search"
+              onClick={() => {
+                setSearchStatus(!searchStatus);
+                setSearchInput('');
+              }}
+            >
+              <SearchOutlined />
+            </span>
+            {width <= 1000 ? (
+              <Search
+                searchProducts={!searchInput ? [] : searchProducts}
+                searchInput={searchInput}
+                searchStatus={searchStatus}
+                hideSearch={() => setSearchStatus(false)}
+                onSearch={handleSearch}
+                onChangeInput={handleChangeInput}
+              />
+            ) : (
+              <SearchBox
+                searchProducts={!searchInput ? [] : searchProducts}
+                searchInput={searchInput}
+                searchStatus={searchStatus}
+                hideSearch={() => setSearchStatus(false)}
+                onSearch={handleSearch}
+                onChangeInput={handleChangeInput}
+              />
+            )}
+          </div>
+          <a href="#" className="header__cart">
             <ShoppingCartOutlined />
-          </Link>
+          </a>
         </div>
       </div>
     </header>
