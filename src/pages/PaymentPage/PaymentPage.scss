@@ -1,0 +1,33 @@
+.cart__wrapper {
+  margin-top: 90px;
+
+  .ant-layout {
+    background: #fff;
+
+    main {
+      margin-top: 0 !important;
+      padding: 0 !important;
+
+      > .site-layout-background {
+        padding: 0 32px !important;
+        margin-bottom: 75px;
+
+        > .cart__content-wrapper {
+          height: auto !important;
+          min-height: 380px;
+        }
+      }
+
+      > .ant-breadcrumb ol {
+        margin-left: 32px;
+      }
+    }
+  }
+}
+
+.cart__content-wrapper {
+  width: 100%;
+  height: 500px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+}

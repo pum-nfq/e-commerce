@@ -2,17 +2,18 @@ import {
   MenuOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
-} from '@ant-design/icons';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux/es/exports';
-import { searchChange } from '../../store/searchFilter/searchFilterSlice';
-import { remainingProductList } from '../../store/selectors';
-import MobileNav from '../MobileNav/MobileNav';
-import NavbarItem from '../NavbarItem/NavbarItem';
-import Search from '../Search/Search';
-import SearchBox from '../SearchBox/SearchBox';
-import './Navbar.scss';
+} from "@ant-design/icons";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux/es/exports";
+import { Link } from "react-router-dom";
+import { searchChange } from "../../store/searchFilter/searchFilterSlice";
+import { remainingProductList } from "../../store/selectors";
+import MobileNav from "../MobileNav/MobileNav";
+import NavbarItem from "../NavbarItem/NavbarItem";
+import Search from "../Search/Search";
+import SearchBox from "../SearchBox/SearchBox";
+import "./Navbar.scss";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function Navbar() {
   const [searchStatus, setSearchStatus] = useState(false);
   const [mobileNavStatus, setMobileNavStatus] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
   const timerId = useRef(0);
 
   const handleSearch = () => {};
@@ -35,11 +36,11 @@ export default function Navbar() {
 
   useEffect(() => {
     window.onscroll = () => {
-      const header__wrapper = document.querySelector('.header__wrapper');
+      const header__wrapper = document.querySelector(".header__wrapper");
       if (window.pageYOffset) {
-        header__wrapper.classList.add('header__wrapper--transition');
+        header__wrapper.classList.add("header__wrapper--transition");
       } else {
-        header__wrapper.classList.remove('header__wrapper--transition');
+        header__wrapper.classList.remove("header__wrapper--transition");
       }
     };
   }, []);
@@ -82,12 +83,12 @@ export default function Navbar() {
               title="brands"
               haveSubnav={true}
               subnavFeature={[
-                { href: '#', title: 'nike' },
-                { href: '#', title: 'air jordan' },
-                { href: '#', title: 'adidas' },
-                { href: '#', title: 'puma' },
-                { href: '#', title: 'reebok' },
-                { href: '#', title: 'mlb' },
+                { href: "#", title: "nike" },
+                { href: "#", title: "air jordan" },
+                { href: "#", title: "adidas" },
+                { href: "#", title: "puma" },
+                { href: "#", title: "reebok" },
+                { href: "#", title: "mlb" },
               ]}
             />
             <NavbarItem
@@ -95,9 +96,9 @@ export default function Navbar() {
               title="categories"
               haveSubnav={true}
               subnavFeature={[
-                { href: '#', title: 'sneakers' },
-                { href: '#', title: 'apparels' },
-                { href: '#', title: 'accessories' },
+                { href: "#", title: "sneakers" },
+                { href: "#", title: "apparels" },
+                { href: "#", title: "accessories" },
               ]}
             />
             <NavbarItem href="#" title="sale" />
@@ -136,7 +137,7 @@ export default function Navbar() {
               className="header__search"
               onClick={() => {
                 setSearchStatus(!searchStatus);
-                setSearchInput('');
+                setSearchInput("");
               }}
             >
               <SearchOutlined />
@@ -161,9 +162,9 @@ export default function Navbar() {
               />
             )}
           </div>
-          <a href="#" className="header__cart">
+          <Link to="cart" className="header__cart">
             <ShoppingCartOutlined />
-          </a>
+          </Link>
         </div>
       </div>
     </header>
