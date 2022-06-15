@@ -4,35 +4,38 @@ import { productAPI } from "../../api/productAPI";
 import Fuse from "fuse.js";
 
 export const getAllProduct = createAsyncThunk(
-    "product/get-all-product",
-    async () => {
-        const response = await productAPI.getAll();
-        return response.data;
-    }
+  "product/get-all-product",
+  async () => {
+    const response = await productAPI.getAll();
+    return response.data;
+  }
 );
 
 export const createProduct = createAsyncThunk(
-    "product/create-product",
-    async (newProduct) => {
-        const response = await productAPI.create(newProduct);
-        return response.data;
-    }
+  'product/create-product',
+  async (newProduct, thunkAPI) => {
+    const response = await productAPI.create(newProduct);
+    thunkAPI.dispatch(getAllProduct());
+    return response.data;
+  }
 );
 
 export const updateProduct = createAsyncThunk(
-    "product/update-product",
-    async (productToUpdate) => {
-        const response = await productAPI.update(productToUpdate);
-        return response.data;
-    }
+  'product/update-product',
+  async (productToUpdate, thunkAPI) => {
+    const response = await productAPI.update(productToUpdate);
+    thunkAPI.dispatch(getAllProduct());
+    return response.data;
+  }
 );
 
 export const deleteProduct = createAsyncThunk(
-    "product/delete-product",
-    async (idProductToDelete) => {
-        const response = await productAPI.delete(idProductToDelete);
-        return response.data;
-    }
+  'product/delete-product',
+  async (idProductToDelete, thunkAPI) => {
+    const response = await productAPI.delete(idProductToDelete);
+    thunkAPI.dispatch(getAllProduct());
+    return response.data;
+  }
 );
 
 const initialState = {
