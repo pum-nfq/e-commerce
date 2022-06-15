@@ -7,8 +7,9 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/exports";
 import { Link } from "react-router-dom";
+import { getAllProduct } from "../../store/product/productSlice";
 import { searchChange } from "../../store/searchFilter/searchFilterSlice";
-import { remainingProductList } from "../../store/selectors";
+import { productList, remainingProductList } from "../../store/selectors";
 import MobileNav from "../MobileNav/MobileNav";
 import NavbarItem from "../NavbarItem/NavbarItem";
 import Search from "../Search/Search";
@@ -18,6 +19,7 @@ import "./Navbar.scss";
 export default function Navbar() {
   const dispatch = useDispatch();
   const searchProducts = useSelector(remainingProductList);
+  const productsList = useSelector(productList);
   const [searchStatus, setSearchStatus] = useState(false);
   const [mobileNavStatus, setMobileNavStatus] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
@@ -33,6 +35,10 @@ export default function Navbar() {
   const handleHideMobileNav = () => {
     setMobileNavStatus(false);
   };
+
+  useEffect(() => {
+    dispatch(getAllProduct(productsList));
+  }, []);
 
   useEffect(() => {
     window.onscroll = () => {
