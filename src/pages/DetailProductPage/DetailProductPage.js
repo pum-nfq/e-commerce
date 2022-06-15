@@ -141,8 +141,10 @@ const DetailProductPage = () => {
               </h1>
               <h2 className="detail-product__content__price">
                 {productSelectedSize &&
-                  productSelectedSize.price.toLocaleString('vi-VN') +
-                    ' VND'}{' '}
+                  productSelectedSize.price.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}{' '}
                 <i
                   style={{ color: '#999', fontSize: '16px', fontWeight: '200' }}
                 >
@@ -289,7 +291,10 @@ const DetailProductPage = () => {
                     {...item}
                     price={
                       item.sizes[0].price !== null &&
-                      item.sizes[0].price.toLocaleString('vi-VN') + ' VND'
+                      item.sizes[0].price.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      })
                     }
                   />
                 </SwiperSlide>

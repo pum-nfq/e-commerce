@@ -536,7 +536,10 @@ const AdminPage = () => {
                           render: (_, record) => (
                             <p style={{ margin: '0' }}>
                               {record.price !== null
-                                ? record.price.toLocaleString('vi-VN') + ' VND'
+                                ? record.price.toLocaleString('en-US', {
+  style: 'currency',
+  currency: 'USD',
+}) 
                                 : 'Liên hệ'}
                             </p>
                           ),
