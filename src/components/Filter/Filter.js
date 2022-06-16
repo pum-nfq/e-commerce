@@ -1,3 +1,4 @@
+import { PlusOutlined } from '@ant-design/icons';
 import { Checkbox, Collapse, Space } from 'antd';
 import React, { useLayoutEffect, useState } from 'react';
 import './Filter.scss';
@@ -6,19 +7,14 @@ const { Panel } = Collapse;
 const Filter = (props) => {
   const { onCheck } = props;
 
-  const [defaultPanelOpen, setDefaultPanelOpen] = useState([
-    '0',
-    '1',
-    '2',
-    '3',
-  ]);
+  const [defaultPanelOpen, setDefaultPanelOpen] = useState([0, 1, 2]);
 
   useLayoutEffect(() => {
     function updateSize() {
       if (window.innerWidth < 768) {
         setDefaultPanelOpen([]);
       } else {
-        setDefaultPanelOpen(['0', '1', '2', '3']);
+        setDefaultPanelOpen([0, 1, 2]);
       }
     }
     window.addEventListener('resize', updateSize);
@@ -55,12 +51,41 @@ const Filter = (props) => {
       ],
     },
   ];
+
+  const onCollapse = (index) => {
+    const temp = [...defaultPanelOpen];
+    const isOpening = defaultPanelOpen.findIndex((item) => item === index);
+    console.log(isOpening);
+    if (isOpening >= 0) {
+      temp.splice(isOpening, 1);
+      setDefaultPanelOpen(temp);
+    } else {
+      setDefaultPanelOpen([...temp, index]);
+    }
+  };
+
+  console.log(defaultPanelOpen);
+  const genExtra = (index, title) => (
+    <div
+      className="header-panel"
+      onClick={() => {
+        onCollapse(index);
+      }}
+    >
+      <h3>{title}</h3>
+      <PlusOutlined />
+    </div>
+  );
   return (
     <div className="filter-wrapper">
-      <Collapse ghost activeKey={defaultPanelOpen} expandIconPosition={'end'}>
+      <Collapse ghost activeKey={defaultPanelOpen} expandIconPosition={'start'}>
         {listFilter.map((item, index) => {
           return (
-            <Panel header={item.title.toUpperCase()} key={index}>
+            <Panel
+              key={index}
+              extra={genExtra(index, item.title.toUpperCase())}
+              showArrow={false}
+            >
               <Space
                 direction="vertical"
                 className="filter-wrapper__group-filter"
