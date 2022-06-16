@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import AdminPage from './pages/AdminPage/AdminPage';
 import DetailProductPage from './pages/DetailProductPage/DetailProductPage';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="product" element={<ProductPage />} />
           <Route path="admin" element={<AdminPage />} />
           <Route path="detail/:id" element={<DetailProductPage />} />
+          <Route path="cart" element={<PaymentPage />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />

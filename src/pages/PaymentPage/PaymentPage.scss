@@ -4,6 +4,13 @@
   .ant-layout {
     background: #fff;
 
+    > .ant-layout-content.site-layout {
+      > .ant-breadcrumb {
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+      }
+    }
+
     main {
       margin-top: 0 !important;
       padding: 0 !important;

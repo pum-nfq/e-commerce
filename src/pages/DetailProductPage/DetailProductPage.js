@@ -34,18 +34,15 @@ const DetailProductPage = () => {
   const [product, setProduct] = useState({});
   const [productSelectedSize, setPrductSelectedSize] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
-
+  const [total, setTotal] = useState(1);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   useEffect(() => {
-    localStorage.setItem("shoppingList", JSON.stringify(shoppingCart));
-  }, [shoppingCart]);
-
-  useEffect(() => {
+    console.log(shoppingCart);
     localStorage.setItem('shoppingList', JSON.stringify(shoppingCart));
   }, [shoppingCart]);
 
@@ -74,11 +71,16 @@ const DetailProductPage = () => {
 
   const handleUpdateShoppingList = () => {
     if (!productSelectedSize) {
-      alert("Please choose item's size!");
+      alert('Please choose your size');
       return;
     }
-    // console.log(productSelectedSize);
-    dispatch(updateShoppingList(productSelectedSize));
+    const infoSelectedItem = {
+      ...product,
+      sizes: product.sizes.filter((size) => size === productSelectedSize)[0],
+      total,
+    };
+
+    dispatch(updateShoppingList(infoSelectedItem));
   };
 
   const handleSubmit = () => {
@@ -86,12 +88,12 @@ const DetailProductPage = () => {
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
-      setValue("");
+      setValue('');
       setComments([
         ...comments,
         {
-          author: "Han Solo",
-          avatar: "https://joeschmoe.io/api/v1/random",
+          author: 'Han Solo',
+          avatar: 'https://joeschmoe.io/api/v1/random',
           content: <p>{value}</p>,
           datetime: moment().fromNow(),
         },
@@ -111,9 +113,9 @@ const DetailProductPage = () => {
             <Swiper
               className="detail-product__carousel__main"
               style={{
-                "--swiper-navigation-color": "#000",
-                "--swiper-pagination-color": "#000",
-                "--swiper-navigation-size": "32px",
+                '--swiper-navigation-color': '#000',
+                '--swiper-pagination-color': '#000',
+                '--swiper-navigation-size': '32px',
               }}
               loop={true}
               spaceBetween={10}
@@ -148,8 +150,8 @@ const DetailProductPage = () => {
           <div className="detail-product__content">
             <Space
               direction="vertical"
-              size={"small"}
-              style={{ width: "100%" }}
+              size={'small'}
+              style={{ width: '100%' }}
             >
               <h2 className="detail-product__content__brand">
                 {product.brand.toUpperCase()}
@@ -159,10 +161,10 @@ const DetailProductPage = () => {
               </h1>
               <h2 className="detail-product__content__price">
                 {productSelectedSize &&
-                  productSelectedSize.price.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  })}{" "}
+                  productSelectedSize.price.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}{' '}
                 <i
                   style={{
                     color: '#999',
@@ -171,7 +173,7 @@ const DetailProductPage = () => {
                   }}
                 >
                   {productSelectedSize &&
-                    "( " + productSelectedSize.quantity + " products in stock)"}
+                    '( ' + productSelectedSize.quantity + ' products in stock)'}
                 </i>
               </h2>
             </Space>
@@ -180,16 +182,16 @@ const DetailProductPage = () => {
               name="order"
               autoComplete="off"
             >
-              <Space direction="vertical" style={{ width: "60%" }}>
+              <Space direction="vertical" style={{ width: '60%' }}>
                 <p>SIZE: </p>
                 <Form.Item
                   name="sizeOrder"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please choose your size!',
-                    },
-                  ]}
+                  // rules={[
+                  //   {
+                  //     required: true,
+                  //     message: 'Please choose your size!',
+                  //   },
+                  // ]}
                 >
                   <Radio.Group
                     buttonStyle="solid"
@@ -200,7 +202,9 @@ const DetailProductPage = () => {
                         <Radio.Button
                           value={s.size}
                           key={index}
-                          onChange={() => setPrductSelectedSize(s)}
+                          onClick={() => {
+                            setPrductSelectedSize(s);
+                          }}
                         >
                           {s.size}
                         </Radio.Button>
@@ -212,6 +216,10 @@ const DetailProductPage = () => {
               <div className="order-wrapper">
                 <Form.Item name="numberOrder">
                   <InputNumber
+                    value={total}
+                    onChange={(value) => {
+                      setTotal(value);
+                    }}
                     min={1}
                     max={productSelectedSize && productSelectedSize.quantity}
                     bordered={false}
@@ -235,13 +243,13 @@ const DetailProductPage = () => {
             </Form>
             <Tabs defaultActiveKey="1">
               <TabPane tab="Description" key="1">
-                <p style={{ marginBottom: "1rem" }}>
+                <p style={{ marginBottom: '1rem' }}>
                   The <i>{product.name}</i> fuses court and street style to give
                   you a slam dunk sneaker. The mixed material upper features
                   transparent mesh panels for breathability, while the
                   collapsible heel brings feminine flair to Nike b-ball.
                 </p>
-                <b style={{ fontSize: "1.25rem" }}>Product details</b>
+                <b style={{ fontSize: '1.25rem' }}>Product details</b>
                 <p>
                   <b>Package Dimensions:</b> 33.71 x 20.9 x 11.4 cm
                   <br />
@@ -268,7 +276,7 @@ const DetailProductPage = () => {
                   <List
                     dataSource={comments}
                     header={`${comments.length} ${
-                      comments.length > 1 ? "replies" : "reply"
+                      comments.length > 1 ? 'replies' : 'reply'
                     }`}
                     itemLayout="horizontal"
                     renderItem={(props) => <Comment {...props} />}
@@ -317,9 +325,9 @@ const DetailProductPage = () => {
                     {...item}
                     price={
                       item.sizes[0].price !== null &&
-                      item.sizes[0].price.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
+                      item.sizes[0].price.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
                       })
                     }
                   />

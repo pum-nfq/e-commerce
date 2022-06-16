@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-const cacheList = JSON.parse(localStorage.getItem("shoppingList")) || [];
+const cacheList = JSON.parse(localStorage.getItem('shoppingList')) || [];
 const initialState = { list: cacheList };
 const shoppingListSlice = createSlice({
-  name: "search",
+  name: 'shoppingList',
   initialState,
   reducers: {
     updateShoppingList: (state, action) => {
