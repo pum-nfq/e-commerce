@@ -1,4 +1,4 @@
-import "./SubnavItem.scss";
+import './SubnavItem.scss';
 
 export default function SubnavItem(props) {
   const { href, title } = props;

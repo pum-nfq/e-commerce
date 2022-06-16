@@ -1,9 +1,10 @@
-import React from 'react';
-import './Product.scss';
-import { Button, Image } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Button, Image } from 'antd';
 import 'antd/dist/antd.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import './Product.scss';
 
 export default function Product({ id, image, brand, name, price }) {
   return (

@@ -48,7 +48,7 @@
   position: relative;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     width: 10px;
@@ -60,7 +60,7 @@
   }
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     width: 10px;
@@ -113,7 +113,7 @@
   cursor: pointer;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: -6px;
     top: 13px;
@@ -123,7 +123,7 @@
   }
 
   &::after {
-    content: "0";
+    content: '0';
     font-weight: 500;
     line-height: 16px;
     position: absolute;

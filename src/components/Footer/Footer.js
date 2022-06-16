@@ -1,8 +1,10 @@
 import { SendOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
 import React from 'react';
+
 import './Footer.scss';
 import FooterContent from './FooterContent';
+
 const Footer = () => {
   return (
     <div className="footer-wrapper">
