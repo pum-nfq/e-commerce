@@ -96,7 +96,9 @@ export const productSlice = createSlice({
           }
 
           if (payload.includes('OVER $400') && !filterPriceCheck) {
-            currentListItem.sizes.some((itemSize) => itemSize.price > 400);
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price > 400,
+            );
           }
 
           return filterPriceCheck;
