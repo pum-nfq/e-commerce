@@ -46,6 +46,10 @@ const DetailProductPage = () => {
   }, [shoppingCart]);
 
   useEffect(() => {
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingCart));
+  }, [shoppingCart]);
+
+  useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
