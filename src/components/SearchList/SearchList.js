@@ -1,4 +1,4 @@
-import "./SearchList.scss";
+import './SearchList.scss';
 
 export default function SearchList(props) {
   const { searchProducts = [] } = props;

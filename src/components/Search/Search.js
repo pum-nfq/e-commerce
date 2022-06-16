@@ -1,7 +1,8 @@
-import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
-import SearchList from "../SearchList/SearchList";
-import "./Search.scss";
+import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+
+import SearchList from '../SearchList/SearchList';
+import './Search.scss';
 
 export default function Search(props) {
   const {
@@ -14,20 +15,20 @@ export default function Search(props) {
   } = props;
 
   useEffect(() => {
-    const searchWrapper = document.querySelector(".search__wrapper");
-    const search = document.querySelector(".search");
+    const searchWrapper = document.querySelector('.search__wrapper');
+    const search = document.querySelector('.search');
     if (searchStatus) {
-      searchWrapper.classList.add("search__wrapper--display");
+      searchWrapper.classList.add('search__wrapper--display');
       setTimeout(() => {
-        searchWrapper.classList.add("search__wrapper--transition");
-        search.classList.add("search--display");
+        searchWrapper.classList.add('search__wrapper--transition');
+        search.classList.add('search--display');
       }, 10);
     } else {
       setTimeout(() => {
-        searchWrapper.classList.remove("search__wrapper--display");
-        searchWrapper.classList.remove("search__wrapper--transition");
+        searchWrapper.classList.remove('search__wrapper--display');
+        searchWrapper.classList.remove('search__wrapper--transition');
       }, 210);
-      search.classList.remove("search--display");
+      search.classList.remove('search--display');
     }
   }, [searchStatus]);
 
