@@ -1,6 +1,7 @@
-import SubnavItem from "../SubnavItem/SubnavItem";
-import "./NavbarItem.scss";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+
+import SubnavItem from '../SubnavItem/SubnavItem';
+import './NavbarItem.scss';
 
 export default function NavbarItem(props) {
     const { href, title, haveSubnav = false, subnavFeature = [] } = props;

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import "./ProductPage.scss";
-import { Spin } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Spin } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import Filter from '../../components/Filter/Filter';
+import ProductList from '../../components/ProductList/ProductList';
 import {
-    getAllProduct,
     filterProduct,
-    setLoading,
+    getAllProduct,
     setListSorter,
-} from "../../store/product/productSlice";
-import ProductList from "../../components/ProductList/ProductList";
-import Filter from "../../components/Filter/Filter";
+    setLoading,
+} from '../../store/product/productSlice';
+import './ProductPage.scss';
 
 const ProductPage = () => {
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const ProductPage = () => {
 
     useEffect(() => {
         dispatch(getAllProduct());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleFilter = (e) => {
@@ -55,7 +55,7 @@ const ProductPage = () => {
     const handleSort = (e) => {
         switch (e.target.innerText) {
             // handle sort by price
-            case "Sort by Price":
+            case 'Sort by Price':
                 if (isSortRevert) {
                     displayData = displayData.slice().sort((a, b) => {
                         return a.price < b.price
@@ -77,7 +77,7 @@ const ProductPage = () => {
                 dispatch(setListSorter(displayData));
                 break;
             // handle sort by name
-            case "Sort by Name":
+            case 'Sort by Name':
                 if (isSortRevert) {
                     displayData = displayData.slice().sort((a, b) => {
                         return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
@@ -91,14 +91,22 @@ const ProductPage = () => {
                 dispatch(setListSorter(displayData));
                 break;
             // handle sort by brand
-            case "Sort by Brand":
+            case 'Sort by Brand':
                 if (isSortRevert) {
                     displayData = displayData.slice().sort((a, b) => {
-                        return a.brand < b.brand ? 1 : a.brand > b.brand ? -1 : 0;
+                        return a.brand < b.brand
+                            ? 1
+                            : a.brand > b.brand
+                            ? -1
+                            : 0;
                     });
                 } else {
                     displayData = displayData.slice().sort((a, b) => {
-                        return a.brand < b.brand ? -1 : a.brand > b.brand ? 1 : 0;
+                        return a.brand < b.brand
+                            ? -1
+                            : a.brand > b.brand
+                            ? 1
+                            : 0;
                     });
                 }
                 setIsSortRevert(!isSortRevert);

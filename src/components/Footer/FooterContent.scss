@@ -1,17 +1,17 @@
 .footer-content-wrapper {
-  &:nth-child(1) {
-    grid-area: first;
-  }
-  &:nth-child(2) {
-    grid-area: second;
-  }
-  &:nth-child(3) {
-    grid-area: third;
-  }
-  &:nth-child(4) {
-    grid-area: fourth;
-  }
-  & .ant-space {
-    width: 100%;
-  }
+    &:nth-child(1) {
+        grid-area: first;
+    }
+    &:nth-child(2) {
+        grid-area: second;
+    }
+    &:nth-child(3) {
+        grid-area: third;
+    }
+    &:nth-child(4) {
+        grid-area: fourth;
+    }
+    & .ant-space {
+        width: 100%;
+    }
 }
