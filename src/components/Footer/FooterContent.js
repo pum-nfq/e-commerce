@@ -1,6 +1,8 @@
 import { Space } from 'antd';
 import React from 'react';
+
 import './FooterContent.scss';
+
 const FooterContent = (props) => {
   const { label, children } = props;
   return (

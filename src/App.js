@@ -1,10 +1,11 @@
-import { Routes, Route, Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
-import PageNotFound from "./pages/PageNotFound/PageNotFound";
-import ProductPage from "./pages/ProductPage/ProductPage";
-import AdminPage from "./pages/AdminPage/AdminPage";
-import DetailProductPage from "./pages/DetailProductPage/DetailProductPage";
+import { Outlet, Route, Routes } from 'react-router-dom';
+
+import Footer from './components/Footer/Footer';
+import Navbar from './components/Navbar/Navbar';
+import AdminPage from './pages/AdminPage/AdminPage';
+import DetailProductPage from './pages/DetailProductPage/DetailProductPage';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
+import ProductPage from './pages/ProductPage/ProductPage';
 
 function App() {
   return (

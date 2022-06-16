@@ -6,6 +6,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/exports';
+
 import { searchChange } from '../../store/searchFilter/searchFilterSlice';
 import { remainingProductList } from '../../store/selectors';
 import MobileNav from '../MobileNav/MobileNav';
