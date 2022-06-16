@@ -1,86 +1,86 @@
 .footer-wrapper {
-    width: 100%;
+  width: 100%;
+  height: fit-content;
+  padding: 4rem 2rem;
+
+  background-color: black;
+  color: white;
+
+  &__content-show {
     height: fit-content;
-    padding: 4rem 2rem;
+    margin-bottom: 5rem;
+    display: grid;
+    gap: 5rem 0;
+    grid-template-areas: 'first second third fourth';
 
-    background-color: black;
-    color: white;
-
-    &__content-show {
-        height: fit-content;
-        margin-bottom: 5rem;
-        display: grid;
-        gap: 5rem 0;
-        grid-template-areas: 'first second third fourth';
-
-        & h4 {
-            color: white;
-        }
-
-        &__input {
-            border-bottom: 1px solid #999 !important;
-            padding: 0;
-
-            & input {
-                width: 100%;
-                color: white !important;
-            }
-
-            & .icon {
-                color: #999;
-                transition: ease 300ms;
-                &:hover {
-                    color: white;
-                }
-            }
-        }
+    & h4 {
+      color: white;
     }
-    &__copy-right {
+
+    &__input {
+      border-bottom: 1px solid #999 !important;
+      padding: 0;
+
+      & input {
+        width: 100%;
+        color: white !important;
+      }
+
+      & .icon {
         color: #999;
+        transition: ease 300ms;
+        &:hover {
+          color: white;
+        }
+      }
     }
+  }
+  &__copy-right {
+    color: #999;
+  }
 }
 
 @media only screen and (max-width: 1200px) {
-    .footer-wrapper {
-        &__content-show {
-            grid-template-areas:
-                'first second third'
-                'fourth fourth fourth';
-        }
+  .footer-wrapper {
+    &__content-show {
+      grid-template-areas:
+        'first second third'
+        'fourth fourth fourth';
     }
+  }
 }
 
 @media only screen and (max-width: 768px) {
-    .footer-wrapper {
-        &__content-show {
-            grid-template-areas:
-                'first first first'
-                'second . third'
-                'fourth fourth fourth';
-        }
-        &__copy-right {
-            text-align: center;
-        }
+  .footer-wrapper {
+    &__content-show {
+      grid-template-areas:
+        'first first first'
+        'second . third'
+        'fourth fourth fourth';
     }
+    &__copy-right {
+      text-align: center;
+    }
+  }
 }
 @media only screen and (max-width: 425px) {
-    .footer-wrapper {
-        &__copy-right {
-            font-size: 12px;
-        }
+  .footer-wrapper {
+    &__copy-right {
+      font-size: 12px;
     }
+  }
 }
 
 @media only screen and (max-width: 320px) {
-    .footer-wrapper {
-        & b,
-        h4,
-        p,
-        input {
-            font-size: 10px;
-        }
-        &__content-show {
-            gap: 3rem 0;
-        }
+  .footer-wrapper {
+    & b,
+    h4,
+    p,
+    input {
+      font-size: 10px;
     }
+    &__content-show {
+      gap: 3rem 0;
+    }
+  }
 }
