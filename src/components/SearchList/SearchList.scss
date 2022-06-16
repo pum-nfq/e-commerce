@@ -2,109 +2,109 @@
 }
 
 .searchList__list {
-    margin: 0;
-    list-style-type: none;
-    max-height: 403px;
-    overflow-y: auto;
+  margin: 0;
+  list-style-type: none;
+  max-height: 403px;
+  overflow-y: auto;
 }
 
 .searchList__item {
-    border-top: 1px solid #00000021;
-    transition: all 0.2s ease-in-out;
-    padding: 12px 18px;
+  border-top: 1px solid #00000021;
+  transition: all 0.2s ease-in-out;
+  padding: 12px 18px;
 
-    &:first-child {
-        border-top: none;
-    }
+  &:first-child {
+    border-top: none;
+  }
 }
 
 .searchList__item-link {
-    display: flex;
-    color: rgba(0, 0, 0, 0.7);
-    gap: 12px;
+  display: flex;
+  color: rgba(0, 0, 0, 0.7);
+  gap: 12px;
 
-    &:hover {
-        color: #000;
-    }
+  &:hover {
+    color: #000;
+  }
 }
 
 .searchList__img {
-    width: 75px;
-    object-fit: contain;
+  width: 75px;
+  object-fit: contain;
 }
 
 .searchList__info {
 }
 
 .searchList__name {
-    max-width: 200px;
-    max-height: 3.2rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.6rem;
-    color: var(--text-color);
-    margin: 0;
-    text-align: left;
-    overflow: hidden;
-    display: block;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  max-width: 200px;
+  max-height: 3.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.6rem;
+  color: var(--text-color);
+  margin: 0;
+  text-align: left;
+  overflow: hidden;
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .searchList__brand {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 .searchList__price {
+  margin-bottom: 0;
+  font-size: 1rem;
+  margin-right: 2px;
+  font-weight: 700;
+}
+
+@media (max-width: 1000px) {
+  .searchList__container {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    padding: 0 96px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+  }
+
+  .searchList__list {
+    max-height: 550px;
+  }
+
+  .searchList__name {
+    max-width: unset;
+    -webkit-line-clamp: 1;
+  }
+
+  .searchList__price {
     margin-bottom: 0;
     font-size: 1rem;
     margin-right: 2px;
     font-weight: 700;
-}
-
-@media (max-width: 1000px) {
-    .searchList__container {
-        width: 100%;
-        height: auto;
-        background: #fff;
-        padding: 0 96px;
-        position: absolute;
-        left: 0;
-        top: 100%;
-    }
-
-    .searchList__list {
-        max-height: 550px;
-    }
-
-    .searchList__name {
-        max-width: unset;
-        -webkit-line-clamp: 1;
-    }
-
-    .searchList__price {
-        margin-bottom: 0;
-        font-size: 1rem;
-        margin-right: 2px;
-        font-weight: 700;
-    }
+  }
 }
 
 @media (max-width: 600px) {
-    .searchList__container {
-        padding: unset;
-    }
+  .searchList__container {
+    padding: unset;
+  }
 
-    .searchList__name {
-        font-size: 0.8rem;
-    }
+  .searchList__name {
+    font-size: 0.8rem;
+  }
 
-    .searchList__brand {
-        font-size: 0.7rem;
-    }
+  .searchList__brand {
+    font-size: 0.7rem;
+  }
 
-    .searchList__price {
-        font-size: 0.8rem;
-    }
+  .searchList__price {
+    font-size: 0.8rem;
+  }
 }
