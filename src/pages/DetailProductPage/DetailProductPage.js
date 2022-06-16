@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
@@ -32,6 +32,7 @@ const DetailProductPage = () => {
   const [product, setProduct] = useState({});
   const [productSelectedSize, setPrductSelectedSize] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [numberShowRelatedProduct, setNumberShowRelatedProduct] = useState(5);
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -43,6 +44,26 @@ const DetailProductPage = () => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  useLayoutEffect(() => {
+    function updateSize() {
+      console.log(window.innerWidth);
+      if (window.innerWidth <= 300) {
+        setNumberShowRelatedProduct(1);
+      } else if (window.innerWidth <= 400) {
+        setNumberShowRelatedProduct(2);
+      } else if (window.innerWidth <= 500) {
+        setNumberShowRelatedProduct(3);
+      } else if (window.innerWidth <= 768) {
+        setNumberShowRelatedProduct(4);
+      } else {
+        setNumberShowRelatedProduct(5);
+      }
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   useEffect(() => {
     const foundProductById = [];
@@ -162,7 +183,7 @@ const DetailProductPage = () => {
               name="order"
               autoComplete="off"
             >
-              <Space direction="vertical" style={{ width: '60%' }}>
+              <Space direction="vertical">
                 <p>SIZE: </p>
                 <Form.Item
                   name="sizeOrder"
@@ -287,7 +308,11 @@ const DetailProductPage = () => {
         </div>
         <div className="related-item">
           <h2 className="related-item__title">Related Items</h2>
-          <Swiper slidesPerView={5} spaceBetween={30} className="ralated-item">
+          <Swiper
+            slidesPerView={numberShowRelatedProduct}
+            spaceBetween={30}
+            className="ralated-item"
+          >
             {relatedProducts &&
               relatedProducts.map((item, index) => (
                 <SwiperSlide key={index}>
