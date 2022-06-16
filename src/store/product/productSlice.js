@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import { message } from 'antd';
-import { productAPI } from '../../api/productAPI';
 import Fuse from 'fuse.js';
+
+import { productAPI } from '../../api/productAPI';
 
 export const getAllProduct = createAsyncThunk(
   'product/get-all-product',
   async () => {
     const response = await productAPI.getAll();
     return response.data;
-  }
+  },
 );
 
 export const createProduct = createAsyncThunk(
@@ -17,7 +18,7 @@ export const createProduct = createAsyncThunk(
     const response = await productAPI.create(newProduct);
     thunkAPI.dispatch(getAllProduct());
     return response.data;
-  }
+  },
 );
 
 export const updateProduct = createAsyncThunk(
@@ -26,7 +27,7 @@ export const updateProduct = createAsyncThunk(
     const response = await productAPI.update(productToUpdate);
     thunkAPI.dispatch(getAllProduct());
     return response.data;
-  }
+  },
 );
 
 export const deleteProduct = createAsyncThunk(
@@ -35,7 +36,7 @@ export const deleteProduct = createAsyncThunk(
     const response = await productAPI.delete(idProductToDelete);
     thunkAPI.dispatch(getAllProduct());
     return response.data;
-  }
+  },
 );
 
 const initialState = {
@@ -64,13 +65,13 @@ export const productSlice = createSlice({
       if (payload.length !== 0) {
         // console.log(payload);
         const filterBrands = current(state).list.filter((currentListItem) =>
-          payload.includes(currentListItem.brand.toUpperCase())
+          payload.includes(currentListItem.brand.toUpperCase()),
         );
 
         const filterSizes = current(state).list.filter((currentListItem) =>
           currentListItem.sizes.find((sizeItem) =>
-            payload.find((itemPayload) => itemPayload == sizeItem.size)
-          )
+            payload.find((itemPayload) => itemPayload == sizeItem.size),
+          ),
         );
 
         const filterPrices = current(state).list.filter((currentListItem) => {
@@ -118,14 +119,15 @@ export const productSlice = createSlice({
             filterListCheck =
               filterBrands.findIndex(
                 (filterBrandItem) =>
-                  filterBrandItem.name === currentListItem.name
+                  filterBrandItem.name === currentListItem.name,
               ) !== -1;
           }
 
           if (filterSizes.length !== 0 && filterListCheck) {
             filterListCheck =
               filterSizes.findIndex(
-                (filterSizeItem) => filterSizeItem.name === currentListItem.name
+                (filterSizeItem) =>
+                  filterSizeItem.name === currentListItem.name,
               ) !== -1;
           }
 
@@ -133,7 +135,7 @@ export const productSlice = createSlice({
             filterListCheck =
               filterPrices.findIndex(
                 (filterPriceItem) =>
-                  filterPriceItem.name === currentListItem.name
+                  filterPriceItem.name === currentListItem.name,
               ) !== -1;
           }
           // console.log(filterListCheck)
@@ -194,15 +196,28 @@ export const productSlice = createSlice({
               quantity,
               size,
               id,
-            }
+            },
           ) => {
             if (!r[name])
-              r[name] = { key: id, brand, image, detailImage, name, sizes: [] };
-            r[name].sizes.push({ quantity, size, id, createdAt, price });
+              r[name] = {
+                key: id,
+                brand,
+                image,
+                detailImage,
+                name,
+                sizes: [],
+              };
+            r[name].sizes.push({
+              quantity,
+              size,
+              id,
+              createdAt,
+              price,
+            });
             return r;
           },
-          {}
-        )
+          {},
+        ),
       );
 
       state.list = result;
@@ -221,7 +236,7 @@ export const productSlice = createSlice({
     builder.addCase(updateProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
       const indexOfProduct = state.list.findIndex(
-        (product) => product.id === payload.id
+        (product) => product.id === payload.id,
       );
       state.list.splice(indexOfProduct, 1, payload);
       message.success({
@@ -243,7 +258,7 @@ export const productSlice = createSlice({
     builder.addCase(deleteProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
       const indexOfProduct = state.list.findIndex(
-        (product) => product.id === payload.id
+        (product) => product.id === payload.id,
       );
       state.list.splice(indexOfProduct, 1);
       message.success({

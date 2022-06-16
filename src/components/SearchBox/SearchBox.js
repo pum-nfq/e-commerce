@@ -1,7 +1,8 @@
-import { ClearOutlined, CloseOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
-import SearchList from "../SearchList/SearchList";
-import "./SearchBox.scss";
+import { ClearOutlined, CloseOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+
+import SearchList from '../SearchList/SearchList';
+import './SearchBox.scss';
 
 export default function SearchBox(props) {
   const {
@@ -14,11 +15,11 @@ export default function SearchBox(props) {
   } = props;
 
   useEffect(() => {
-    const searchBox = document.querySelector(".searchBox__wrapper");
+    const searchBox = document.querySelector('.searchBox__wrapper');
     if (searchStatus) {
-      searchBox.classList.add("searchBox__wrapper--display");
+      searchBox.classList.add('searchBox__wrapper--display');
     } else {
-      searchBox.classList.remove("searchBox__wrapper--display");
+      searchBox.classList.remove('searchBox__wrapper--display');
     }
   }, [searchStatus]);
 
@@ -34,7 +35,7 @@ export default function SearchBox(props) {
               className="searchBox__input"
               placeholder="Search our store..."
               onKeyPress={(e) => {
-                if (e.key === "Enter") {
+                if (e.key === 'Enter') {
                   onSearch();
                 }
               }}
@@ -42,7 +43,7 @@ export default function SearchBox(props) {
             <div
               className="searchBox__clear-btn"
               onClick={() => {
-                onChangeInput("");
+                onChangeInput('');
               }}
             >
               <ClearOutlined />
@@ -52,7 +53,7 @@ export default function SearchBox(props) {
             className="searchBox__close-btn"
             onClick={() => {
               hideSearch();
-              onChangeInput("");
+              onChangeInput('');
             }}
           >
             <CloseOutlined />

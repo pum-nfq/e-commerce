@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Checkbox, Collapse, Space } from 'antd';
 import React, { useLayoutEffect, useState } from 'react';
+
 import './Filter.scss';
 
 const { Panel } = Collapse;

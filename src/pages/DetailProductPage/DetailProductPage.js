@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import './DetailProductPage.scss';
-
 import {
   Avatar,
   Button,
@@ -12,14 +9,17 @@ import {
   Space,
   Tabs,
 } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllProduct } from '../../store/product/productSlice';
+
 import Product from '../../components/Product/Product';
-import moment from 'moment';
-import TextArea from 'antd/lib/input/TextArea';
+import { getAllProduct } from '../../store/product/productSlice';
+import './DetailProductPage.scss';
 
 const DetailProductPage = () => {
   const { id } = useParams();
@@ -49,12 +49,12 @@ const DetailProductPage = () => {
     products.map((item) =>
       item.sizes.forEach((item2) => {
         if (item2.id === id) foundProductById.push(item);
-      })
+      }),
     );
 
     if (foundProductById.length > 0) {
       const temp = products.filter(
-        (item) => item.brand === foundProductById[0].brand
+        (item) => item.brand === foundProductById[0].brand,
       );
       setRelatedProducts(temp);
       setProduct(foundProductById[0]);
@@ -145,7 +145,11 @@ const DetailProductPage = () => {
                     currency: 'USD',
                   })}{' '}
                 <i
-                  style={{ color: '#999', fontSize: '16px', fontWeight: '200' }}
+                  style={{
+                    color: '#999',
+                    fontSize: '16px',
+                    fontWeight: '200',
+                  }}
                 >
                   {productSelectedSize &&
                     '( ' + productSelectedSize.quantity + ' products in stock)'}
@@ -162,7 +166,10 @@ const DetailProductPage = () => {
                 <Form.Item
                   name="sizeOrder"
                   rules={[
-                    { required: true, message: 'Please choose your size!' },
+                    {
+                      required: true,
+                      message: 'Please choose your size!',
+                    },
                   ]}
                 >
                   <Radio.Group

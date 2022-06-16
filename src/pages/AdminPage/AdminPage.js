@@ -1,21 +1,23 @@
+import { PlusOutlined, TagOutlined } from '@ant-design/icons';
 import {
   Button,
   Form,
-  Popconfirm,
-  Space,
-  Table,
+  Image,
   Input,
   InputNumber,
-  Select,
-  Image,
   Layout,
   Menu,
+  Popconfirm,
+  Select,
+  Space,
+  Table,
 } from 'antd';
-import React, { useEffect, useState } from 'react';
+import _ from 'lodash';
 import moment from 'moment';
-import './AdminPage.scss';
-import ModalForm from '../../components/ModalForm/ModalForm';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import ModalForm from '../../components/ModalForm/ModalForm';
 import {
   createProduct,
   deleteProduct,
@@ -23,8 +25,7 @@ import {
   searchProduct,
   updateProduct,
 } from '../../store/product/productSlice';
-import _ from 'lodash';
-import { PlusOutlined, TagOutlined } from '@ant-design/icons';
+import './AdminPage.scss';
 
 const AdminPage = () => {
   const dispatch = useDispatch();
@@ -463,7 +464,7 @@ const AdminPage = () => {
                   placeholder="Search name of product"
                   onChange={_.debounce(
                     (e) => setSearchValue(e.target.value),
-                    600
+                    600,
                   )}
                 />
                 <Button
