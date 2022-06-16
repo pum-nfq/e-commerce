@@ -139,11 +139,12 @@ const DetailProductPage = () => {
                 {product.name.toUpperCase()}
               </h1>
               <h2 className="detail-product__content__price">
-                {productSelectedSize &&
-                  productSelectedSize.price.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  })}{' '}
+                {productSelectedSize.price
+                  ? productSelectedSize.price.toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                    })
+                  : 'Contact'}{' '}
                 <i
                   style={{
                     color: '#999',
@@ -172,10 +173,7 @@ const DetailProductPage = () => {
                     },
                   ]}
                 >
-                  <Radio.Group
-                    buttonStyle="solid"
-                    defaultValue={product.sizes[0].size}
-                  >
+                  <Radio.Group buttonStyle="solid">
                     <div className="detail-product__content__order__size-wrapper">
                       {product.sizes.map((s, index) => (
                         <Radio.Button
@@ -302,6 +300,7 @@ const DetailProductPage = () => {
                         currency: 'USD',
                       })
                     }
+                    id={item.key}
                   />
                 </SwiperSlide>
               ))}
