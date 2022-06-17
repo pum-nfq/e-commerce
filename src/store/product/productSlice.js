@@ -77,25 +77,41 @@ export const productSlice = createSlice({
         const filterPrices = current(state).list.filter((currentListItem) => {
           let filterPriceCheck = false;
 
-          if (payload.includes('UNDER $100') && !filterPriceCheck) {
+          if (
+            (payload.includes('UNDER $100') ||
+              payload.includes('Dưới 2.000.000 đ')) &&
+            !filterPriceCheck
+          ) {
             filterPriceCheck = currentListItem.sizes.some(
               (itemSize) => itemSize.price < 100,
             );
           }
 
-          if (payload.includes('$100 - $300') && !filterPriceCheck) {
+          if (
+            (payload.includes('$100 - $300') ||
+              payload.includes('2.000.000 đ - 3.000.000 đ')) &&
+            !filterPriceCheck
+          ) {
             filterPriceCheck = currentListItem.sizes.some(
               (itemSize) => itemSize.price >= 100 && itemSize.price <= 300,
             );
           }
 
-          if (payload.includes('$300 - $400') && !filterPriceCheck) {
+          if (
+            (payload.includes('$300 - $400') ||
+              payload.includes('3.000.000 đ - 4.000.000 đ')) &&
+            !filterPriceCheck
+          ) {
             filterPriceCheck = currentListItem.sizes.some(
               (itemSize) => itemSize.price >= 300 && itemSize.price <= 400,
             );
           }
 
-          if (payload.includes('OVER $400') && !filterPriceCheck) {
+          if (
+            (payload.includes('OVER $400') ||
+              payload.includes('Trên 4.000.000 đ')) &&
+            !filterPriceCheck
+          ) {
             filterPriceCheck = currentListItem.sizes.some(
               (itemSize) => itemSize.price > 400,
             );

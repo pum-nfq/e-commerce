@@ -1,29 +1,33 @@
 import { SendOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Tooltip } from 'antd';
+import { Button, Input, Space, Tooltip, message } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
+import i18n from '../../i18n';
 import './Footer.scss';
 import FooterContent from './FooterContent';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="footer-wrapper">
       <div className="footer-wrapper__content-show">
-        <FooterContent label="CONTACT INFO">
-          <b>Address: Cai Khe Ward, Ninh Kieu District, Can Tho City</b>
-          <b>Hotline: 0833495422</b>
-          <b>Email: akatsuki@nfq.asia</b>
+        <FooterContent label={t('footer.contact_info')}>
+          <b>{t('footer.address')}</b>
+          <b>{t('footer.hotline')}: +84 833 495 422</b>
+          <b>{t('footer.email')}</b>
         </FooterContent>
 
-        <FooterContent label="WORK TIME">
-          <b>9:30 to 21:30</b>
+        <FooterContent label={t('footer.work_time')}>
+          <b>9:30 - 21:30</b>
         </FooterContent>
 
-        <FooterContent label="CUSTOMER SUPPORT">
-          <b>0833495422</b>
+        <FooterContent label={t('footer.hotline')}>
+          <b>+84 833 495 422</b>
         </FooterContent>
 
-        <FooterContent label="Sign up to receive the latest information to receive the earliest promotions.">
+        <FooterContent label={t('footer.sign_email')}>
           <Input
             suffix={
               <Button type="text" icon={<SendOutlined className="icon" />} />
@@ -42,6 +46,13 @@ const Footer = () => {
         <Space>
           <Tooltip title="Vietnamese - Dong (VND)" placement="topLeft">
             <Button
+              onClick={() => {
+                i18n.changeLanguage('vi');
+                message.success({
+                  content: 'Đổi ngôn ngữ sang tiếng Việt thành công',
+                  key: 'change-lang',
+                });
+              }}
               type="text"
               shape="circle"
               className="footer-wrapper__bottom__lang-btn"
@@ -54,6 +65,13 @@ const Footer = () => {
           </Tooltip>
           <Tooltip title="English - Dollar ($)" placement="topLeft">
             <Button
+              onClick={() => {
+                i18n.changeLanguage('en');
+                message.success({
+                  content: 'Change language to English successfully',
+                  key: 'change-lang',
+                });
+              }}
               type="text"
               shape="circle"
               className="footer-wrapper__bottom__lang-btn"
