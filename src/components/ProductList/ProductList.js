@@ -29,7 +29,9 @@ export default function ProductList({ title, data, sorter }) {
   return (
     <div className="product-list">
       <div className="product-list__header">
-        <h2 className="product-list__title">{t(`${title.toLowerCase()}`)}</h2>
+        <h2 className="product-list__title">
+          {t(`product_list.${title.toLowerCase()}`)}
+        </h2>
         <Popover content={content} trigger="click" placement="bottomLeft">
           <Button type="text">
             <strong>{t('cta.sort')}</strong>
