@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -36,6 +36,7 @@ const DetailProductPage = () => {
   const [product, setProduct] = useState({});
   const [productSelectedSize, setPrductSelectedSize] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [numberShowRelatedProduct, setNumberShowRelatedProduct] = useState(5);
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -52,7 +53,28 @@ const DetailProductPage = () => {
   useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    window.scrollTo(0, 0);
   }, [id]);
+
+  useLayoutEffect(() => {
+    function updateSize() {
+      console.log(window.innerWidth);
+      if (window.innerWidth <= 300) {
+        setNumberShowRelatedProduct(1);
+      } else if (window.innerWidth <= 400) {
+        setNumberShowRelatedProduct(2);
+      } else if (window.innerWidth <= 500) {
+        setNumberShowRelatedProduct(3);
+      } else if (window.innerWidth <= 768) {
+        setNumberShowRelatedProduct(4);
+      } else {
+        setNumberShowRelatedProduct(5);
+      }
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   useEffect(() => {
     if (productSelectedSize && i18n.language === 'vi') {
@@ -196,7 +218,7 @@ const DetailProductPage = () => {
               name="order"
               autoComplete="off"
             >
-              <Space direction="vertical" style={{ width: '60%' }}>
+              <Space direction="vertical">
                 <p>SIZE: </p>
                 <Form.Item
                   name="sizeOrder"
@@ -207,10 +229,7 @@ const DetailProductPage = () => {
                     },
                   ]}
                 >
-                  <Radio.Group
-                    buttonStyle="solid"
-                    defaultValue={product.sizes[0].size}
-                  >
+                  <Radio.Group buttonStyle="solid">
                     <div className="detail-product__content__order__size-wrapper">
                       {product.sizes.map((s, index) => (
                         <Radio.Button
@@ -323,15 +342,20 @@ const DetailProductPage = () => {
           </div>
         </div>
         <div className="related-item">
-          <h2 className="related-item__title">
-            {t('detail_product.related_items')}
-          </h2>
-          <Swiper slidesPerView={5} spaceBetween={30} className="ralated-item">
+          <h2 className="related-item__title">Related Items</h2>
+          <Swiper
+            slidesPerView={numberShowRelatedProduct}
+            spaceBetween={30}
+            className="ralated-item"
+          >
             {relatedProducts &&
               relatedProducts.map((item, index) => (
                 <SwiperSlide key={index}>
-                  {console.log(item)}
-                  <Product {...item} price={item.sizes[0].price} />
+                  <Product
+                    {...item}
+                    price={item.sizes[0].price}
+                    id={item.key}
+                  />
                 </SwiperSlide>
               ))}
           </Swiper>

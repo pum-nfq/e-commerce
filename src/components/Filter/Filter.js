@@ -1,7 +1,8 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Checkbox, Collapse, Space } from 'antd';
+import { Breadcrumb, Checkbox, Collapse, Space } from 'antd';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import i18n from '../../i18n';
 import './Filter.scss';
@@ -123,8 +124,15 @@ const Filter = (props) => {
       <PlusOutlined />
     </div>
   );
+
   return (
     <div className="filter-wrapper">
+      <Breadcrumb className="filter-wrapper__breadcrumb">
+        <Breadcrumb.Item>
+          <Link to="/">HOME</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>COLLECTION</Breadcrumb.Item>
+      </Breadcrumb>
       <Collapse ghost activeKey={defaultPanelOpen} expandIconPosition={'start'}>
         {listFilter.map((item, index) => {
           return (
