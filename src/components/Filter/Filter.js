@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Checkbox, Collapse, Space } from 'antd';
+import { Breadcrumb, Checkbox, Collapse, Space } from 'antd';
 import React, { useLayoutEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import './Filter.scss';
 
@@ -56,7 +57,7 @@ const Filter = (props) => {
   const onCollapse = (index) => {
     const temp = [...defaultPanelOpen];
     const isOpening = defaultPanelOpen.findIndex((item) => item === index);
-    console.log(isOpening);
+    // console.log(isOpening);
     if (isOpening >= 0) {
       temp.splice(isOpening, 1);
       setDefaultPanelOpen(temp);
@@ -76,8 +77,15 @@ const Filter = (props) => {
       <PlusOutlined />
     </div>
   );
+
   return (
     <div className="filter-wrapper">
+      <Breadcrumb className="filter-wrapper__breadcrumb">
+        <Breadcrumb.Item>
+          <Link to="/">HOME</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>COLLECTION</Breadcrumb.Item>
+      </Breadcrumb>
       <Collapse ghost activeKey={defaultPanelOpen} expandIconPosition={'start'}>
         {listFilter.map((item, index) => {
           return (

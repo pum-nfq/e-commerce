@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
@@ -35,6 +35,8 @@ const DetailProductPage = () => {
   const [productSelectedSize, setPrductSelectedSize] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [total, setTotal] = useState(1);
+  const [numberShowRelatedProduct, setNumberShowRelatedProduct] = useState(5);
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const [comments, setComments] = useState([]);
@@ -48,7 +50,28 @@ const DetailProductPage = () => {
   useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    window.scrollTo(0, 0);
   }, [id]);
+
+  useLayoutEffect(() => {
+    function updateSize() {
+      console.log(window.innerWidth);
+      if (window.innerWidth <= 300) {
+        setNumberShowRelatedProduct(1);
+      } else if (window.innerWidth <= 400) {
+        setNumberShowRelatedProduct(2);
+      } else if (window.innerWidth <= 500) {
+        setNumberShowRelatedProduct(3);
+      } else if (window.innerWidth <= 768) {
+        setNumberShowRelatedProduct(4);
+      } else {
+        setNumberShowRelatedProduct(5);
+      }
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   useEffect(() => {
     const foundProductById = [];
@@ -159,11 +182,12 @@ const DetailProductPage = () => {
                 {product.name.toUpperCase()}
               </h1>
               <h2 className="detail-product__content__price">
-                {productSelectedSize &&
-                  productSelectedSize.price.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  })}{' '}
+                {productSelectedSize.price
+                  ? productSelectedSize.price.toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                    })
+                  : 'Contact'}{' '}
                 <i
                   style={{
                     color: '#999',
@@ -181,7 +205,7 @@ const DetailProductPage = () => {
               name="order"
               autoComplete="off"
             >
-              <Space direction="vertical" style={{ width: '60%' }}>
+              <Space direction="vertical">
                 <p>SIZE: </p>
                 <Form.Item
                   name="sizeOrder"
@@ -192,10 +216,7 @@ const DetailProductPage = () => {
                   //   },
                   // ]}
                 >
-                  <Radio.Group
-                    buttonStyle="solid"
-                    defaultValue={product.sizes[0].size}
-                  >
+                  <Radio.Group buttonStyle="solid">
                     <div className="detail-product__content__order__size-wrapper">
                       {product.sizes.map((s, index) => (
                         <Radio.Button
@@ -316,7 +337,11 @@ const DetailProductPage = () => {
         </div>
         <div className="related-item">
           <h2 className="related-item__title">Related Items</h2>
-          <Swiper slidesPerView={5} spaceBetween={30} className="ralated-item">
+          <Swiper
+            slidesPerView={numberShowRelatedProduct}
+            spaceBetween={30}
+            className="ralated-item"
+          >
             {relatedProducts &&
               relatedProducts.map((item, index) => (
                 <SwiperSlide key={index}>
@@ -329,6 +354,7 @@ const DetailProductPage = () => {
                         currency: 'USD',
                       })
                     }
+                    id={item.key}
                   />
                 </SwiperSlide>
               ))}
