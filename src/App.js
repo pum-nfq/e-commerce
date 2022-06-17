@@ -5,6 +5,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 
 const Footer = lazy(() => import('./components/Footer/Footer'));
 const Navbar = lazy(() => import('./components/Navbar'));
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const AdminPage = lazy(() => import('./pages/AdminPage/AdminPage'));
 const DetailProductPage = lazy(() =>
   import('./pages/DetailProductPage/DetailProductPage'),
@@ -34,7 +35,7 @@ function App() {
               </>
             }
           >
-            <Route index element={<div>home</div>} />
+            <Route index element={<HomePage />} />
             <Route path="product" element={<ProductPage />} />
             <Route path="admin" element={<AdminPage />} />
             <Route path="detail/:id" element={<DetailProductPage />} />
