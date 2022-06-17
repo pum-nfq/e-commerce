@@ -77,24 +77,28 @@ export const productSlice = createSlice({
         const filterPrices = current(state).list.filter((currentListItem) => {
           let filterPriceCheck = false;
 
-          if (payload.includes('DƯỚI 2.000.000') && !filterPriceCheck) {
-            filterPriceCheck = currentListItem.price < 2000000;
+          if (payload.includes('UNDER $100') && !filterPriceCheck) {
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price < 100,
+            );
           }
 
-          if (payload.includes('2.000.000 - 3.000.000') && !filterPriceCheck) {
-            filterPriceCheck =
-              currentListItem.price >= 2000000 &&
-              currentListItem.price <= 3000000;
+          if (payload.includes('$100 - $300') && !filterPriceCheck) {
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price >= 100 && itemSize.price <= 300,
+            );
           }
 
-          if (payload.includes('3.000.000 - 4.000.000') && !filterPriceCheck) {
-            filterPriceCheck =
-              currentListItem.price >= 3000000 &&
-              currentListItem.price <= 4000000;
+          if (payload.includes('$300 - $400') && !filterPriceCheck) {
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price >= 300 && itemSize.price <= 400,
+            );
           }
 
-          if (payload.includes('TRÊN 4.000.000') && !filterPriceCheck) {
-            filterPriceCheck = currentListItem.price > 4000000;
+          if (payload.includes('OVER $400') && !filterPriceCheck) {
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price > 400,
+            );
           }
 
           return filterPriceCheck;

@@ -20,8 +20,19 @@ const ProductPage = () => {
   const loading = useSelector((state) => state.product.loading);
   const [filters, setFilters] = useState([]);
   const [isSortRevert, setIsSortRevert] = useState(false);
-  let displayData = filters.length === 0 ? productList : productListFilter;
-  displayData = !!productListSorter.length ? productListSorter : displayData;
+
+  let displayData = [];
+  if (productListSorter.length !== 0) {
+    displayData = productListSorter;
+  } else if (productListFilter.length !== 0 && filters.length !== 0) {
+    displayData = productListFilter;
+  } else {
+    displayData = productList;
+  }
+
+  // console.log('productList', productList);
+  // console.log('productListFilter', productListFilter);
+  // console.log('productListSorter', productListSorter);
 
   useEffect(() => {
     dispatch(getAllProduct());
@@ -44,6 +55,7 @@ const ProductPage = () => {
       });
     }
     dispatch(filterProduct(filters));
+    dispatch(setListSorter([]));
     setTimeout(() => {
       dispatch(setLoading(false));
     }, 500);
@@ -57,12 +69,21 @@ const ProductPage = () => {
       // handle sort by price
       case 'Sort by Price':
         if (isSortRevert) {
+          // console.log(displayData)
           displayData = displayData.slice().sort((a, b) => {
-            return a.price < b.price ? 1 : a.price > b.price ? -1 : 0;
+            return a.sizes[0].price < b.sizes[0].price
+              ? 1
+              : a.sizes[0].price > b.sizes[0].price
+              ? -1
+              : 0;
           });
         } else {
           displayData = displayData.slice().sort((a, b) => {
-            return a.price < b.price ? -1 : a.price > b.price ? 1 : 0;
+            return a.sizes[0].price < b.sizes[0].price
+              ? -1
+              : a.sizes[0].price > b.sizes[0].price
+              ? 1
+              : 0;
           });
         }
         setIsSortRevert(!isSortRevert);

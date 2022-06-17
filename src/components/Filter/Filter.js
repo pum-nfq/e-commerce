@@ -56,7 +56,7 @@ const Filter = (props) => {
   const onCollapse = (index) => {
     const temp = [...defaultPanelOpen];
     const isOpening = defaultPanelOpen.findIndex((item) => item === index);
-    console.log(isOpening);
+    // console.log(isOpening);
     if (isOpening >= 0) {
       temp.splice(isOpening, 1);
       setDefaultPanelOpen(temp);
@@ -65,7 +65,7 @@ const Filter = (props) => {
     }
   };
 
-  console.log(defaultPanelOpen);
+  // console.log(defaultPanelOpen);
   const genExtra = (index, title) => (
     <div
       className="header-panel"
