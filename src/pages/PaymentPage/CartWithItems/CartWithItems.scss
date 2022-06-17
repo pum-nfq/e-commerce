@@ -38,6 +38,7 @@
   font-size: 1rem;
   margin-right: 100px;
   font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .cart__img-wrapper {
@@ -121,6 +122,9 @@
 }
 
 .cart__payments-options {
+  .ant-radio-wrapper {
+    margin: 4px 0;
+  }
 }
 
 .cart__payments-options-words {
@@ -128,6 +132,10 @@
 
 .cart__form {
   margin-top: 24px;
+
+  .ant-row.ant-form-item {
+    margin-bottom: 12px;
+  }
 
   input.ant-input {
     font-size: 14px;

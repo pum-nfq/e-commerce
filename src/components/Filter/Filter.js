@@ -65,7 +65,6 @@ const Filter = (props) => {
     }
   };
 
-  console.log(defaultPanelOpen);
   const genExtra = (index, title) => (
     <div
       className="header-panel"

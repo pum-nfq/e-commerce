@@ -6,11 +6,15 @@ const shoppingListSlice = createSlice({
   name: 'shoppingList',
   initialState,
   reducers: {
-    updateShoppingList: (state, action) => {
+    addShoppingItem: (state, action) => {
       state.list.push(action.payload);
+    },
+    deleteShoppingItem: (state, action) => {
+      state.list.splice(action.payload, 1);
     },
   },
 });
 
-export const { updateShoppingList } = shoppingListSlice.actions;
+export const { addShoppingItem, deleteShoppingItem } =
+  shoppingListSlice.actions;
 export default shoppingListSlice.reducer;

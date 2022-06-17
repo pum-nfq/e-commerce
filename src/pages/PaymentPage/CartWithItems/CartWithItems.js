@@ -1,85 +1,21 @@
 import {
-  Breadcrumb,
   Button,
   Col,
   Form,
   Input,
   InputNumber,
-  Layout,
   Radio,
   Row,
-  Select,
   Space,
   Table,
   Typography,
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import './CartWithItems.scss';
 
-const { Text } = Typography;
 const { Title } = Typography;
-const { Option } = Select;
-
-const columns = [
-  {
-    title: 'Image',
-    dataIndex: 'image',
-    render: (imgSrc) => {
-      return (
-        <div className="cart__img-wrapper">
-          <img src={imgSrc} />
-          <span className="cart__img-delete-btn">delete</span>
-        </div>
-      );
-    },
-  },
-  {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Size',
-    dataIndex: 'size',
-  },
-  {
-    title: 'Price',
-    dataIndex: 'price',
-  },
-  {
-    title: 'Quantity',
-    dataIndex: 'quantity',
-    render: (quantity) => (
-      <InputNumber min={1} max={10} defaultValue={quantity} />
-    ),
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'amount',
-  },
-];
-
-const data = [
-  {
-    key: '1',
-    image: 'http://snkrsg.com/thumbs/830x550x1/upload/product/18-5098.jpg',
-    name: 'COURT VISION ALTA TXT LIGHT SOFT PINK MAGIC EMBER',
-    size: 36,
-    price: 120,
-    quantity: 1,
-    amount: 2,
-  },
-  {
-    key: '2',
-    image: 'http://snkrsg.com/thumbs/830x550x1/upload/product/18-5098.jpg',
-    name: 'COURT VISION ALTA TXT LIGHT SOFT PINK MAGIC EMBER',
-    size: 36,
-    price: 120,
-    quantity: 1,
-    amount: 2,
-  },
-];
 
 const layout = {
   labelCol: {
@@ -97,8 +33,73 @@ const validateMessages = {
   },
 };
 
-export default function CartWithItems() {
+export default function CartWithItems(props) {
+  const { cartList, onChangePayment, payment, onDeleteItem } = props;
   const [width, setWidth] = useState(window.innerWidth);
+  const productList = useMemo(() => {
+    let result = [];
+    cartList.forEach((item, index) => {
+      result.push({
+        key: index,
+        image: item.image,
+        name: item.name,
+        size: item.sizes.size,
+        price: new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(item.sizes.price),
+        quantity: item.total,
+        amount: new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(item.sizes.price * item.total),
+      });
+    });
+    return result;
+  }, [cartList]);
+  const columns = useRef([
+    {
+      title: 'Image',
+      dataIndex: 'image',
+      render: (_, record) => {
+        return (
+          <div className="cart__img-wrapper">
+            <img src={record.image} />
+            <span
+              onClick={() => onDeleteItem(record.key)}
+              className="cart__img-delete-btn"
+            >
+              delete
+            </span>
+          </div>
+        );
+      },
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Size',
+      dataIndex: 'size',
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      render: (quantity) => (
+        <InputNumber min={1} max={10} defaultValue={quantity} />
+      ),
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'amount',
+    },
+  ]);
+
   useEffect(() => {
     window.addEventListener('resize', () => {
       setWidth(window.innerWidth);
@@ -109,23 +110,28 @@ export default function CartWithItems() {
       <div className="cart__cartInfo">
         <Title level={4}>your cart</Title>
         <Table
-          columns={columns}
-          dataSource={data}
+          columns={columns.current}
+          dataSource={productList}
           pagination={false}
           //   bordered
           summary={(pageData) => {
             let total = 0;
             pageData.forEach(({ amount }) => {
-              total += amount;
+              total += Number(amount.replace(/[^0-9\.]+/g, ''));
             });
             return (
               <>
                 <Table.Summary.Row className="cart__sum-wrapper">
                   <Table.Summary.Cell index={0} colSpan={5}>
-                    <span className="cart__sum-word">Total</span>
+                    <span className="cart__sum-word">TOTAL:</span>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1}>
-                    <span className="cart__sum-price">{total}</span>
+                    <span className="cart__sum-price">
+                      {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      }).format(total)}
+                    </span>
                   </Table.Summary.Cell>
                 </Table.Summary.Row>
               </>
@@ -138,19 +144,24 @@ export default function CartWithItems() {
           <Title level={4}>payment methods:</Title>
           <div className="cart__payments-options">
             <Space direction="vertical">
-              <Radio>
-                <span className="cart__payments-options-words">
-                  Cash directly at store
-                </span>
-              </Radio>
-              <Radio>
-                <span className="cart__payments-options-words">
-                  Cash on delivery
-                </span>
-              </Radio>
-              <Radio>
-                <span className="cart__payments-options-words">Banking</span>
-              </Radio>
+              <Radio.Group
+                value={payment}
+                onChange={(e) => onChangePayment(e.target.value)}
+              >
+                <Radio value={1}>
+                  <span className="cart__payments-options-words">
+                    Cash directly at store
+                  </span>
+                </Radio>
+                <Radio value={2}>
+                  <span className="cart__payments-options-words">
+                    Cash on delivery
+                  </span>
+                </Radio>
+                <Radio value={3}>
+                  <span className="cart__payments-options-words">Banking</span>
+                </Radio>
+              </Radio.Group>
             </Space>
           </div>
         </div>

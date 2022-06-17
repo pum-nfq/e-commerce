@@ -20,7 +20,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Product from '../../components/Product/Product';
 import { getAllProduct } from '../../store/product/productSlice';
 import { shoppingList } from '../../store/selectors';
-import { updateShoppingList } from '../../store/shoppingList/shoppingListSlice';
+import { addShoppingItem } from '../../store/shoppingList/shoppingListSlice';
 import './DetailProductPage.scss';
 
 const DetailProductPage = () => {
@@ -42,7 +42,6 @@ const DetailProductPage = () => {
   const [value, setValue] = useState('');
 
   useEffect(() => {
-    console.log(shoppingCart);
     localStorage.setItem('shoppingList', JSON.stringify(shoppingCart));
   }, [shoppingCart]);
 
@@ -69,7 +68,7 @@ const DetailProductPage = () => {
     }
   }, [id, products]);
 
-  const handleUpdateShoppingList = () => {
+  const handleAddShoppingItem = () => {
     if (!productSelectedSize) {
       alert('Please choose your size');
       return;
@@ -80,7 +79,7 @@ const DetailProductPage = () => {
       total,
     };
 
-    dispatch(updateShoppingList(infoSelectedItem));
+    dispatch(addShoppingItem(infoSelectedItem));
   };
 
   const handleSubmit = () => {
@@ -230,7 +229,7 @@ const DetailProductPage = () => {
                 </Form.Item>
 
                 <Button
-                  onClick={handleUpdateShoppingList}
+                  onClick={handleAddShoppingItem}
                   className="detail-product__content__order__buy-now"
                   type="primary"
                   size="large"
