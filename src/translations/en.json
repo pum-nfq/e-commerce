@@ -24,6 +24,10 @@
     "price": "Price",
     "size": "Size"
   },
+  "home": {
+    "new_releases": "NEW RELEASES",
+    "feature_blog": "FEATURE BLOGS"
+  },
   "product_list": {
     "collection": "COLLECTION"
   },

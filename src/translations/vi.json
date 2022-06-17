@@ -37,6 +37,10 @@
     "price": "Giá",
     "size": "Size"
   },
+  "home": {
+    "new_releases": "SẢN PHẨM MỚI",
+    "feature_blog": "BÀI VIẾT HÀNG ĐẦU"
+  },
   "footer": {
     "contact_info": "Thông tin liên lạc",
     "address": "Địa chỉ: Phường Cái Khế, Quận Ninh Kiều, Thành phố Cần Thơ",
