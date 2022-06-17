@@ -10,6 +10,7 @@ import './Filter.scss';
 const Filter = (props) => {
   const { onCheck } = props;
   const { Panel } = Collapse;
+  const { t } = useTranslation();
 
   const initialListFilterEn = [
     {
@@ -49,10 +50,14 @@ const Filter = (props) => {
     {
       title: 'Price',
       filters: [
-        'Dưới 2.000.000 đ',
-        '2.000.000 đ - 3.000.000 đ',
-        '3.000.000 đ - 4.000.000 đ',
-        'Trên 4.000.000 đ',
+        `Dưới ${t('price_product', { val: 100 * 23230 })}`,
+        `${t('price_product', { val: 100 * 23230 })} - ${t('price_product', {
+          val: 300 * 23230,
+        })}`,
+        `${t('price_product', { val: 300 * 23230 })} - ${t('price_product', {
+          val: 400 * 23230,
+        })}`,
+        `Trên ${t('price_product', { val: 400 * 23230 })}`,
       ],
     },
     {
@@ -95,8 +100,6 @@ const Filter = (props) => {
     if (i18n.language === 'vi') setListFilter(initialListFilterVi);
     else setListFilter(initialListFilterEn);
   }, [i18n.language]);
-
-  const { t } = useTranslation();
 
   const onCollapse = (index) => {
     const temp = [...defaultPanelOpen];
