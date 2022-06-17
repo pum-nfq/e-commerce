@@ -73,6 +73,10 @@
   border-right: 1px solid #eee;
   width: 70%;
 
+  .ant-table-wrapper {
+    overflow: auto;
+  }
+
   th,
   td {
     max-width: 350px !important;
@@ -154,6 +158,20 @@
   }
 
   .cart__deliverInfo {
+    margin-top: 24px;
     width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  td.ant-table-cell {
+    img {
+      object-fit: contain;
+      width: 65px;
+    }
+  }
+
+  .ant-table-tbody > tr > td {
+    font-size: 0.8rem;
   }
 }

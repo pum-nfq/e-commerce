@@ -14,6 +14,7 @@ import {
   Typography,
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
+import { useEffect, useState } from 'react';
 
 import './CartWithItems.scss';
 
@@ -70,7 +71,7 @@ const data = [
     amount: 2,
   },
   {
-    key: '1',
+    key: '2',
     image: 'http://snkrsg.com/thumbs/830x550x1/upload/product/18-5098.jpg',
     name: 'COURT VISION ALTA TXT LIGHT SOFT PINK MAGIC EMBER',
     size: 36,
@@ -97,6 +98,12 @@ const validateMessages = {
 };
 
 export default function CartWithItems() {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWidth(window.innerWidth);
+    });
+  }, [width]);
   return (
     <div className="cart__content-divider">
       <div className="cart__cartInfo">
@@ -128,7 +135,7 @@ export default function CartWithItems() {
       </div>
       <div className="cart__deliverInfo">
         <div className="cart__payments">
-          <Title level={4}>payments:</Title>
+          <Title level={4}>payment methods:</Title>
           <div className="cart__payments-options">
             <Space direction="vertical">
               <Radio>
@@ -154,8 +161,42 @@ export default function CartWithItems() {
             name="nest-messages"
             validateMessages={validateMessages}
           >
-            <Row gutter={16}>
-              <Col span={12}>
+            {width >= 678 ? (
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Form.Item
+                    name={['user', 'name']}
+                    //   label="Name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your name!',
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Enter your name..." />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    name="phone"
+                    //   label="Phone Number"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your phone number!',
+                      },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Enter your phone number..."
+                      type="tel"
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+            ) : (
+              <>
                 <Form.Item
                   name={['user', 'name']}
                   //   label="Name"
@@ -168,8 +209,6 @@ export default function CartWithItems() {
                 >
                   <Input placeholder="Enter your name..." />
                 </Form.Item>
-              </Col>
-              <Col span={12}>
                 <Form.Item
                   name="phone"
                   //   label="Phone Number"
@@ -182,8 +221,8 @@ export default function CartWithItems() {
                 >
                   <Input placeholder="Enter your phone number..." type="tel" />
                 </Form.Item>
-              </Col>
-            </Row>
+              </>
+            )}
 
             <Form.Item
               name={['user', 'email']}
