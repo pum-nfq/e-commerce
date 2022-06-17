@@ -1,4 +1,4 @@
-import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useEffect, useState } from 'react';
 

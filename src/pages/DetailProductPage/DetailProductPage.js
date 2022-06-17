@@ -19,12 +19,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import Product from '../../components/Product/Product';
 import { getAllProduct } from '../../store/product/productSlice';
+import { shoppingList } from '../../store/selectors';
+import { updateShoppingList } from '../../store/shoppingList/shoppingListSlice';
 import './DetailProductPage.scss';
 
 const DetailProductPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const shoppingCart = useSelector(shoppingList);
   const { TabPane } = Tabs;
 
   const products = useSelector((state) => state.product.list);
@@ -39,6 +41,10 @@ const DetailProductPage = () => {
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingCart));
+  }, [shoppingCart]);
 
   useEffect(() => {
     dispatch(getAllProduct());
@@ -80,9 +86,18 @@ const DetailProductPage = () => {
       );
       setRelatedProducts(temp);
       setProduct(foundProductById[0]);
-      setPrductSelectedSize(foundProductById[0].sizes[0]);
+      // setPrductSelectedSize(foundProductById[0].sizes[0]);
     }
   }, [id, products]);
+
+  const handleUpdateShoppingList = () => {
+    if (!productSelectedSize) {
+      alert("Please choose item's size!");
+      return;
+    }
+    // console.log(productSelectedSize);
+    dispatch(updateShoppingList(productSelectedSize));
+  };
 
   const handleSubmit = () => {
     if (!value) return;
@@ -223,6 +238,7 @@ const DetailProductPage = () => {
                 </Form.Item>
 
                 <Button
+                  onClick={handleUpdateShoppingList}
                   className="detail-product__content__order__buy-now"
                   type="primary"
                   size="large"
