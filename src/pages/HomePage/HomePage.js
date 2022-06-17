@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Pagination } from 'swiper';
+import SwiperCore, { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import videoIntro from '../../assets/video/intro.mp4';
 import Product from '../../components/Product/Product';
 import { getAllProduct } from '../../store/product/productSlice';
 import './HomePage.scss';
@@ -67,6 +68,8 @@ const HomePage = () => {
   const productList = useSelector((state) => state.product.list);
   const dispatch = useDispatch();
 
+  SwiperCore.use([Autoplay]);
+
   // responsive slider
   useEffect(() => {
     window.addEventListener('resize', () => {
@@ -91,6 +94,9 @@ const HomePage = () => {
 
   return (
     <div className="home-page-wrapper">
+      <div className="video-intro">
+        <video src={videoIntro} autoPlay muted loop />
+      </div>
       <div className="slide-show">
         <div className="new-arrival panel shadow-box" text-bf="NEW ARRIVAL">
           <Link to="product">
@@ -207,6 +213,7 @@ const HomePage = () => {
           pagination={{
             clickable: true,
           }}
+          autoplay={{ delay: 1500 }}
           modules={[Pagination]}
         >
           {productList.map((productData) => (
@@ -228,6 +235,7 @@ const HomePage = () => {
           pagination={{
             clickable: true,
           }}
+          autoplay={{ delay: 5000 }}
           modules={[Pagination]}
         >
           {featureBlogs.map((item) => (
