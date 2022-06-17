@@ -53,6 +53,7 @@ export default function CartWithItems(props) {
           style: 'currency',
           currency: 'USD',
         }).format(item.sizes.price * item.total),
+        inStock: item.sizes.quantity,
       });
     });
     return result;
@@ -90,8 +91,12 @@ export default function CartWithItems(props) {
     {
       title: 'Quantity',
       dataIndex: 'quantity',
-      render: (quantity) => (
-        <InputNumber min={1} max={10} defaultValue={quantity} />
+      render: (_, record) => (
+        <InputNumber
+          min={1}
+          max={record.inStock}
+          defaultValue={record.quantity}
+        />
       ),
     },
     {

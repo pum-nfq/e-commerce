@@ -38,11 +38,10 @@ function App() {
           >
             <Route index element={<HomePage />} />
             <Route path="product" element={<ProductPage />} />
+            <Route path="admin" element={<AdminPage />} />
             <Route path="detail/:id" element={<DetailProductPage />} />
+            <Route path="cart" element={<PaymentPage />} />
           </Route>
-          <Route path="admin" element={<AdminPage />} />
-          <Route path="detail/:id" element={<DetailProductPage />} />
-          <Route path="cart" element={<PaymentPage />} />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>

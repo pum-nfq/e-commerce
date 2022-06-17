@@ -116,18 +116,12 @@
       }
     }
   }
-
-  .cart__payments-options-words {
-  }
 }
 
 .cart__payments-options {
   .ant-radio-wrapper {
     margin: 4px 0;
   }
-}
-
-.cart__payments-options-words {
 }
 
 .cart__form {
@@ -168,6 +162,16 @@
   .cart__deliverInfo {
     margin-top: 24px;
     width: 100%;
+  }
+
+  .cart__payments {
+    .ant-space.ant-space-vertical {
+      width: 100%;
+
+      .ant-radio-group.ant-radio-group-outline {
+        width: 100%;
+      }
+    }
   }
 }
 

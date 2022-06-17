@@ -161,6 +161,12 @@
   }
 }
 
+.notification__wrapper {
+  .ant-alert.ant-alert-success.ant-alert-no-icon {
+    font-size: 1rem !important;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .detail-product__content__name {
     font-size: 24px;

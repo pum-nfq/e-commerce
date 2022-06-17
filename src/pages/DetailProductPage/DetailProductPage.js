@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Button,
   Comment,
@@ -36,9 +37,8 @@ const DetailProductPage = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [total, setTotal] = useState(1);
   const [numberShowRelatedProduct, setNumberShowRelatedProduct] = useState(5);
-
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const [notiStatus, setNotiStatus] = useState(false);
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
@@ -48,6 +48,12 @@ const DetailProductPage = () => {
   }, [shoppingCart]);
 
   useEffect(() => {
+    setTimeout(() => {
+      setNotiStatus(false);
+    }, 3000);
+  }, [notiStatus]);
+
+  useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
     window.scrollTo(0, 0);
@@ -55,7 +61,6 @@ const DetailProductPage = () => {
 
   useLayoutEffect(() => {
     function updateSize() {
-      console.log(window.innerWidth);
       if (window.innerWidth <= 300) {
         setNumberShowRelatedProduct(1);
       } else if (window.innerWidth <= 400) {
@@ -87,15 +92,15 @@ const DetailProductPage = () => {
       );
       setRelatedProducts(temp);
       setProduct(foundProductById[0]);
-      // setPrductSelectedSize(foundProductById[0].sizes[0]);
+      setPrductSelectedSize(foundProductById[0].sizes[0]);
     }
   }, [id, products]);
 
   const handleAddShoppingItem = () => {
-    if (!productSelectedSize) {
-      alert('Please choose your size');
-      return;
-    }
+    // if (!productSelectedSize) {
+    //   alert('Please choose your size');
+    //   return;
+    // }
     const infoSelectedItem = {
       ...product,
       sizes: product.sizes.filter((size) => size === productSelectedSize)[0],
@@ -103,6 +108,8 @@ const DetailProductPage = () => {
     };
 
     dispatch(addShoppingItem(infoSelectedItem));
+    window.scrollTo(0, 0);
+    setNotiStatus(true);
   };
 
   const handleSubmit = () => {
@@ -123,6 +130,10 @@ const DetailProductPage = () => {
     }, 600);
   };
 
+  const onClose = (e) => {
+    console.log(e, 'I was closed.');
+  };
+
   if (
     product &&
     Object.keys(product).length !== 0 &&
@@ -130,6 +141,16 @@ const DetailProductPage = () => {
   )
     return (
       <div className="detail-product-page-wrapper">
+        {notiStatus && (
+          <div className="notification__wrapper">
+            <Alert
+              message={`${product.name} size ${productSelectedSize.size} has been added to your cart`}
+              type="success"
+              closable
+              onClose={onClose}
+            />
+          </div>
+        )}
         <div className="detail-product">
           <div className="detail-product__carousel">
             <Swiper
@@ -216,7 +237,7 @@ const DetailProductPage = () => {
                   //   },
                   // ]}
                 >
-                  <Radio.Group buttonStyle="solid">
+                  <Radio.Group buttonStyle="solid" defaultValue={0}>
                     <div className="detail-product__content__order__size-wrapper">
                       {product.sizes.map((s, index) => (
                         <Radio.Button
