@@ -76,15 +76,21 @@
         'second . third'
         'fourth fourth fourth';
     }
-    &__copy-right {
-      text-align: center;
+    &__bottom {
+      flex-direction: column;
+      align-items: center;
+      &__copy-right {
+        text-align: center;
+      }
     }
   }
 }
 @media only screen and (max-width: 425px) {
   .footer-wrapper {
-    &__copy-right {
-      font-size: 12px;
+    &__bottom {
+      &__copy-right {
+        font-size: 12px;
+      }
     }
   }
 }
