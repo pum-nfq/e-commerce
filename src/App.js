@@ -37,10 +37,9 @@ function App() {
           >
             <Route index element={<HomePage />} />
             <Route path="product" element={<ProductPage />} />
-            <Route path="admin" element={<AdminPage />} />
             <Route path="detail/:id" element={<DetailProductPage />} />
           </Route>
-
+          <Route path="admin" element={<AdminPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
