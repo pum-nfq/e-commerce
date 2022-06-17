@@ -44,7 +44,6 @@ const DetailProductPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
   const { t } = useTranslation();
-  const savePrice = useRef();
 
   useEffect(() => {
     localStorage.setItem('shoppingList', JSON.stringify(shoppingCart));
@@ -76,22 +75,7 @@ const DetailProductPage = () => {
     return () => window.removeEventListener('resize', updateSize);
   }, []);
 
-  useEffect(() => {
-    if (productSelectedSize && i18n.language === 'vi') {
-      savePrice.current = productSelectedSize.price;
-      setPrductSelectedSize({
-        ...productSelectedSize,
-        price: productSelectedSize.price * 23237,
-      });
-    } else {
-      setPrductSelectedSize({
-        ...productSelectedSize,
-        price: savePrice.current,
-      });
-    }
-  }, [i18n.language]);
-
-  useEffect(() => {
+  const getProductDetail = () => {
     const foundProductById = [];
     products.map((item) =>
       item.sizes.forEach((item2) => {
@@ -105,9 +89,29 @@ const DetailProductPage = () => {
       );
       setRelatedProducts(temp);
       setProduct(foundProductById[0]);
-      setPrductSelectedSize(foundProductById[0].sizes[0]);
+
+      if (i18n.language === 'vi') {
+        setPrductSelectedSize({
+          ...foundProductById[0].sizes[0],
+          price: foundProductById[0].sizes[0].price * 23237,
+        });
+      } else {
+        setPrductSelectedSize(foundProductById[0].sizes[0]);
+      }
     }
-  }, [id, products]);
+  };
+
+  useEffect(() => {
+    getProductDetail();
+  }, [id, products, i18n.language]);
+
+  const clickSize = (product) => {
+    if (i18n.language === 'vi') {
+      setPrductSelectedSize({ ...product, price: product.price * 23237 });
+    } else {
+      setPrductSelectedSize(product);
+    }
+  };
 
   const handleUpdateShoppingList = () => {
     if (!productSelectedSize) {
@@ -231,13 +235,13 @@ const DetailProductPage = () => {
                 >
                   <Radio.Group buttonStyle="solid">
                     <div className="detail-product__content__order__size-wrapper">
-                      {product.sizes.map((s, index) => (
+                      {product.sizes.map((product, index) => (
                         <Radio.Button
-                          value={s.size}
+                          value={product.size}
                           key={index}
-                          onChange={() => setPrductSelectedSize(s)}
+                          onChange={() => clickSize(product)}
                         >
-                          {s.size}
+                          {product.size}
                         </Radio.Button>
                       ))}
                     </div>
