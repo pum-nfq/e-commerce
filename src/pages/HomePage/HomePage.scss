@@ -2,12 +2,15 @@
   width: 100%;
   height: 100%;
   padding: 0 1rem;
+  margin: 90px 0;
 }
 
 .slide-show {
   width: 100%;
-  height: 1000px;
   display: grid;
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
   gap: 5px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 0.45fr;
@@ -19,27 +22,22 @@
 
 .new-arrival {
   grid-area: new-arrival;
-  background-image: url(http://snkrsg.com/thumbs/982x525x1/upload/photo/aaa-1907-4515.jpg);
 }
 
 .best-seller {
   grid-area: best-seller;
-  background-image: url(http://snkrsg.com/thumbs/489x525x1/upload/photo/2-5051.jpg);
 }
 
 .adidas {
   grid-area: adidas;
-  background-image: url(http://snkrsg.com/thumbs/489x264x1/upload/photo/originals-ss21-stansmith-drop2-educate-pdp-statement-1-sustainability-v1-dtcm337-643333-7297.jpg);
 }
 
 .nike {
   grid-area: nike;
-  background-image: url(http://snkrsg.com/thumbs/489x264x1/upload/photo/6-8012.jpg);
 }
 
 .other {
   grid-area: other;
-  background-image: url(http://snkrsg.com/thumbs/489x264x1/upload/photo/20181112-puma-rs-x-toys-28-1-3522.jpg);
 }
 
 .panel {
@@ -90,20 +88,27 @@
 
 .top-product {
   width: 100%;
-  & .card-footer {
-    width: 450px;
-    height: 450px;
-    cursor: pointer;
 
+  & .card-footer {
+    width: 100%;
+    cursor: pointer;
     position: relative;
     transition: ease 300ms;
-
     overflow: hidden;
+
+    & .card-img {
+      transition: transform ease 0.5s;
+    }
+
     &:hover {
       filter: grayscale(0%);
       &::before {
         background-color: black;
         color: white;
+      }
+
+      & .card-img {
+        transform: scale(1.2);
       }
     }
 
@@ -111,7 +116,7 @@
       content: attr(text-bf);
       position: absolute;
       width: 70%;
-      height: 50px;
+      padding: 10px;
       background-color: white;
       bottom: 0;
       left: 50%;
@@ -119,25 +124,44 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       transition: ease 300ms;
+      z-index: 1;
+      color: black;
     }
   }
+}
 
-  & .air-force-1 {
-    background-image: url(http://snkrsg.com/upload/photo/z2259779602634-fc871114564d062b895219aa7677d4d5-9972.jpg);
+.new-release,
+.feature-blog {
+  margin: 70px 0;
+
+  &__heading {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40px;
+  }
+}
+
+.feature-blog-card {
+  transition: ease 0.25s;
+  &:hover {
+    opacity: 0.8;
+  }
+  &__image {
+    width: 100%;
   }
 
-  & .air-jordan-1 {
-    background-image: url(http://snkrsg.com/upload/photo/16489607239744776792407364727650043825883683n-4517.jpg);
+  &__content {
+    margin-top: 30px;
   }
 
-  & .air-max-1 {
-    background-image: url(http://snkrsg.com/upload/photo/21757840740365900064101845820753293603063256n-5097.jpg);
+  &__link {
+    display: block;
   }
 
-  & .ultra-boost-1 {
-    background-image: url(http://snkrsg.com/upload/photo/z2259779602634-fc871114564d062b895219aa7677d4d5-1421.jpg);
+  &__text {
+    text-align: center;
   }
 }
