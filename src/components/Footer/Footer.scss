@@ -35,8 +35,26 @@
       }
     }
   }
-  &__copy-right {
-    color: #999;
+  &__bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &__copy-right {
+      color: #999;
+    }
+
+    &__lang-btn {
+      color: white;
+      position: relative;
+      & img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 }
 

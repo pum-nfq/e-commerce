@@ -1,5 +1,5 @@
 import { SendOutlined } from '@ant-design/icons';
-import { Button, Input } from 'antd';
+import { Button, Input, Space, Tooltip } from 'antd';
 import React from 'react';
 
 import './Footer.scss';
@@ -34,9 +34,38 @@ const Footer = () => {
           />
         </FooterContent>
       </div>
-      <p className="footer-wrapper__copy-right">
-        ALL RIGHTS RESERVED. WEB DESIGN : NFQ CO., LTD
-      </p>
+      <div className="footer-wrapper__bottom">
+        <p className="footer-wrapper__bottom__copy-right">
+          ALL RIGHTS RESERVED. WEB DESIGN : NFQ CO., LTD
+        </p>
+
+        <Space>
+          <Tooltip title="Vietnamese - Dong (VND)" placement="topLeft">
+            <Button
+              type="text"
+              shape="circle"
+              className="footer-wrapper__bottom__lang-btn"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/323/323319.png"
+                alt="vietnam"
+              />
+            </Button>
+          </Tooltip>
+          <Tooltip title="English - Dollar ($)" placement="topLeft">
+            <Button
+              type="text"
+              shape="circle"
+              className="footer-wrapper__bottom__lang-btn"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/197/197374.png"
+                alt="england"
+              />
+            </Button>
+          </Tooltip>
+        </Space>
+      </div>
     </div>
   );
 };
