@@ -11,6 +11,7 @@ import {
   Tabs,
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
+import _ from 'lodash';
 import moment from 'moment';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,6 +23,7 @@ import Product from '../../components/Product/Product';
 import { getAllProduct } from '../../store/product/productSlice';
 import { shoppingList } from '../../store/selectors';
 import { addShoppingItem } from '../../store/shoppingList/shoppingListSlice';
+import sumUp from '../../utils/sumUp';
 import './DetailProductPage.scss';
 
 const DetailProductPage = () => {
@@ -44,7 +46,11 @@ const DetailProductPage = () => {
   const [value, setValue] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('shoppingList', JSON.stringify(shoppingCart));
+    let copyShoppingCart = _.cloneDeep(shoppingCart);
+    localStorage.setItem(
+      'shoppingList',
+      JSON.stringify(sumUp(copyShoppingCart)),
+    );
   }, [shoppingCart]);
 
   useEffect(() => {
