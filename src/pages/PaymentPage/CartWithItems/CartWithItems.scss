@@ -147,6 +147,18 @@
   }
 }
 
+.cart__payments-options-description {
+  margin-top: 8px;
+  background: #000000de;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 3px;
+
+  & p {
+    margin-bottom: 0;
+  }
+}
+
 @media (max-width: 1000px) {
   .cart__content-divider {
     flex-direction: column;

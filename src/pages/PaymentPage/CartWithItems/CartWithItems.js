@@ -42,6 +42,11 @@ export default function CartWithItems(props) {
     onUpdateQuantityItem,
   } = props;
   const [width, setWidth] = useState(window.innerWidth);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [requirements, setRequirements] = useState('');
   const productList = useMemo(() => {
     let result = [];
     cartList.forEach((item, index) => {
@@ -164,14 +169,50 @@ export default function CartWithItems(props) {
                   <span className="cart__payments-options-words">
                     Cash directly at store
                   </span>
+                  {payment === 1 ? (
+                    <div className="cart__payments-options-description">
+                      <p>
+                        - Customers who buy goods at the shop, please pay
+                        directly to the store:
+                      </p>
+                      <p>
+                        Address: Cai Khe Ward, Ninh Kieu District, Can Tho City
+                      </p>
+                      <p>
+                        - As soon as you complete the payment, the staff will
+                        send you the purchase invoice.
+                      </p>
+                    </div>
+                  ) : null}
                 </Radio>
                 <Radio value={2}>
                   <span className="cart__payments-options-words">
                     Cash on delivery
                   </span>
+                  {payment === 2 ? (
+                    <div className="cart__payments-options-description">
+                      <p>
+                        - You pay the delivery staff for the whole or the rest
+                        of the value of the purchased order (if you have paid a
+                        deposit)
+                      </p>
+                      <p>
+                        - This form of payment is only available for collection
+                        orders.
+                      </p>
+                    </div>
+                  ) : null}
                 </Radio>
                 <Radio value={3}>
                   <span className="cart__payments-options-words">Banking</span>
+                  {payment === 3 ? (
+                    <div className="cart__payments-options-description">
+                      <p>
+                        - After placing the order successfully, please contact
+                        the hotline: 0833495422
+                      </p>
+                    </div>
+                  ) : null}
                 </Radio>
               </Radio.Group>
             </Space>
@@ -189,7 +230,6 @@ export default function CartWithItems(props) {
                 <Col span={12}>
                   <Form.Item
                     name={['user', 'name']}
-                    //   label="Name"
                     rules={[
                       {
                         required: true,
@@ -197,13 +237,16 @@ export default function CartWithItems(props) {
                       },
                     ]}
                   >
-                    <Input placeholder="Enter your name..." />
+                    <Input
+                      value={name}
+                      onInput={(e) => setName(e.target.value)}
+                      placeholder="Enter your name..."
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item
                     name="phone"
-                    //   label="Phone Number"
                     rules={[
                       {
                         required: true,
@@ -212,6 +255,8 @@ export default function CartWithItems(props) {
                     ]}
                   >
                     <Input
+                      value={phone}
+                      onInput={(e) => setPhone(e.target.value)}
                       placeholder="Enter your phone number..."
                       type="tel"
                     />
@@ -222,7 +267,6 @@ export default function CartWithItems(props) {
               <>
                 <Form.Item
                   name={['user', 'name']}
-                  //   label="Name"
                   rules={[
                     {
                       required: true,
@@ -230,11 +274,14 @@ export default function CartWithItems(props) {
                     },
                   ]}
                 >
-                  <Input placeholder="Enter your name..." />
+                  <Input
+                    value={name}
+                    onInput={(e) => setName(e.target.value)}
+                    placeholder="Enter your name..."
+                  />
                 </Form.Item>
                 <Form.Item
                   name="phone"
-                  //   label="Phone Number"
                   rules={[
                     {
                       required: true,
@@ -242,25 +289,33 @@ export default function CartWithItems(props) {
                     },
                   ]}
                 >
-                  <Input placeholder="Enter your phone number..." type="tel" />
+                  <Input
+                    value={phone}
+                    onInput={(e) => setPhone(e.target.value)}
+                    placeholder="Enter your phone number..."
+                    type="tel"
+                  />
                 </Form.Item>
               </>
             )}
 
             <Form.Item
               name={['user', 'email']}
-              //   label="Email"
               rules={[
                 {
                   type: 'email',
                 },
               ]}
             >
-              <Input type="email" placeholder="Enter your email..." />
+              <Input
+                value={email}
+                onInput={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Enter your email..."
+              />
             </Form.Item>
             <Form.Item
               name={['user', 'address']}
-              //   label="Address"
               rules={[
                 {
                   required: true,
@@ -268,13 +323,19 @@ export default function CartWithItems(props) {
                 },
               ]}
             >
-              <Input placeholder="Enter your address..." />
+              <Input
+                value={address}
+                onInput={(e) => setAddress(e.target.value)}
+                placeholder="Enter your address..."
+              />
             </Form.Item>
             <Form.Item name={['user', 'website']}>
               <TextArea
                 rows={4}
                 placeholder="Other requirements... (optional)"
                 maxLength={6}
+                value={requirements}
+                onInput={(e) => setRequirements(e.target.value)}
               />
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
