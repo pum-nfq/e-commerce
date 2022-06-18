@@ -34,7 +34,13 @@ const validateMessages = {
 };
 
 export default function CartWithItems(props) {
-  const { cartList, onChangePayment, payment, onDeleteItem } = props;
+  const {
+    cartList,
+    onChangePayment,
+    payment,
+    onDeleteItem,
+    onUpdateQuantityItem,
+  } = props;
   const [width, setWidth] = useState(window.innerWidth);
   const productList = useMemo(() => {
     let result = [];
@@ -96,6 +102,7 @@ export default function CartWithItems(props) {
           min={1}
           max={record.inStock}
           defaultValue={record.quantity}
+          onChange={(e) => onUpdateQuantityItem(record.key, e)}
         />
       ),
     },

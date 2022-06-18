@@ -6,7 +6,10 @@ import { useSelector } from 'react-redux/es/exports';
 import { Link } from 'react-router-dom';
 
 import { shoppingList } from '../../store/selectors';
-import { deleteShoppingItem } from '../../store/shoppingList/shoppingListSlice';
+import {
+  deleteShoppingItem,
+  updateShoppingItem,
+} from '../../store/shoppingList/shoppingListSlice';
 import CartWithItems from './CartWithItems/CartWithItems';
 import EmptyCart from './EmptyCart/EmptyCart';
 import './PaymentPage.scss';
@@ -21,6 +24,11 @@ export default function PaymentPage() {
 
   const handleDeleteItem = (index) => {
     dispatch(deleteShoppingItem(index));
+  };
+
+  const handleUpdateQuantityItem = (index, value) => {
+    // console.log(index, value);
+    dispatch(updateShoppingItem({ index, value }));
   };
 
   useEffect(() => {
@@ -51,6 +59,7 @@ export default function PaymentPage() {
                   cartList={cartList}
                   onChangePayment={handleChangePayment}
                   onDeleteItem={handleDeleteItem}
+                  onUpdateQuantityItem={handleUpdateQuantityItem}
                 />
               )}
             </div>

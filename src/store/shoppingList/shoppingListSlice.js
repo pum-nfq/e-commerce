@@ -12,9 +12,12 @@ const shoppingListSlice = createSlice({
     deleteShoppingItem: (state, action) => {
       state.list.splice(action.payload, 1);
     },
+    updateShoppingItem: (state, action) => {
+      state.list[action.payload.index].total = action.payload.value;
+    },
   },
 });
 
-export const { addShoppingItem, deleteShoppingItem } =
+export const { addShoppingItem, deleteShoppingItem, updateShoppingItem } =
   shoppingListSlice.actions;
 export default shoppingListSlice.reducer;
