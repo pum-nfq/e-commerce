@@ -54,9 +54,13 @@ const DetailProductPage = () => {
   }, [shoppingCart]);
 
   useEffect(() => {
-    setTimeout(() => {
+    let timerid = setTimeout(() => {
       setNotiStatus(false);
-    }, 3000);
+    }, 2500);
+
+    return () => {
+      clearTimeout(timerid);
+    };
   }, [notiStatus]);
 
   useEffect(() => {
