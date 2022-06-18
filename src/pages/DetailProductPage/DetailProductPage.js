@@ -45,6 +45,7 @@ const DetailProductPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
   const [radioValue, setRadioValue] = useState();
+  console.log(radioValue);
   useEffect(() => {
     let copyShoppingCart = _.cloneDeep(shoppingCart);
     localStorage.setItem(
@@ -252,7 +253,7 @@ const DetailProductPage = () => {
                     buttonStyle="solid"
                     defaultValue={radioValue}
                     value={radioValue}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => setRadioValue(e.target.value)}
                   >
                     <div className="detail-product__content__order__size-wrapper">
                       {product.sizes.map((s, index) => (
