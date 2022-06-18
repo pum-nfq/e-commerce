@@ -35,7 +35,7 @@ const DetailProductPage = () => {
   const products = useSelector((state) => state.product.list);
 
   const [product, setProduct] = useState({});
-  const [productSelectedSize, setPrductSelectedSize] = useState();
+  const [productSelectedSize, setProductSelectedSize] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [total, setTotal] = useState(1);
   const [numberShowRelatedProduct, setNumberShowRelatedProduct] = useState(5);
@@ -44,7 +44,7 @@ const DetailProductPage = () => {
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
-
+  const [radioValue, setRadioValue] = useState();
   useEffect(() => {
     let copyShoppingCart = _.cloneDeep(shoppingCart);
     localStorage.setItem(
@@ -102,7 +102,8 @@ const DetailProductPage = () => {
       );
       setRelatedProducts(temp);
       setProduct(foundProductById[0]);
-      setPrductSelectedSize(foundProductById[0].sizes[0]);
+      setProductSelectedSize(foundProductById[0].sizes[0]);
+      setRadioValue(foundProductById[0].sizes[0].size);
     }
   }, [id, products]);
 
@@ -247,14 +248,19 @@ const DetailProductPage = () => {
                   //   },
                   // ]}
                 >
-                  <Radio.Group buttonStyle="solid" defaultValue={0}>
+                  <Radio.Group
+                    buttonStyle="solid"
+                    defaultValue={radioValue}
+                    value={radioValue}
+                    onChange={(e) => setValue(e.target.value)}
+                  >
                     <div className="detail-product__content__order__size-wrapper">
                       {product.sizes.map((s, index) => (
                         <Radio.Button
                           value={s.size}
                           key={index}
                           onClick={() => {
-                            setPrductSelectedSize(s);
+                            setProductSelectedSize(s);
                           }}
                         >
                           {s.size}
