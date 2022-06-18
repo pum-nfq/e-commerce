@@ -12,6 +12,7 @@ export default function SearchBox(props) {
     hideSearch,
     onSearch,
     onChangeInput,
+    onClickItem,
   } = props;
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function SearchBox(props) {
             <CloseOutlined />
           </div>
         </div>
-        <SearchList searchProducts={searchProducts} />
+        <SearchList onClickItem={onClickItem} searchProducts={searchProducts} />
       </div>
     </>
   );

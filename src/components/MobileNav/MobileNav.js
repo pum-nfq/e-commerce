@@ -1,6 +1,7 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import './MobileNav.scss';
 
@@ -15,8 +16,8 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-  getItem('HOME', '1'),
-  getItem('COLLECTION', '2'),
+  getItem(<Link to="/">HOME</Link>, '1'),
+  getItem(<Link to="/product">COLLECTION</Link>, '2'),
   getItem('BRANDS', 'sub1', null, [
     getItem('NIKE', '3'),
     getItem('AIR JORDAN', '4'),
@@ -34,7 +35,7 @@ const items = [
   getItem('RELEASES', '13'),
   getItem('BLOG', '14'),
   getItem('LOCATIONS', '15'),
-  getItem('YOUR CART', '16'),
+  getItem(<Link to="/cart">YOUR CART</Link>, '16'),
 ];
 
 const rootSubmenuKeys = ['sub1', 'sub2'];
@@ -52,6 +53,18 @@ export default function MobileNav(props) {
     } else {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
+  };
+
+  const handleOnClick = () => {
+    window.scrollTo(0, 0);
+    const mobileNavWrapper = document.querySelector('.mobileNav__wrapper');
+    const mobileNav = document.querySelector('.mobileNav');
+    setTimeout(() => {
+      mobileNavWrapper.classList.remove('mobileNav__wrapper--display');
+      mobileNavWrapper.classList.remove('mobileNav__wrapper--transition');
+    }, 200);
+    mobileNav.classList.remove('mobileNav--display');
+    hideMobileNav();
   };
 
   useEffect(() => {
@@ -90,6 +103,7 @@ export default function MobileNav(props) {
               width: 256,
             }}
             items={items}
+            onClick={handleOnClick}
           />
         </div>
       </div>

@@ -42,6 +42,10 @@ export default function Navbar() {
     setMobileNavStatus(false);
   };
 
+  const onClickItem = () => {
+    setSearchStatus(false);
+  };
+
   useEffect(() => {
     dispatch(getAllProduct(productsList));
   }, []);
@@ -156,6 +160,7 @@ export default function Navbar() {
             </span>
             {width <= 1000 ? (
               <Search
+                onClickItem={onClickItem}
                 searchProducts={!searchInput ? [] : searchProducts}
                 searchInput={searchInput}
                 searchStatus={searchStatus}
@@ -165,6 +170,7 @@ export default function Navbar() {
               />
             ) : (
               <SearchBox
+                onClickItem={onClickItem}
                 searchProducts={!searchInput ? [] : searchProducts}
                 searchInput={searchInput}
                 searchStatus={searchStatus}
