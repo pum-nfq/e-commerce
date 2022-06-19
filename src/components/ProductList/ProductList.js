@@ -5,7 +5,7 @@ import React from 'react';
 import Product from '../Product/Product';
 import './ProductList.scss';
 
-export default function ProductList({ title, data, sorter }) {
+export default function ProductList({ title, cover, data, sorter }) {
   const content = (
     <div>
       <Button onClick={sorter} type="text">
@@ -26,12 +26,19 @@ export default function ProductList({ title, data, sorter }) {
   return (
     <div className="product-list">
       <div className="product-list__header">
-        <h2 className="product-list__title">{title}</h2>
-        <Popover content={content} trigger="click" placement="bottomLeft">
-          <Button type="text">
-            <strong>SORT</strong>
-          </Button>
-        </Popover>
+        {cover && (
+          <div className="product-list__cover">
+            <img src={cover} style={{ width: '100%' }} />
+          </div>
+        )}
+        <div className="product-list__content">
+          <h2 className="product-list__title">{title}</h2>
+          <Popover content={content} trigger="click" placement="bottomLeft">
+            <Button type="text">
+              <strong>SORT</strong>
+            </Button>
+          </Popover>
+        </div>
       </div>
       <List
         className="product-list__list-antd"
