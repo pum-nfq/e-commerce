@@ -12,6 +12,8 @@ import {
 } from '../../store/product/productSlice';
 import './ProductPage.scss';
 
+const FILTERS_BRAND = ['NIKE', 'AIR JORDAN', 'PUMA', 'ADIDAS', 'REEBOK', 'MLB'];
+
 const ProductPage = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.product.list);
@@ -135,7 +137,11 @@ const ProductPage = () => {
           </div>
           <div className="product-page-container__products-list-view-container">
             <ProductList
-              title="collection"
+              title={
+                filters.length === 1 && FILTERS_BRAND.includes(filters[0])
+                  ? filters[0]
+                  : 'collection'
+              }
               sorter={handleSort}
               data={displayData}
             />
