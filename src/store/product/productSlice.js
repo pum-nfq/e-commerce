@@ -83,7 +83,7 @@ export const productSlice = createSlice({
 
           if (
             (payload.includes('UNDER $100') ||
-              payload.includes('DƯỚI 2.323.000 ₫')) &&
+              payload.includes('DƯỚI 2.323.000 ₫')) &&
             !filterPriceCheck
           ) {
             filterPriceCheck = currentListItem.sizes.some(

@@ -72,7 +72,6 @@ const ProductPage = () => {
   };
 
   const handleSort = (e) => {
-    console.log(e.target.innerText);
     switch (e.target.innerText) {
       // handle sort by price
       case 'Sort by Price':
