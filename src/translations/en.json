@@ -1,0 +1,68 @@
+{
+  "cta": {
+    "sort": "SORT",
+    "sort_price": "Sort by Price",
+    "sort_name": "Sort by Name",
+    "sort_brand": "Sort by Brand",
+    "default": "Default",
+    "quick_add": "Quick Add",
+    "buy_now": "BUY NOW",
+    "add_comment": "Add Comment"
+  },
+  "field": {
+    "search_nav": {
+      "placeholder": "Search our store..."
+    }
+  },
+  "error": {
+    "not_choose_size": "Please choose your size!"
+  },
+  "price_product": "{{val, currency(currency: USD)}}",
+  "price_product_null": "Contact",
+  "filter": {
+    "brand": "Brand",
+    "price": "Price",
+    "size": "Size"
+  },
+  "home": {
+    "new_releases": "NEW RELEASES",
+    "feature_blog": "FEATURE BLOGS"
+  },
+  "product_list": {
+    "collection": "COLLECTION"
+  },
+  "navbar": {
+    "home": "Home",
+    "collection": "Collection",
+    "brands": "Brands",
+    "categories": "Categories",
+    "sale": "Sale",
+    "releases": "Releases",
+    "blog": "Blog",
+    "locations": "Locations"
+  },
+  "footer": {
+    "contact_info": "Contact info",
+    "address": "Address: Cai Khe Ward, Ninh Kieu District, Can Tho City",
+    "hotline": "Hotline",
+    "email": "Email: dangkhoa.duong@nfq.asia",
+    "work_time": "Work time",
+    "customer_support": "Customer support",
+    "sign_email": "Sign up to receive the latest information to receive the earliest promotions."
+  },
+  "detail_product": {
+    "description": "Description",
+    "shipping": "Shipping",
+    "comments": "Comments",
+    "description_content": "The {{name}} fuses court and street style to give you a slam dunk sneaker. The mixed material upper features transparent mesh panels for breathability, while the collapsible heel brings feminine flair to Nike b-ball.",
+    "detail": "Product details",
+    "package_dimensions": "Package Dimensions",
+    "date_first_available": "Date First Available",
+    "manufacturer": "Manufacturer",
+    "item_model_number": "Item model number",
+    "weight": "Weight",
+    "no_support": "No support",
+    "related_items": "Related Items",
+    "products_in_stock": "{{quantity}} products in stock"
+  }
+}

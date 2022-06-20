@@ -4,6 +4,7 @@ import {
   ShoppingCartOutlined,
 } from '@ant-design/icons';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/exports';
 import { Link } from 'react-router-dom';
@@ -31,6 +32,7 @@ export default function Navbar() {
   const [width, setWidth] = useState(window.innerWidth);
   const [searchInput, setSearchInput] = useState('');
   const timerId = useRef(0);
+  const { t } = useTranslation();
 
   const handleSearch = () => {};
 
@@ -48,6 +50,7 @@ export default function Navbar() {
 
   useEffect(() => {
     dispatch(getAllProduct(productsList));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -73,6 +76,7 @@ export default function Navbar() {
       // Dispatch Action Search
       dispatch(searchChange(searchInput));
     }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput]);
 
   return (
@@ -92,11 +96,11 @@ export default function Navbar() {
             hideMobileNav={handleHideMobileNav}
           />
           <ul className="header__menu">
-            <NavbarItem href="/" title="home" />
-            <NavbarItem href="/product" title="collection" />
+            <NavbarItem href="/" title={t('navbar.home')} />
+            <NavbarItem href="/product" title={t('navbar.collection')} />
             <NavbarItem
               href="#"
-              title="brands"
+              title={t('navbar.brands')}
               haveSubnav={true}
               subnavFeature={[
                 { href: '#', title: 'nike' },
@@ -109,7 +113,7 @@ export default function Navbar() {
             />
             <NavbarItem
               href="#"
-              title="categories"
+              title={t('navbar.categories')}
               haveSubnav={true}
               subnavFeature={[
                 { href: '#', title: 'sneakers' },
@@ -117,7 +121,7 @@ export default function Navbar() {
                 { href: '#', title: 'accessories' },
               ]}
             />
-            <NavbarItem href="#" title="sale" />
+            <NavbarItem href="#" title={t('navbar.sale')} />
           </ul>
         </div>
         <div className="header__logo">
@@ -132,19 +136,19 @@ export default function Navbar() {
         <div className="header__right-menu">
           <ul className="header__menu">
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
-                releases
-              </a>
+              <Link to="#" className="header__item-link">
+                {t('navbar.releases')}
+              </Link>
             </li>
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
-                blog
-              </a>
+              <Link to="#" className="header__item-link">
+                {t('navbar.blog')}
+              </Link>
             </li>
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
-                locations
-              </a>
+              <Link to="#" className="header__item-link">
+                {t('navbar.locations')}
+              </Link>
             </li>
           </ul>
           <div className="header__search--wrapper">
