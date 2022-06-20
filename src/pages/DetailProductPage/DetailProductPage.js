@@ -58,7 +58,6 @@ const DetailProductPage = () => {
 
   useLayoutEffect(() => {
     function updateSize() {
-      console.log(window.innerWidth);
       if (window.innerWidth <= 300) {
         setNumberShowRelatedProduct(1);
       } else if (window.innerWidth <= 400) {
@@ -120,7 +119,6 @@ const DetailProductPage = () => {
       alert("Please choose item's size!");
       return;
     }
-    // console.log(productSelectedSize);
     dispatch(updateShoppingList(productSelectedSize));
   };
 

@@ -31,10 +31,6 @@ const ProductPage = () => {
     displayData = productList;
   }
 
-  // console.log('productList', productList);
-  // console.log('productListFilter', productListFilter);
-  // console.log('productListSorter', productListSorter);
-
   useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,15 +63,11 @@ const ProductPage = () => {
     }, 500);
   };
 
-  // console.log(productList);
-  // console.log(productListFilter);
-
   const handleSort = (e) => {
     switch (e.target.innerText) {
       // handle sort by price
       case 'Sort by Price':
         if (isSortRevert) {
-          // console.log(displayData)
           displayData = displayData.slice().sort((a, b) => {
             return a.sizes[0].price < b.sizes[0].price
               ? 1
@@ -129,8 +121,6 @@ const ProductPage = () => {
         dispatch(setListSorter([]));
     }
   };
-
-  // console.log(displayData);
 
   return (
     <>
