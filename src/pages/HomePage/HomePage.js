@@ -90,10 +90,15 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllProduct());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="home-page-wrapper">
+      <p className="home-title">
+        For a better fit, we've updated our apparel sizing. To find your right
+        size, make sure to check out our <Link to="#">size guides</Link>.
+      </p>
       <div className="video-intro">
         <video src={videoIntro} autoPlay muted loop />
       </div>
@@ -103,6 +108,7 @@ const HomePage = () => {
             <img
               src="http://snkrsg.com/thumbs/982x525x1/upload/photo/aaa-1907-4515.jpg"
               style={{ width: '100%' }}
+              alt="product"
             />
           </Link>
         </div>
@@ -111,6 +117,7 @@ const HomePage = () => {
             <img
               src="http://snkrsg.com/thumbs/489x525x1/upload/photo/2-5051.jpg"
               style={{ width: '100%' }}
+              alt="product"
             />
           </Link>
         </div>
@@ -119,6 +126,7 @@ const HomePage = () => {
             <img
               src="http://saigonsneakerstore.com/thumbs/489x264x1/upload/photo/originals-ss21-stansmith-drop2-educate-pdp-statement-1-sustainability-v1-dtcm337-643333-7297.jpg"
               style={{ width: '100%' }}
+              alt="product"
             />
           </Link>
         </div>
@@ -127,6 +135,7 @@ const HomePage = () => {
             <img
               src="	http://snkrsg.com/thumbs/489x264x1/upload/photo/6-8012.jpg"
               style={{ width: '100%' }}
+              alt="product"
             />
           </Link>
         </div>
@@ -135,6 +144,7 @@ const HomePage = () => {
             <img
               src="http://snkrsg.com/thumbs/489x264x1/upload/photo/20181112-puma-rs-x-toys-28-1-3522.jpg"
               style={{ width: '100%' }}
+              alt="product"
             />
           </Link>
         </div>
@@ -159,6 +169,7 @@ const HomePage = () => {
                   className="card-img"
                   src="http://snkrsg.com/upload/photo/z2259779602634-fc871114564d062b895219aa7677d4d5-9972.jpg"
                   style={{ width: '100%' }}
+                  alt="product"
                 />
               </div>
             </Link>
@@ -173,6 +184,7 @@ const HomePage = () => {
                   className="card-img"
                   src="http://snkrsg.com/upload/photo/16489607239744776792407364727650043825883683n-4517.jpg"
                   style={{ width: '100%' }}
+                  alt="product"
                 />
               </div>
             </Link>
@@ -184,6 +196,7 @@ const HomePage = () => {
                   className="card-img"
                   src="http://snkrsg.com/upload/photo/21757840740365900064101845820753293603063256n-5097.jpg"
                   style={{ width: '100%' }}
+                  alt="product"
                 />
               </div>
             </Link>
@@ -198,6 +211,7 @@ const HomePage = () => {
                   className="card-img"
                   src="http://snkrsg.com/upload/photo/z2259779602634-fc871114564d062b895219aa7677d4d5-1421.jpg"
                   style={{ width: '100%' }}
+                  alt="product"
                 />
               </div>
             </Link>
@@ -256,7 +270,7 @@ function FeatureCard({ image, title }) {
     <Link to="product">
       <div className="feature-blog-card">
         <div>
-          <img style={{ width: '100%' }} src={image} />
+          <img style={{ width: '100%' }} src={image} alt="product" />
         </div>
 
         <div className="feature-blog-card__content">
