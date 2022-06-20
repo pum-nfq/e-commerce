@@ -10,6 +10,7 @@ import {
   Space,
   Tabs,
 } from 'antd';
+import { useForm } from 'antd/lib/form/Form';
 import TextArea from 'antd/lib/input/TextArea';
 import _ from 'lodash';
 import moment from 'moment';
@@ -33,6 +34,8 @@ const DetailProductPage = () => {
   const dispatch = useDispatch();
   const shoppingCart = useSelector(shoppingList);
   const { TabPane } = Tabs;
+  const [formSelectSize] = useForm();
+  const { t } = useTranslation();
 
   const products = useSelector((state) => state.product.list);
   const [product, setProduct] = useState({});
@@ -46,6 +49,7 @@ const DetailProductPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
   const [radioValue, setRadioValue] = useState();
+
   useEffect(() => {
     let copyShoppingCart = _.cloneDeep(shoppingCart);
     localStorage.setItem(
@@ -53,7 +57,6 @@ const DetailProductPage = () => {
       JSON.stringify(sumUp(copyShoppingCart)),
     );
   }, [shoppingCart]);
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (notiStatus) {
@@ -125,6 +128,16 @@ const DetailProductPage = () => {
     getProductDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, products, i18n.language]);
+
+  useEffect(() => {
+    if (productSelectedSize)
+      formSelectSize.setFieldsValue({
+        sizeOrder: productSelectedSize.size,
+        numberOrder: productSelectedSize.quantity,
+      });
+    console.log(productSelectedSize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productSelectedSize]);
 
   const clickSize = (product) => {
     if (i18n.language === 'vi') {
@@ -235,8 +248,9 @@ const DetailProductPage = () => {
                 {product.name.toUpperCase()}
               </h1>
               <h2 className="detail-product__content__price">
-                {productSelectedSize &&
-                  t('price_product', { val: productSelectedSize.price })}{' '}
+                {productSelectedSize.price !== null
+                  ? t('price_product', { val: productSelectedSize.price })
+                  : t('price_product_null')}{' '}
                 <i
                   style={{
                     color: '#999',
@@ -254,6 +268,7 @@ const DetailProductPage = () => {
               </h2>
             </Space>
             <Form
+              form={formSelectSize}
               className="detail-product__content__order"
               name="order"
               autoComplete="off"
