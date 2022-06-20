@@ -83,7 +83,7 @@ export default function CartWithItems(props) {
       render: (_, record) => {
         return (
           <div className="cart__img-wrapper">
-            <img src={record.image} />
+            <img src={record.image} alt="product" />
             <span
               onClick={() => onDeleteItem(record.key)}
               className="cart__img-delete-btn"
@@ -141,6 +141,7 @@ export default function CartWithItems(props) {
           summary={(pageData) => {
             let total = 0;
             pageData.forEach(({ amount }) => {
+              // eslint-disable-next-line no-useless-escape
               total += Number(amount.replace(/[^0-9\.]+/g, ''));
             });
             return (

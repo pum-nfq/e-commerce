@@ -92,6 +92,7 @@ export default function PaymentPage() {
         setErrorStatus(false);
       }, 2000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successStatus]);
 
   return (

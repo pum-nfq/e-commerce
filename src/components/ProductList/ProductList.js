@@ -30,7 +30,7 @@ export default function ProductList({ title, cover, data, sorter }) {
       <div className="product-list__header">
         {cover && (
           <div className="product-list__cover">
-            <img src={cover} style={{ width: '100%' }} />
+            <img src={cover} style={{ width: '100%' }} alt="product" />
           </div>
         )}
         <div className="product-list__content">
