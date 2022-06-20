@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Button,
   Comment,
@@ -10,8 +11,9 @@ import {
   Tabs,
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
+import _ from 'lodash';
 import moment from 'moment';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -22,7 +24,8 @@ import Product from '../../components/Product/Product';
 import i18n from '../../i18n';
 import { getAllProduct } from '../../store/product/productSlice';
 import { shoppingList } from '../../store/selectors';
-import { updateShoppingList } from '../../store/shoppingList/shoppingListSlice';
+import { addShoppingItem } from '../../store/shoppingList/shoppingListSlice';
+import sumUp from '../../utils/sumUp';
 import './DetailProductPage.scss';
 
 const DetailProductPage = () => {
@@ -32,32 +35,47 @@ const DetailProductPage = () => {
   const { TabPane } = Tabs;
 
   const products = useSelector((state) => state.product.list);
-
   const [product, setProduct] = useState({});
-  const [productSelectedSize, setPrductSelectedSize] = useState();
+  const [productSelectedSize, setProductSelectedSize] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [total, setTotal] = useState(1);
   const [numberShowRelatedProduct, setNumberShowRelatedProduct] = useState(5);
-
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const [notiStatus, setNotiStatus] = useState(false);
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
+  const [radioValue, setRadioValue] = useState();
+  useEffect(() => {
+    let copyShoppingCart = _.cloneDeep(shoppingCart);
+    localStorage.setItem(
+      'shoppingList',
+      JSON.stringify(sumUp(copyShoppingCart)),
+    );
+  }, [shoppingCart]);
   const { t } = useTranslation();
 
   useEffect(() => {
-    localStorage.setItem('shoppingList', JSON.stringify(shoppingCart));
-  }, [shoppingCart]);
+    if (notiStatus) {
+      const notification = document.querySelector('.notification__wrapper');
+      notification.classList.add('notification__wrapper--display');
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        notification.classList.remove('notification__wrapper--display');
+        setNotiStatus(false);
+      }, 2500);
+    }
+  }, [notiStatus]);
 
   useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
     window.scrollTo(0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useLayoutEffect(() => {
     function updateSize() {
-      console.log(window.innerWidth);
       if (window.innerWidth <= 300) {
         setNumberShowRelatedProduct(1);
       } else if (window.innerWidth <= 400) {
@@ -89,37 +107,47 @@ const DetailProductPage = () => {
       );
       setRelatedProducts(temp);
       setProduct(foundProductById[0]);
+      setProductSelectedSize(foundProductById[0].sizes[0]);
+      setRadioValue(foundProductById[0].sizes[0].size);
 
       if (i18n.language === 'vi') {
-        setPrductSelectedSize({
+        setProductSelectedSize({
           ...foundProductById[0].sizes[0],
           price: foundProductById[0].sizes[0].price * 23237,
         });
       } else {
-        setPrductSelectedSize(foundProductById[0].sizes[0]);
+        setProductSelectedSize(foundProductById[0].sizes[0]);
       }
     }
   };
 
   useEffect(() => {
     getProductDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, products, i18n.language]);
 
   const clickSize = (product) => {
     if (i18n.language === 'vi') {
-      setPrductSelectedSize({ ...product, price: product.price * 23237 });
+      setProductSelectedSize({ ...product, price: product.price * 23237 });
     } else {
-      setPrductSelectedSize(product);
+      setProductSelectedSize(product);
     }
   };
 
-  const handleUpdateShoppingList = () => {
-    if (!productSelectedSize) {
-      alert("Please choose item's size!");
-      return;
-    }
-    // console.log(productSelectedSize);
-    dispatch(updateShoppingList(productSelectedSize));
+  const handleAddShoppingItem = () => {
+    // if (!productSelectedSize) {
+    //   alert('Please choose your size');
+    //   return;
+    // }
+    const infoSelectedItem = {
+      ...product,
+      sizes: product.sizes.filter((size) => size === productSelectedSize)[0],
+      total,
+    };
+
+    dispatch(addShoppingItem(infoSelectedItem));
+    window.scrollTo(0, 0);
+    setNotiStatus(true);
   };
 
   const handleSubmit = () => {
@@ -147,6 +175,14 @@ const DetailProductPage = () => {
   )
     return (
       <div className="detail-product-page-wrapper">
+        <div className="notification__wrapper">
+          <Alert
+            message={`${product.name} size ${productSelectedSize.size} has been added to your cart`}
+            type="success"
+            closable
+            showIcon
+          />
+        </div>
         <div className="detail-product">
           <div className="detail-product__carousel">
             <Swiper
@@ -233,12 +269,20 @@ const DetailProductPage = () => {
                     },
                   ]}
                 >
-                  <Radio.Group buttonStyle="solid">
+                  <Radio.Group
+                    buttonStyle="solid"
+                    defaultValue={radioValue}
+                    value={radioValue}
+                    onChange={(e) => setRadioValue(e.target.value)}
+                  >
                     <div className="detail-product__content__order__size-wrapper">
                       {product.sizes.map((product, index) => (
                         <Radio.Button
                           value={product.size}
                           key={index}
+                          onClick={() => {
+                            setProductSelectedSize(product);
+                          }}
                           onChange={() => clickSize(product)}
                         >
                           {product.size}
@@ -251,6 +295,10 @@ const DetailProductPage = () => {
               <div className="order-wrapper">
                 <Form.Item name="numberOrder">
                   <InputNumber
+                    value={total}
+                    onChange={(value) => {
+                      setTotal(value);
+                    }}
                     min={1}
                     max={productSelectedSize && productSelectedSize.quantity}
                     bordered={false}
@@ -261,7 +309,7 @@ const DetailProductPage = () => {
                 </Form.Item>
 
                 <Button
-                  onClick={handleUpdateShoppingList}
+                  onClick={handleAddShoppingItem}
                   className="detail-product__content__order__buy-now"
                   type="primary"
                   size="large"

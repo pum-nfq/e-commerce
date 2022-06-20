@@ -11,7 +11,11 @@ import { Link } from 'react-router-dom';
 
 import { getAllProduct } from '../../store/product/productSlice';
 import { searchChange } from '../../store/searchFilter/searchFilterSlice';
-import { productList, remainingProductList } from '../../store/selectors';
+import {
+  productList,
+  remainingProductList,
+  shoppingList,
+} from '../../store/selectors';
 import MobileNav from '../MobileNav';
 import './Navbar.scss';
 import NavbarItem from './NavbarItem';
@@ -20,6 +24,7 @@ import SearchBox from './SearchBox';
 
 export default function Navbar() {
   const dispatch = useDispatch();
+  const shoppingCart = useSelector(shoppingList);
   const searchProducts = useSelector(remainingProductList);
   const productsList = useSelector(productList);
   const [searchStatus, setSearchStatus] = useState(false);
@@ -39,8 +44,13 @@ export default function Navbar() {
     setMobileNavStatus(false);
   };
 
+  const onClickItem = () => {
+    setSearchStatus(false);
+  };
+
   useEffect(() => {
     dispatch(getAllProduct(productsList));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -66,6 +76,7 @@ export default function Navbar() {
       // Dispatch Action Search
       dispatch(searchChange(searchInput));
     }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput]);
 
   return (
@@ -125,19 +136,19 @@ export default function Navbar() {
         <div className="header__right-menu">
           <ul className="header__menu">
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
+              <Link to="#" className="header__item-link">
                 {t('navbar.releases')}
-              </a>
+              </Link>
             </li>
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
+              <Link to="#" className="header__item-link">
                 {t('navbar.blog')}
-              </a>
+              </Link>
             </li>
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
+              <Link to="#" className="header__item-link">
                 {t('navbar.locations')}
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="header__search--wrapper">
@@ -153,6 +164,7 @@ export default function Navbar() {
             </span>
             {width <= 1000 ? (
               <Search
+                onClickItem={onClickItem}
                 searchProducts={!searchInput ? [] : searchProducts}
                 searchInput={searchInput}
                 searchStatus={searchStatus}
@@ -162,6 +174,7 @@ export default function Navbar() {
               />
             ) : (
               <SearchBox
+                onClickItem={onClickItem}
                 searchProducts={!searchInput ? [] : searchProducts}
                 searchInput={searchInput}
                 searchStatus={searchStatus}
@@ -173,6 +186,7 @@ export default function Navbar() {
           </div>
           <Link to="cart" className="header__cart">
             <ShoppingCartOutlined />
+            <span className="cart__total">{shoppingCart.length || 0}</span>
           </Link>
         </div>
       </div>

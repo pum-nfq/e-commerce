@@ -4,6 +4,13 @@
   .ant-layout {
     background: #fff;
 
+    > .ant-layout-content.site-layout {
+      > .ant-breadcrumb {
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+      }
+    }
+
     main {
       margin-top: 0 !important;
       padding: 0 !important;
@@ -45,25 +52,23 @@
   }
 }
 
-.cart__content-icon {
-  font-size: 5rem;
+.cart__success-msg,
+.cart__error-msg {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  transition: all 0.3s ease-out;
 }
 
-.cart__content-description {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 16px;
+.cart__success-msg--display,
+.cart__error-msg--display {
+  transform: translate(-50%, 110%);
+  opacity: 1;
 }
 
 @media (max-width: 468px) {
-  .cart__content-icon {
-    font-size: 3.5rem;
-  }
-
-  .cart__content-description {
-    font-size: 1rem;
-  }
-
   .cart__content > .ant-btn.ant-btn-default {
     padding: 12px;
     min-width: 112px;

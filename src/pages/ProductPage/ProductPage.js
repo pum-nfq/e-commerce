@@ -13,6 +13,16 @@ import {
 } from '../../store/product/productSlice';
 import './ProductPage.scss';
 
+const FILTER_BRANDS = ['NIKE', 'AIR JORDAN', 'PUMA', 'ADIDAS', 'REEBOK', 'MLB'];
+const PRODUCT_COVERS = {
+  NIKE: 'http://snkrsg.com/thumbs/1110x425x1/upload/product/1-7641.jpg',
+  'AIR JORDAN': 'http://snkrsg.com/thumbs/1110x425x1/upload/product/2-6253.jpg',
+  PUMA: '',
+  ADIDAS: 'http://snkrsg.com/thumbs/1110x425x1/upload/product/3-7511.jpg',
+  REEBOK: '',
+  MLB: '',
+};
+
 const ProductPage = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.product.list);
@@ -31,10 +41,6 @@ const ProductPage = () => {
     displayData = productList;
   }
 
-  // console.log('productList', productList);
-  // console.log('productListFilter', productListFilter);
-  // console.log('productListSorter', productListSorter);
-
   useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,6 +48,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     setFilters([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
 
   const handleFilter = (e) => {
@@ -66,15 +73,11 @@ const ProductPage = () => {
     }, 500);
   };
 
-  // console.log(productList);
-  // console.log(productListFilter);
-
   const handleSort = (e) => {
     switch (e.target.innerText) {
       // handle sort by price
       case 'Sort by Price':
         if (isSortRevert) {
-          // console.log(displayData)
           displayData = displayData.slice().sort((a, b) => {
             return a.sizes[0].price < b.sizes[0].price
               ? 1
@@ -129,8 +132,6 @@ const ProductPage = () => {
     }
   };
 
-  // console.log(displayData);
-
   return (
     <>
       <Spin spinning={loading}>
@@ -140,7 +141,20 @@ const ProductPage = () => {
           </div>
           <div className="product-page-container__products-list-view-container">
             <ProductList
-              title="collection"
+              title={
+                filters.length === 1 &&
+                FILTER_BRANDS.includes(filters[0]) !== -1
+                  ? filters[0]
+                  : 'collection'
+              }
+              cover={
+                PRODUCT_COVERS[
+                  filters.length === 1 &&
+                  FILTER_BRANDS.includes(filters[0]) !== -1
+                    ? filters[0]
+                    : 'collection'
+                ]
+              }
               sorter={handleSort}
               data={displayData}
             />

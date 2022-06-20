@@ -1,12 +1,11 @@
 import { Button, List, Popover } from 'antd';
-import 'antd/dist/antd.css';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Product from '../Product/Product';
 import './ProductList.scss';
 
-export default function ProductList({ title, data, sorter }) {
+export default function ProductList({ title, cover, data, sorter }) {
   const { t } = useTranslation();
 
   const content = (
@@ -29,14 +28,21 @@ export default function ProductList({ title, data, sorter }) {
   return (
     <div className="product-list">
       <div className="product-list__header">
-        <h2 className="product-list__title">
-          {t(`product_list.${title.toLowerCase()}`)}
-        </h2>
-        <Popover content={content} trigger="click" placement="bottomLeft">
-          <Button type="text">
-            <strong>{t('cta.sort')}</strong>
-          </Button>
-        </Popover>
+        {cover && (
+          <div className="product-list__cover">
+            <img src={cover} style={{ width: '100%' }} alt="product" />
+          </div>
+        )}
+        <div className="product-list__content">
+          <h2 className="product-list__title">
+            {t(`product_list.${title.toLowerCase()}`)}
+          </h2>
+          <Popover content={content} trigger="click" placement="bottomLeft">
+            <Button type="text">
+              <strong>{t('cta.sort')}</strong>
+            </Button>
+          </Popover>
+        </div>
       </div>
       <List
         className="product-list__list-antd"

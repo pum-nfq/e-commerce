@@ -61,16 +61,15 @@ export const productSlice = createSlice({
       state.listSearch = convertFuseToObj;
     },
     filterProduct: (state, { payload }) => {
-      console.log(payload);
       state.loading = true;
       if (payload.length !== 0) {
-        // console.log(payload);
         const filterBrands = current(state).list.filter((currentListItem) =>
           payload.includes(currentListItem.brand.toUpperCase()),
         );
 
         const filterSizes = current(state).list.filter((currentListItem) =>
           currentListItem.sizes.find((sizeItem) =>
+            // eslint-disable-next-line eqeqeq
             payload.find((itemPayload) => itemPayload == sizeItem.size),
           ),
         );
@@ -121,10 +120,6 @@ export const productSlice = createSlice({
           return filterPriceCheck;
         });
 
-        // console.log(filterBrands);
-        // console.log(filterSizes);
-        // console.log(filterPrices);
-
         state.listFilter = current(state).list.filter((currentListItem) => {
           if (
             filterBrands.length === 0 &&
@@ -159,12 +154,9 @@ export const productSlice = createSlice({
                   filterPriceItem.name === currentListItem.name,
               ) !== -1;
           }
-          // console.log(filterListCheck)
 
           return filterListCheck;
         });
-
-        // console.log(state.listFilter)
       }
     },
     setLoading: (state, { payload }) => {

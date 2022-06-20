@@ -1,6 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Image } from 'antd';
-import 'antd/dist/antd.css';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -18,6 +17,7 @@ export default function Product({ id, image, brand, name, price }) {
     } else {
       setCurrencyPrice(price);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
   return (
     <div className="product-card">

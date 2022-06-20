@@ -99,12 +99,12 @@ const Filter = (props) => {
   useEffect(() => {
     if (i18n.language === 'vi') setListFilter(initialListFilterVi);
     else setListFilter(initialListFilterEn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
 
   const onCollapse = (index) => {
     const temp = [...defaultPanelOpen];
     const isOpening = defaultPanelOpen.findIndex((item) => item === index);
-    // console.log(isOpening);
     if (isOpening >= 0) {
       temp.splice(isOpening, 1);
       setDefaultPanelOpen(temp);
@@ -113,7 +113,6 @@ const Filter = (props) => {
     }
   };
 
-  // console.log(defaultPanelOpen);
   const genExtra = (index, title) => (
     <div
       className="header-panel"
