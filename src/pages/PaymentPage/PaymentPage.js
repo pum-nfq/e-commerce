@@ -141,8 +141,8 @@ export default function PaymentPage() {
       </Layout>
       <div className="cart__success-msg">
         <Alert
-          message="Checkout success"
-          description="Your order has been recorded and delivered as soon as possible."
+          message={t('checkout.success_msg')}
+          description={t('checkout.success_desc')}
           type="success"
           showIcon
           closable
@@ -150,8 +150,8 @@ export default function PaymentPage() {
       </div>
       <div className="cart__error-msg">
         <Alert
-          message="Checkout fail"
-          description="Please check your detail information."
+          message={t('checkout.error_msg')}
+          description={t('checkout.error_desc')}
           type="error"
           showIcon
           closable

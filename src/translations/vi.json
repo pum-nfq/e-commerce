@@ -100,6 +100,10 @@
     "checkout": "THANH TOÁN",
     "input_name_requirement": "Vui lòng nhập tên!",
     "input_phone_requirement": "Vui lòng nhập số điện thoại!",
-    "input_address_requirement": "Vui lòng nhập địa chỉ!"
+    "input_address_requirement": "Vui lòng nhập địa chỉ!",
+    "success_msg": "Thanh toán thành công",
+    "success_desc": "Đơn hàng của bạn đã được ghi lại và giao sớm nhất có thể.",
+    "error_msg": "Thanh toán thất bại",
+    "error_desc": "Vui lòng kiểm tra lại thông tin đã nhập."
   }
 }
