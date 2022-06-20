@@ -52,6 +52,22 @@
   }
 }
 
+.cart__success-msg,
+.cart__error-msg {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+.cart__success-msg--display,
+.cart__error-msg--display {
+  transform: translate(-50%, 110%);
+  opacity: 1;
+}
+
 @media (max-width: 468px) {
   .cart__content > .ant-btn.ant-btn-default {
     padding: 12px;

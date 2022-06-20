@@ -33,7 +33,6 @@ const DetailProductPage = () => {
   const { TabPane } = Tabs;
 
   const products = useSelector((state) => state.product.list);
-
   const [product, setProduct] = useState({});
   const [productSelectedSize, setProductSelectedSize] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -45,7 +44,6 @@ const DetailProductPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
   const [radioValue, setRadioValue] = useState();
-  console.log(radioValue);
   useEffect(() => {
     let copyShoppingCart = _.cloneDeep(shoppingCart);
     localStorage.setItem(
@@ -55,13 +53,15 @@ const DetailProductPage = () => {
   }, [shoppingCart]);
 
   useEffect(() => {
-    let timerid = setTimeout(() => {
-      setNotiStatus(false);
-    }, 2500);
-
-    return () => {
-      clearTimeout(timerid);
-    };
+    if (notiStatus) {
+      const notification = document.querySelector('.notification__wrapper');
+      notification.classList.add('notification__wrapper--display');
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        notification.classList.remove('notification__wrapper--display');
+        setNotiStatus(false);
+      }, 2500);
+    }
   }, [notiStatus]);
 
   useEffect(() => {
@@ -142,10 +142,6 @@ const DetailProductPage = () => {
     }, 600);
   };
 
-  const onClose = (e) => {
-    console.log(e, 'I was closed.');
-  };
-
   if (
     product &&
     Object.keys(product).length !== 0 &&
@@ -153,16 +149,14 @@ const DetailProductPage = () => {
   )
     return (
       <div className="detail-product-page-wrapper">
-        {notiStatus && (
-          <div className="notification__wrapper">
-            <Alert
-              message={`${product.name} size ${productSelectedSize.size} has been added to your cart`}
-              type="success"
-              closable
-              onClose={onClose}
-            />
-          </div>
-        )}
+        <div className="notification__wrapper">
+          <Alert
+            message={`${product.name} size ${productSelectedSize.size} has been added to your cart`}
+            type="success"
+            closable
+            showIcon
+          />
+        </div>
         <div className="detail-product">
           <div className="detail-product__carousel">
             <Swiper

@@ -15,9 +15,16 @@ const shoppingListSlice = createSlice({
     updateShoppingItem: (state, action) => {
       state.list[action.payload.index].total = action.payload.value;
     },
+    deleteAllItem: (state) => {
+      state.list = [];
+    },
   },
 });
 
-export const { addShoppingItem, deleteShoppingItem, updateShoppingItem } =
-  shoppingListSlice.actions;
+export const {
+  addShoppingItem,
+  deleteShoppingItem,
+  updateShoppingItem,
+  deleteAllItem,
+} = shoppingListSlice.actions;
 export default shoppingListSlice.reducer;

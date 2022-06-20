@@ -40,13 +40,20 @@ export default function CartWithItems(props) {
     payment,
     onDeleteItem,
     onUpdateQuantityItem,
+    name,
+    phone,
+    email,
+    address,
+    onChangeName,
+    onChangePhone,
+    onChangeEmail,
+    onChangeAddress,
+    onChangeRequirements,
+    requirements,
+    onSubmit,
   } = props;
   const [width, setWidth] = useState(window.innerWidth);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [requirements, setRequirements] = useState('');
+
   const productList = useMemo(() => {
     let result = [];
     cartList.forEach((item, index) => {
@@ -239,7 +246,7 @@ export default function CartWithItems(props) {
                   >
                     <Input
                       value={name}
-                      onInput={(e) => setName(e.target.value)}
+                      onInput={(e) => onChangeName(e.target.value)}
                       placeholder="Enter your name..."
                     />
                   </Form.Item>
@@ -256,7 +263,7 @@ export default function CartWithItems(props) {
                   >
                     <Input
                       value={phone}
-                      onInput={(e) => setPhone(e.target.value)}
+                      onInput={(e) => onChangePhone(e.target.value)}
                       placeholder="Enter your phone number..."
                       type="tel"
                     />
@@ -276,7 +283,7 @@ export default function CartWithItems(props) {
                 >
                   <Input
                     value={name}
-                    onInput={(e) => setName(e.target.value)}
+                    onInput={(e) => onChangeName(e.target.value)}
                     placeholder="Enter your name..."
                   />
                 </Form.Item>
@@ -291,7 +298,7 @@ export default function CartWithItems(props) {
                 >
                   <Input
                     value={phone}
-                    onInput={(e) => setPhone(e.target.value)}
+                    onInput={(e) => onChangePhone(e.target.value)}
                     placeholder="Enter your phone number..."
                     type="tel"
                   />
@@ -309,7 +316,7 @@ export default function CartWithItems(props) {
             >
               <Input
                 value={email}
-                onInput={(e) => setEmail(e.target.value)}
+                onInput={(e) => onChangeEmail(e.target.value)}
                 type="email"
                 placeholder="Enter your email..."
               />
@@ -325,7 +332,7 @@ export default function CartWithItems(props) {
             >
               <Input
                 value={address}
-                onInput={(e) => setAddress(e.target.value)}
+                onInput={(e) => onChangeAddress(e.target.value)}
                 placeholder="Enter your address..."
               />
             </Form.Item>
@@ -335,11 +342,11 @@ export default function CartWithItems(props) {
                 placeholder="Other requirements... (optional)"
                 maxLength={6}
                 value={requirements}
-                onInput={(e) => setRequirements(e.target.value)}
+                onInput={(e) => onChangeRequirements(e.target.value)}
               />
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" onClick={onSubmit}>
                 check out
               </Button>
             </Form.Item>
