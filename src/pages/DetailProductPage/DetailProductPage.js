@@ -133,7 +133,7 @@ const DetailProductPage = () => {
     if (productSelectedSize)
       formSelectSize.setFieldsValue({
         sizeOrder: productSelectedSize.size,
-        numberOrder: productSelectedSize.quantity,
+        numberOrder: 1,
       });
     console.log(productSelectedSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
