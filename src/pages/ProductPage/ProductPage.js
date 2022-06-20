@@ -33,7 +33,7 @@ const ProductPage = () => {
   let displayData = [];
   if (productListSorter.length !== 0) {
     displayData = productListSorter;
-  } else if (productListFilter.length !== 0 && filters.length !== 0) {
+  } else if (filters.length !== 0) {
     displayData = productListFilter;
   } else {
     displayData = productList;
@@ -52,12 +52,12 @@ const ProductPage = () => {
   const handleFilter = (e) => {
     if (e.target.checked) {
       setFilters((prev) => {
-        prev.push(e.target.value);
+        prev.push(e.target.value.toUpperCase());
         return prev;
       });
     } else {
       setFilters((prev) => {
-        const index = prev.indexOf(e.target.value);
+        const index = prev.indexOf(e.target.value.toUpperCase());
         if (index !== -1) {
           prev.splice(index, 1);
         }
