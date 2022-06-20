@@ -33,7 +33,7 @@ const ProductPage = () => {
   let displayData = [];
   if (productListSorter.length !== 0) {
     displayData = productListSorter;
-  } else if (productListFilter.length !== 0 && filters.length !== 0) {
+  } else if (filters.length !== 0) {
     displayData = productListFilter;
   } else {
     displayData = productList;
@@ -52,12 +52,12 @@ const ProductPage = () => {
   const handleFilter = (e) => {
     if (e.target.checked) {
       setFilters((prev) => {
-        prev.push(e.target.value);
+        prev.push(e.target.value.toUpperCase());
         return prev;
       });
     } else {
       setFilters((prev) => {
-        const index = prev.indexOf(e.target.value);
+        const index = prev.indexOf(e.target.value.toUpperCase());
         if (index !== -1) {
           prev.splice(index, 1);
         }
@@ -75,6 +75,7 @@ const ProductPage = () => {
     switch (e.target.innerText) {
       // handle sort by price
       case 'Sort by Price':
+      case 'Sắp xếp theo giá':
         if (isSortRevert) {
           displayData = displayData.slice().sort((a, b) => {
             return a.sizes[0].price < b.sizes[0].price
@@ -97,6 +98,7 @@ const ProductPage = () => {
         break;
       // handle sort by name
       case 'Sort by Name':
+      case 'Sắp xếp theo tên':
         if (isSortRevert) {
           displayData = displayData.slice().sort((a, b) => {
             return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
@@ -111,6 +113,7 @@ const ProductPage = () => {
         break;
       // handle sort by brand
       case 'Sort by Brand':
+      case 'Sắp xếp theo thương hiệu':
         if (isSortRevert) {
           displayData = displayData.slice().sort((a, b) => {
             return a.brand < b.brand ? 1 : a.brand > b.brand ? -1 : 0;
