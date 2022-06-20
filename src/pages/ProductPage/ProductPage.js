@@ -1,4 +1,3 @@
-import { Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -28,7 +27,6 @@ const ProductPage = () => {
   const productList = useSelector((state) => state.product.list);
   const productListFilter = useSelector((state) => state.product.listFilter);
   const productListSorter = useSelector((state) => state.product.listSorter);
-  const loading = useSelector((state) => state.product.loading);
   const [filters, setFilters] = useState([]);
   const [isSortRevert, setIsSortRevert] = useState(false);
 
@@ -134,33 +132,30 @@ const ProductPage = () => {
 
   return (
     <>
-      <Spin spinning={loading}>
-        <div className="product-page-container">
-          <div className="product-page-container__filter-container">
-            <Filter onCheck={handleFilter} />
-          </div>
-          <div className="product-page-container__products-list-view-container">
-            <ProductList
-              title={
+      <div className="product-page-container">
+        <div className="product-page-container__filter-container">
+          <Filter onCheck={handleFilter} />
+        </div>
+        <div className="product-page-container__products-list-view-container">
+          <ProductList
+            title={
+              filters.length === 1 && FILTER_BRANDS.includes(filters[0]) !== -1
+                ? filters[0]
+                : 'collection'
+            }
+            cover={
+              PRODUCT_COVERS[
                 filters.length === 1 &&
                 FILTER_BRANDS.includes(filters[0]) !== -1
                   ? filters[0]
                   : 'collection'
-              }
-              cover={
-                PRODUCT_COVERS[
-                  filters.length === 1 &&
-                  FILTER_BRANDS.includes(filters[0]) !== -1
-                    ? filters[0]
-                    : 'collection'
-                ]
-              }
-              sorter={handleSort}
-              data={displayData}
-            />
-          </div>
+              ]
+            }
+            sorter={handleSort}
+            data={displayData}
+          />
         </div>
-      </Spin>
+      </div>
     </>
   );
 };
