@@ -1,6 +1,7 @@
 .detail-product-page-wrapper {
   width: 100%;
   margin: 90px 0;
+  position: relative;
 }
 
 .detail-product {
@@ -159,6 +160,24 @@
     margin-bottom: 0px;
     text-align: center;
   }
+}
+
+.notification__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 0.3s;
+  .ant-alert.ant-alert-success.ant-alert-no-icon {
+    font-size: 1rem !important;
+  }
+}
+
+.notification__wrapper--display {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 @media only screen and (max-width: 768px) {

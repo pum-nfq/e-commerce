@@ -11,7 +11,11 @@ import { Link } from 'react-router-dom';
 
 import { getAllProduct } from '../../store/product/productSlice';
 import { searchChange } from '../../store/searchFilter/searchFilterSlice';
-import { productList, remainingProductList } from '../../store/selectors';
+import {
+  productList,
+  remainingProductList,
+  shoppingList,
+} from '../../store/selectors';
 import MobileNav from '../MobileNav';
 import './Navbar.scss';
 import NavbarItem from './NavbarItem';
@@ -20,6 +24,7 @@ import SearchBox from './SearchBox';
 
 export default function Navbar() {
   const dispatch = useDispatch();
+  const shoppingCart = useSelector(shoppingList);
   const searchProducts = useSelector(remainingProductList);
   const productsList = useSelector(productList);
   const [searchStatus, setSearchStatus] = useState(false);
@@ -37,6 +42,10 @@ export default function Navbar() {
 
   const handleHideMobileNav = () => {
     setMobileNavStatus(false);
+  };
+
+  const onClickItem = () => {
+    setSearchStatus(false);
   };
 
   useEffect(() => {
@@ -155,6 +164,7 @@ export default function Navbar() {
             </span>
             {width <= 1000 ? (
               <Search
+                onClickItem={onClickItem}
                 searchProducts={!searchInput ? [] : searchProducts}
                 searchInput={searchInput}
                 searchStatus={searchStatus}
@@ -164,6 +174,7 @@ export default function Navbar() {
               />
             ) : (
               <SearchBox
+                onClickItem={onClickItem}
                 searchProducts={!searchInput ? [] : searchProducts}
                 searchInput={searchInput}
                 searchStatus={searchStatus}
@@ -175,6 +186,7 @@ export default function Navbar() {
           </div>
           <Link to="cart" className="header__cart">
             <ShoppingCartOutlined />
+            <span className="cart__total">{shoppingCart.length || 0}</span>
           </Link>
         </div>
       </div>

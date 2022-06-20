@@ -13,6 +13,7 @@ const DetailProductPage = lazy(() =>
 );
 const PageNotFound = lazy(() => import('./pages/PageNotFound/PageNotFound'));
 const ProductPage = lazy(() => import('./pages/ProductPage/ProductPage'));
+const PaymentPage = lazy(() => import('./pages/PaymentPage/PaymentPage'));
 
 function App() {
   return (
@@ -38,9 +39,11 @@ function App() {
           >
             <Route index element={<HomePage />} />
             <Route path="product" element={<ProductPage />} />
+            <Route path="admin" element={<AdminPage />} />
             <Route path="detail/:id" element={<DetailProductPage />} />
+            <Route path="cart" element={<PaymentPage />} />
           </Route>
-          <Route path="admin" element={<AdminPage />} />
+
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
