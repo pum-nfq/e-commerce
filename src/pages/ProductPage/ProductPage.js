@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Filter from '../../components/Filter/Filter';
 import ProductList from '../../components/ProductList/ProductList';
+import i18n from '../../i18n';
 import {
   filterProduct,
   getAllProduct,
@@ -40,24 +41,25 @@ const ProductPage = () => {
     displayData = productList;
   }
 
-  // console.log('productList', productList);
-  // console.log('productListFilter', productListFilter);
-  // console.log('productListSorter', productListSorter);
-
   useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setFilters([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18n.language]);
+
   const handleFilter = (e) => {
     if (e.target.checked) {
       setFilters((prev) => {
-        prev.push(e.target.value.toUpperCase());
+        prev.push(e.target.value);
         return prev;
       });
     } else {
       setFilters((prev) => {
-        const index = prev.indexOf(e.target.value.toUpperCase());
+        const index = prev.indexOf(e.target.value);
         if (index !== -1) {
           prev.splice(index, 1);
         }
@@ -71,15 +73,11 @@ const ProductPage = () => {
     }, 500);
   };
 
-  // console.log(productList);
-  // console.log(productListFilter);
-
   const handleSort = (e) => {
     switch (e.target.innerText) {
       // handle sort by price
       case 'Sort by Price':
         if (isSortRevert) {
-          // console.log(displayData)
           displayData = displayData.slice().sort((a, b) => {
             return a.sizes[0].price < b.sizes[0].price
               ? 1
@@ -133,8 +131,6 @@ const ProductPage = () => {
         dispatch(setListSorter([]));
     }
   };
-
-  // console.log(displayData);
 
   return (
     <>

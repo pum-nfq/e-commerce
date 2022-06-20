@@ -1,0 +1,68 @@
+{
+  "cta": {
+    "sort": "Sắp xếp",
+    "sort_price": "Sắp xếp theo giá",
+    "sort_name": "Sắp xếp theo tên",
+    "sort_brand": "Sắp xếp theo thương hiệu",
+    "default": "Bình thường",
+    "quick_add": "Thêm ngay",
+    "buy_now": "MUA NGAY",
+    "add_comment": "Gửi bình luận"
+  },
+  "field": {
+    "search_nav": {
+      "placeholder": "Tìm sản phẩm..."
+    }
+  },
+  "error": {
+    "not_choose_size": "Hãy chọn size của bạn!"
+  },
+  "price_product": "{{val, currency(currency: VND)}}",
+  "price_product_null": "Liên hệ",
+  "navbar": {
+    "home": "Trang chủ",
+    "collection": "Bộ sưu tập",
+    "brands": "Thương hiệu",
+    "categories": "Loại",
+    "sale": "Khuyến mãi",
+    "releases": "Hàng mới",
+    "blog": "Blog",
+    "locations": "Vị trí shop"
+  },
+  "product_list": {
+    "collection": "BỘ SƯU TẬP"
+  },
+  "filter": {
+    "brand": "Thương hiệu",
+    "price": "Giá",
+    "size": "Size"
+  },
+  "home": {
+    "new_releases": "SẢN PHẨM MỚI",
+    "feature_blog": "BÀI VIẾT HÀNG ĐẦU"
+  },
+  "footer": {
+    "contact_info": "Thông tin liên lạc",
+    "address": "Địa chỉ: Phường Cái Khế, Quận Ninh Kiều, Thành phố Cần Thơ",
+    "hotline": "Số điện thoại",
+    "email": "Email: dangkhoa.duong@nfq.asia",
+    "work_time": "Thời gian làm việc",
+    "customer_support": "Hỗ trợ khách hàng",
+    "sign_email": "Đăng ký nhận thông tin mới nhất để nhận khuyến mãi sớm nhất."
+  },
+  "detail_product": {
+    "description": "Mô tả",
+    "shipping": "Giao hàng",
+    "comments": "Bình luận",
+    "description_content": "{{name}} kết hợp giữa phong cách thời trang và đường phố để mang đến cho bạn một đôi giày sneaker hầm hố. Phần trên bằng chất liệu hỗn hợp có các tấm lưới trong suốt giúp thoáng khí, trong khi phần gót có thể thu gọn lại mang đến nét nữ tính cho Nike b-ball.",
+    "detail": "Chi tiết sản phẩm",
+    "package_dimensions": "Kích thước gói hàng",
+    "date_first_available": "Ngày có sẵn đầu tiên",
+    "manufacturer": "Nhà chế tạo",
+    "item_model_number": "Số mô hình mặt hàng",
+    "weight": "Trọng lượng",
+    "no_support": "Không hỗ trợ",
+    "related_items": "Sản phẩm tương tự",
+    "products_in_stock": "Còn {{quantity}} sản phẩm trong kho"
+  }
+}

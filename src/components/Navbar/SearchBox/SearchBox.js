@@ -1,5 +1,6 @@
 import { ClearOutlined, CloseOutlined } from '@ant-design/icons';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import SearchList from '../SearchList/SearchList';
 import './SearchBox.scss';
@@ -12,7 +13,10 @@ export default function SearchBox(props) {
     hideSearch,
     onSearch,
     onChangeInput,
+    onClickItem,
   } = props;
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const searchBox = document.querySelector('.searchBox__wrapper');
@@ -33,7 +37,7 @@ export default function SearchBox(props) {
               onInput={(e) => onChangeInput(e.target.value)}
               type="text"
               className="searchBox__input"
-              placeholder="Search our store..."
+              placeholder={t('field.search_nav.placeholder')}
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
                   onSearch();
@@ -59,7 +63,7 @@ export default function SearchBox(props) {
             <CloseOutlined />
           </div>
         </div>
-        <SearchList searchProducts={searchProducts} />
+        <SearchList onClickItem={onClickItem} searchProducts={searchProducts} />
       </div>
     </>
   );

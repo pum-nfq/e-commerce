@@ -1,4 +1,7 @@
 .footer-content-wrapper {
+  & h4 {
+    text-transform: uppercase;
+  }
   &:nth-child(1) {
     grid-area: first;
   }
