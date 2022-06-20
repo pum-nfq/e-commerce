@@ -1,5 +1,4 @@
 import { Button, List, Popover } from 'antd';
-import 'antd/dist/antd.css';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
