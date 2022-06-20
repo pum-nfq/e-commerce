@@ -35,7 +35,8 @@ export default function ProductList({ title, cover, data, sorter }) {
         )}
         <div className="product-list__content">
           <h2 className="product-list__title">
-            {t(`product_list.${title.toLowerCase()}`)}
+            {t(`product_list.${title.toLowerCase()}`, '')}
+            {title !== 'collection' ? title : ''}
           </h2>
           <Popover content={content} trigger="click" placement="bottomLeft">
             <Button type="text">

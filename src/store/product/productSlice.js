@@ -67,19 +67,23 @@ export const productSlice = createSlice({
           payload.includes(currentListItem.brand.toUpperCase()),
         );
 
-        const filterSizes = current(state).list.filter((currentListItem) =>
-          currentListItem.sizes.find((sizeItem) =>
-            // eslint-disable-next-line eqeqeq
-            payload.find((itemPayload) => itemPayload == sizeItem.size),
-          ),
+        const filterSizes = current(state).list.filter(
+          (currentListItem) =>
+            currentListItem.sizes.findIndex(
+              (sizeItem) =>
+                // eslint-disable-next-line eqeqeq
+                payload.findIndex(
+                  (itemPayload) => itemPayload == sizeItem.size,
+                ) !== -1,
+            ) !== -1,
         );
 
         const filterPrices = current(state).list.filter((currentListItem) => {
           let filterPriceCheck = false;
 
           if (
-            (payload.includes('Under $100') ||
-              payload.includes('Dưới 2.323.000 ₫')) &&
+            (payload.includes('UNDER $100') ||
+              payload.includes('DƯỚI 2.323.000 ₫')) &&
             !filterPriceCheck
           ) {
             filterPriceCheck = currentListItem.sizes.some(
@@ -108,8 +112,8 @@ export const productSlice = createSlice({
           }
 
           if (
-            (payload.includes('Over $400') ||
-              payload.includes('Trên 9.292.000 ₫')) &&
+            (payload.includes('OVER $400') ||
+              payload.includes('TRÊN 9.292.000 ₫')) &&
             !filterPriceCheck
           ) {
             filterPriceCheck = currentListItem.sizes.some(

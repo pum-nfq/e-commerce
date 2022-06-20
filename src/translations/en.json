@@ -100,6 +100,10 @@
     "checkout": "CHECK OUT",
     "input_name_requirement": "Please input your name!",
     "input_phone_requirement": "Please input your phone number!",
-    "input_address_requirement": "Please input your address!"
+    "input_address_requirement": "Please input your address!",
+    "success_msg": "Checkout success",
+    "success_desc": "Your order has been recorded and delivered as soon as possible.",
+    "error_msg": "Checkout fail",
+    "error_desc": "Please check your detail information."
   }
 }
