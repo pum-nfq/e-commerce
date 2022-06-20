@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import './SearchList.scss';
 
 export default function SearchList(props) {
@@ -9,7 +11,7 @@ export default function SearchList(props) {
           {searchProducts.map((item, index) => {
             return (
               <li key={index} className="searchList__item">
-                <a href="#" className="searchList__item-link">
+                <Link to="#" className="searchList__item-link">
                   <img
                     src={item.image}
                     alt="sneakers img"
@@ -20,7 +22,7 @@ export default function SearchList(props) {
                     <p className="searchList__brand">{item.brand}</p>
                     <p className="searchList__price">{item.price}</p>
                   </div>
-                </a>
+                </Link>
               </li>
             );
           })}

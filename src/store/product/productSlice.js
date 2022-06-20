@@ -71,6 +71,7 @@ export const productSlice = createSlice({
 
         const filterSizes = current(state).list.filter((currentListItem) =>
           currentListItem.sizes.find((sizeItem) =>
+            // eslint-disable-next-line eqeqeq
             payload.find((itemPayload) => itemPayload == sizeItem.size),
           ),
         );

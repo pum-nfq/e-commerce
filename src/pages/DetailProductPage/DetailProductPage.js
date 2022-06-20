@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -53,6 +53,7 @@ const DetailProductPage = () => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
     window.scrollTo(0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useLayoutEffect(() => {
@@ -103,6 +104,7 @@ const DetailProductPage = () => {
 
   useEffect(() => {
     getProductDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, products, i18n.language]);
 
   const clickSize = (product) => {

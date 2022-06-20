@@ -99,6 +99,7 @@ const Filter = (props) => {
   useEffect(() => {
     if (i18n.language === 'vi') setListFilter(initialListFilterVi);
     else setListFilter(initialListFilterEn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
 
   const onCollapse = (index) => {

@@ -41,6 +41,7 @@ export default function Navbar() {
 
   useEffect(() => {
     dispatch(getAllProduct(productsList));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -66,6 +67,7 @@ export default function Navbar() {
       // Dispatch Action Search
       dispatch(searchChange(searchInput));
     }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput]);
 
   return (
@@ -125,19 +127,19 @@ export default function Navbar() {
         <div className="header__right-menu">
           <ul className="header__menu">
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
+              <Link to="#" className="header__item-link">
                 {t('navbar.releases')}
-              </a>
+              </Link>
             </li>
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
+              <Link to="#" className="header__item-link">
                 {t('navbar.blog')}
-              </a>
+              </Link>
             </li>
             <li className="header__menu-item">
-              <a href="#" className="header__item-link">
+              <Link to="#" className="header__item-link">
                 {t('navbar.locations')}
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="header__search--wrapper">

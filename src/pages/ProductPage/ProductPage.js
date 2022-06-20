@@ -42,6 +42,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     setFilters([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
 
   const handleFilter = (e) => {

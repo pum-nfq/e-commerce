@@ -18,6 +18,7 @@ export default function Product({ id, image, brand, name, price }) {
     } else {
       setCurrencyPrice(price);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
   return (
     <div className="product-card">
