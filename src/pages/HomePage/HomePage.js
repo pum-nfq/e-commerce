@@ -1,3 +1,4 @@
+import { CloseOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -98,14 +99,24 @@ const HomePage = () => {
   return (
     <div className="home-page-wrapper">
       <p className="home-title">
-        For a better fit, we've updated our apparel sizing. To find your right
-        size, make sure to check out our <Link to="#">size guides</Link>.
+        {t('home.announcement')}
+        <Link to="#"> {t('home.announcement_link')}</Link>.
+        <CloseOutlined
+          className="home-title-close"
+          onClick={() => {
+            document.getElementsByClassName('home-title')[0].style.display =
+              'none';
+          }}
+        />
       </p>
       <div className="video-intro">
         <video src={videoIntro} autoPlay muted loop />
       </div>
       <div className="slide-show">
-        <div className="new-arrival panel shadow-box" text-bf="NEW ARRIVAL">
+        <div
+          className="new-arrival panel shadow-box"
+          text-bf={t('home.new_arrival')}
+        >
           <Link to="product">
             <img
               src="http://snkrsg.com/thumbs/982x525x1/upload/photo/aaa-1907-4515.jpg"
@@ -114,7 +125,10 @@ const HomePage = () => {
             />
           </Link>
         </div>
-        <div className="best-seller panel shadow-box" text-bf="BEST-SELLER">
+        <div
+          className="best-seller panel shadow-box"
+          text-bf={t('home.best_seller')}
+        >
           <Link to="product">
             <img
               src="http://snkrsg.com/thumbs/489x525x1/upload/photo/2-5051.jpg"

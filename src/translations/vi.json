@@ -38,6 +38,10 @@
     "size": "Size"
   },
   "home": {
+    "announcement": "Để tìm được size giày phù hợp. Vui lòng xem",
+    "announcement_link": "hướng dẫn chọn size của chúng tôi",
+    "new_arrival": "SẢN PHẨM MỚI VỀ",
+    "best_seller": "SẢN PHẨM BÁN CHẠY",
     "new_releases": "SẢN PHẨM MỚI",
     "feature_blog": "BÀI VIẾT HÀNG ĐẦU"
   },
