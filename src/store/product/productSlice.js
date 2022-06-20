@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import { message } from 'antd';
-import { productAPI } from '../../api/productAPI';
 import Fuse from 'fuse.js';
+
+import { productAPI } from '../../api/productAPI';
 
 export const getAllProduct = createAsyncThunk(
   'product/get-all-product',
   async () => {
     const response = await productAPI.getAll();
     return response.data;
-  }
+  },
 );
 
 export const createProduct = createAsyncThunk(
@@ -17,7 +18,7 @@ export const createProduct = createAsyncThunk(
     const response = await productAPI.create(newProduct);
     thunkAPI.dispatch(getAllProduct());
     return response.data;
-  }
+  },
 );
 
 export const updateProduct = createAsyncThunk(
@@ -26,7 +27,7 @@ export const updateProduct = createAsyncThunk(
     const response = await productAPI.update(productToUpdate);
     thunkAPI.dispatch(getAllProduct());
     return response.data;
-  }
+  },
 );
 
 export const deleteProduct = createAsyncThunk(
@@ -35,7 +36,7 @@ export const deleteProduct = createAsyncThunk(
     const response = await productAPI.delete(idProductToDelete);
     thunkAPI.dispatch(getAllProduct());
     return response.data;
-  }
+  },
 );
 
 const initialState = {
@@ -62,46 +63,62 @@ export const productSlice = createSlice({
     filterProduct: (state, { payload }) => {
       state.loading = true;
       if (payload.length !== 0) {
-        // console.log(payload);
         const filterBrands = current(state).list.filter((currentListItem) =>
-          payload.includes(currentListItem.brand.toUpperCase())
+          payload.includes(currentListItem.brand.toUpperCase()),
         );
 
         const filterSizes = current(state).list.filter((currentListItem) =>
           currentListItem.sizes.find((sizeItem) =>
-            payload.find((itemPayload) => itemPayload == sizeItem.size)
-          )
+            // eslint-disable-next-line eqeqeq
+            payload.find((itemPayload) => itemPayload == sizeItem.size),
+          ),
         );
 
         const filterPrices = current(state).list.filter((currentListItem) => {
           let filterPriceCheck = false;
 
-          if (payload.includes('DƯỚI 2.000.000') && !filterPriceCheck) {
-            filterPriceCheck = currentListItem.price < 2000000;
+          if (
+            (payload.includes('Under $100') ||
+              payload.includes('Dưới 2.323.000 ₫')) &&
+            !filterPriceCheck
+          ) {
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price < 100,
+            );
           }
 
-          if (payload.includes('2.000.000 - 3.000.000') && !filterPriceCheck) {
-            filterPriceCheck =
-              currentListItem.price >= 2000000 &&
-              currentListItem.price <= 3000000;
+          if (
+            (payload.includes('$100 - $300') ||
+              payload.includes('2.323.000 ₫ - 6.969.000 ₫')) &&
+            !filterPriceCheck
+          ) {
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price >= 100 && itemSize.price <= 300,
+            );
           }
 
-          if (payload.includes('3.000.000 - 4.000.000') && !filterPriceCheck) {
-            filterPriceCheck =
-              currentListItem.price >= 3000000 &&
-              currentListItem.price <= 4000000;
+          if (
+            (payload.includes('$300 - $400') ||
+              payload.includes('6.969.000 ₫ - 9.292.000 ₫')) &&
+            !filterPriceCheck
+          ) {
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price >= 300 && itemSize.price <= 400,
+            );
           }
 
-          if (payload.includes('TRÊN 4.000.000') && !filterPriceCheck) {
-            filterPriceCheck = currentListItem.price > 4000000;
+          if (
+            (payload.includes('Over $400') ||
+              payload.includes('Trên 9.292.000 ₫')) &&
+            !filterPriceCheck
+          ) {
+            filterPriceCheck = currentListItem.sizes.some(
+              (itemSize) => itemSize.price > 400,
+            );
           }
 
           return filterPriceCheck;
         });
-
-        // console.log(filterBrands);
-        // console.log(filterSizes);
-        // console.log(filterPrices);
 
         state.listFilter = current(state).list.filter((currentListItem) => {
           if (
@@ -118,14 +135,15 @@ export const productSlice = createSlice({
             filterListCheck =
               filterBrands.findIndex(
                 (filterBrandItem) =>
-                  filterBrandItem.name === currentListItem.name
+                  filterBrandItem.name === currentListItem.name,
               ) !== -1;
           }
 
           if (filterSizes.length !== 0 && filterListCheck) {
             filterListCheck =
               filterSizes.findIndex(
-                (filterSizeItem) => filterSizeItem.name === currentListItem.name
+                (filterSizeItem) =>
+                  filterSizeItem.name === currentListItem.name,
               ) !== -1;
           }
 
@@ -133,15 +151,12 @@ export const productSlice = createSlice({
             filterListCheck =
               filterPrices.findIndex(
                 (filterPriceItem) =>
-                  filterPriceItem.name === currentListItem.name
+                  filterPriceItem.name === currentListItem.name,
               ) !== -1;
           }
-          // console.log(filterListCheck)
 
           return filterListCheck;
         });
-
-        // console.log(state.listFilter)
       }
     },
     setLoading: (state, { payload }) => {
@@ -194,15 +209,28 @@ export const productSlice = createSlice({
               quantity,
               size,
               id,
-            }
+            },
           ) => {
             if (!r[name])
-              r[name] = { key: id, brand, image, detailImage, name, sizes: [] };
-            r[name].sizes.push({ quantity, size, id, createdAt, price });
+              r[name] = {
+                key: id,
+                brand,
+                image,
+                detailImage,
+                name,
+                sizes: [],
+              };
+            r[name].sizes.push({
+              quantity,
+              size,
+              id,
+              createdAt,
+              price,
+            });
             return r;
           },
-          {}
-        )
+          {},
+        ),
       );
 
       state.list = result;
@@ -221,7 +249,7 @@ export const productSlice = createSlice({
     builder.addCase(updateProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
       const indexOfProduct = state.list.findIndex(
-        (product) => product.id === payload.id
+        (product) => product.id === payload.id,
       );
       state.list.splice(indexOfProduct, 1, payload);
       message.success({
@@ -243,7 +271,7 @@ export const productSlice = createSlice({
     builder.addCase(deleteProduct.fulfilled, (state, { payload }) => {
       state.loading = false;
       const indexOfProduct = state.list.findIndex(
-        (product) => product.id === payload.id
+        (product) => product.id === payload.id,
       );
       state.list.splice(indexOfProduct, 1);
       message.success({

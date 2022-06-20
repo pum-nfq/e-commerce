@@ -1,0 +1,19 @@
+.cart__content-icon {
+  font-size: 5rem;
+}
+
+.cart__content-description {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 468px) {
+  .cart__content-icon {
+    font-size: 3.5rem;
+  }
+
+  .cart__content-description {
+    font-size: 1rem;
+  }
+}

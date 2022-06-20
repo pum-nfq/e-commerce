@@ -1,7 +1,9 @@
-import { ClearOutlined, CloseOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
-import SearchList from "../SearchList/SearchList";
-import "./SearchBox.scss";
+import { ClearOutlined, CloseOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import SearchList from '../SearchList/SearchList';
+import './SearchBox.scss';
 
 export default function SearchBox(props) {
   const {
@@ -11,14 +13,17 @@ export default function SearchBox(props) {
     hideSearch,
     onSearch,
     onChangeInput,
+    onClickItem,
   } = props;
 
+  const { t } = useTranslation();
+
   useEffect(() => {
-    const searchBox = document.querySelector(".searchBox__wrapper");
+    const searchBox = document.querySelector('.searchBox__wrapper');
     if (searchStatus) {
-      searchBox.classList.add("searchBox__wrapper--display");
+      searchBox.classList.add('searchBox__wrapper--display');
     } else {
-      searchBox.classList.remove("searchBox__wrapper--display");
+      searchBox.classList.remove('searchBox__wrapper--display');
     }
   }, [searchStatus]);
 
@@ -32,9 +37,9 @@ export default function SearchBox(props) {
               onInput={(e) => onChangeInput(e.target.value)}
               type="text"
               className="searchBox__input"
-              placeholder="Search our store..."
+              placeholder={t('field.search_nav.placeholder')}
               onKeyPress={(e) => {
-                if (e.key === "Enter") {
+                if (e.key === 'Enter') {
                   onSearch();
                 }
               }}
@@ -42,7 +47,7 @@ export default function SearchBox(props) {
             <div
               className="searchBox__clear-btn"
               onClick={() => {
-                onChangeInput("");
+                onChangeInput('');
               }}
             >
               <ClearOutlined />
@@ -52,13 +57,13 @@ export default function SearchBox(props) {
             className="searchBox__close-btn"
             onClick={() => {
               hideSearch();
-              onChangeInput("");
+              onChangeInput('');
             }}
           >
             <CloseOutlined />
           </div>
         </div>
-        <SearchList searchProducts={searchProducts} />
+        <SearchList onClickItem={onClickItem} searchProducts={searchProducts} />
       </div>
     </>
   );

@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import './DetailProductPage.scss';
-
 import {
+  Alert,
   Avatar,
   Button,
   Comment,
@@ -12,55 +10,145 @@ import {
   Space,
   Tabs,
 } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import _ from 'lodash';
+import moment from 'moment';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllProduct } from '../../store/product/productSlice';
+
 import Product from '../../components/Product/Product';
-import moment from 'moment';
-import TextArea from 'antd/lib/input/TextArea';
+import i18n from '../../i18n';
+import { getAllProduct } from '../../store/product/productSlice';
+import { shoppingList } from '../../store/selectors';
+import { addShoppingItem } from '../../store/shoppingList/shoppingListSlice';
+import sumUp from '../../utils/sumUp';
+import './DetailProductPage.scss';
 
 const DetailProductPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const shoppingCart = useSelector(shoppingList);
   const { TabPane } = Tabs;
 
   const products = useSelector((state) => state.product.list);
-
   const [product, setProduct] = useState({});
-  const [productSelectedSize, setPrductSelectedSize] = useState();
+  const [productSelectedSize, setProductSelectedSize] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
-
+  const [total, setTotal] = useState(1);
+  const [numberShowRelatedProduct, setNumberShowRelatedProduct] = useState(5);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const [notiStatus, setNotiStatus] = useState(false);
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
+  const [radioValue, setRadioValue] = useState();
+  useEffect(() => {
+    let copyShoppingCart = _.cloneDeep(shoppingCart);
+    localStorage.setItem(
+      'shoppingList',
+      JSON.stringify(sumUp(copyShoppingCart)),
+    );
+  }, [shoppingCart]);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    if (notiStatus) {
+      const notification = document.querySelector('.notification__wrapper');
+      notification.classList.add('notification__wrapper--display');
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        notification.classList.remove('notification__wrapper--display');
+        setNotiStatus(false);
+      }, 2500);
+    }
+  }, [notiStatus]);
 
   useEffect(() => {
     dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    window.scrollTo(0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    function updateSize() {
+      if (window.innerWidth <= 300) {
+        setNumberShowRelatedProduct(1);
+      } else if (window.innerWidth <= 400) {
+        setNumberShowRelatedProduct(2);
+      } else if (window.innerWidth <= 500) {
+        setNumberShowRelatedProduct(3);
+      } else if (window.innerWidth <= 768) {
+        setNumberShowRelatedProduct(4);
+      } else {
+        setNumberShowRelatedProduct(5);
+      }
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  const getProductDetail = () => {
     const foundProductById = [];
     products.map((item) =>
       item.sizes.forEach((item2) => {
         if (item2.id === id) foundProductById.push(item);
-      })
+      }),
     );
 
     if (foundProductById.length > 0) {
       const temp = products.filter(
-        (item) => item.brand === foundProductById[0].brand
+        (item) => item.brand === foundProductById[0].brand,
       );
       setRelatedProducts(temp);
       setProduct(foundProductById[0]);
-      setPrductSelectedSize(foundProductById[0].sizes[0]);
+      setProductSelectedSize(foundProductById[0].sizes[0]);
+      setRadioValue(foundProductById[0].sizes[0].size);
+
+      if (i18n.language === 'vi') {
+        setProductSelectedSize({
+          ...foundProductById[0].sizes[0],
+          price: foundProductById[0].sizes[0].price * 23237,
+        });
+      } else {
+        setProductSelectedSize(foundProductById[0].sizes[0]);
+      }
     }
-  }, [id, products]);
+  };
+
+  useEffect(() => {
+    getProductDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, products, i18n.language]);
+
+  const clickSize = (product) => {
+    if (i18n.language === 'vi') {
+      setProductSelectedSize({ ...product, price: product.price * 23237 });
+    } else {
+      setProductSelectedSize(product);
+    }
+  };
+
+  const handleAddShoppingItem = () => {
+    // if (!productSelectedSize) {
+    //   alert('Please choose your size');
+    //   return;
+    // }
+    const infoSelectedItem = {
+      ...product,
+      sizes: product.sizes.filter((size) => size === productSelectedSize)[0],
+      total,
+    };
+
+    dispatch(addShoppingItem(infoSelectedItem));
+    window.scrollTo(0, 0);
+    setNotiStatus(true);
+  };
 
   const handleSubmit = () => {
     if (!value) return;
@@ -87,6 +175,14 @@ const DetailProductPage = () => {
   )
     return (
       <div className="detail-product-page-wrapper">
+        <div className="notification__wrapper">
+          <Alert
+            message={`${product.name} size ${productSelectedSize.size} has been added to your cart`}
+            type="success"
+            closable
+            showIcon
+          />
+        </div>
         <div className="detail-product">
           <div className="detail-product__carousel">
             <Swiper
@@ -140,15 +236,20 @@ const DetailProductPage = () => {
               </h1>
               <h2 className="detail-product__content__price">
                 {productSelectedSize &&
-                  productSelectedSize.price.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  })}{' '}
+                  t('price_product', { val: productSelectedSize.price })}{' '}
                 <i
-                  style={{ color: '#999', fontSize: '16px', fontWeight: '200' }}
+                  style={{
+                    color: '#999',
+                    fontSize: '16px',
+                    fontWeight: '200',
+                  }}
                 >
                   {productSelectedSize &&
-                    '( ' + productSelectedSize.quantity + ' products in stock)'}
+                    '(' +
+                      t('detail_product.products_in_stock', {
+                        quantity: productSelectedSize.quantity,
+                      }) +
+                      ')'}
                 </i>
               </h2>
             </Space>
@@ -157,26 +258,34 @@ const DetailProductPage = () => {
               name="order"
               autoComplete="off"
             >
-              <Space direction="vertical" style={{ width: '60%' }}>
+              <Space direction="vertical">
                 <p>SIZE: </p>
                 <Form.Item
                   name="sizeOrder"
                   rules={[
-                    { required: true, message: 'Please choose your size!' },
+                    {
+                      required: true,
+                      message: t('error.not_choose_size'),
+                    },
                   ]}
                 >
                   <Radio.Group
                     buttonStyle="solid"
-                    defaultValue={product.sizes[0].size}
+                    defaultValue={radioValue}
+                    value={radioValue}
+                    onChange={(e) => setRadioValue(e.target.value)}
                   >
                     <div className="detail-product__content__order__size-wrapper">
-                      {product.sizes.map((s, index) => (
+                      {product.sizes.map((product, index) => (
                         <Radio.Button
-                          value={s.size}
+                          value={product.size}
                           key={index}
-                          onChange={() => setPrductSelectedSize(s)}
+                          onClick={() => {
+                            setProductSelectedSize(product);
+                          }}
+                          onChange={() => clickSize(product)}
                         >
-                          {s.size}
+                          {product.size}
                         </Radio.Button>
                       ))}
                     </div>
@@ -186,6 +295,10 @@ const DetailProductPage = () => {
               <div className="order-wrapper">
                 <Form.Item name="numberOrder">
                   <InputNumber
+                    value={total}
+                    onChange={(value) => {
+                      setTotal(value);
+                    }}
                     min={1}
                     max={productSelectedSize && productSelectedSize.quantity}
                     bordered={false}
@@ -196,47 +309,47 @@ const DetailProductPage = () => {
                 </Form.Item>
 
                 <Button
+                  onClick={handleAddShoppingItem}
                   className="detail-product__content__order__buy-now"
                   type="primary"
                   size="large"
                   htmlType="submit"
                   block
                 >
-                  BUY NOW
+                  {t('cta.buy_now')}
                 </Button>
               </div>
             </Form>
             <Tabs defaultActiveKey="1">
-              <TabPane tab="Description" key="1">
+              <TabPane tab={t('detail_product.description')} key="1">
                 <p style={{ marginBottom: '1rem' }}>
-                  The <i>{product.name}</i> fuses court and street style to give
-                  you a slam dunk sneaker. The mixed material upper features
-                  transparent mesh panels for breathability, while the
-                  collapsible heel brings feminine flair to Nike b-ball.
+                  {t('detail_product.description_content', {
+                    name: product.name,
+                  })}
                 </p>
-                <b style={{ fontSize: '1.25rem' }}>Product details</b>
+                <b style={{ fontSize: '1.25rem' }}>
+                  {t('detail_product.detail')}
+                </b>
                 <p>
-                  <b>Package Dimensions:</b> 33.71 x 20.9 x 11.4 cm
+                  <b>{t('detail_product.package_dimensions')}:</b> 33.71 x 20.9
+                  x 11.4 cm
                   <br />
-                  <b>Date First Available:</b> 17 December 2021
+                  <b>{t('detail_product.date_first_available')}:</b> 17 December
+                  2021
                   <br />
-                  <b>Manufacturer:</b> Nike
+                  <b>{t('detail_product.manufacturer')}:</b> Nike
                   <br />
                   <b>ASIN:</b> B09NMMX1NK
                   <br />
-                  <b>Item model number:</b> DJ0292-103
+                  <b>{t('detail_product.item_model_number')}:</b> DJ0292-103
                   <br />
-                  <b>Department:</b> Womens
-                  <br />
-                  <b>Manufacturer:</b> Nike Item
-                  <br />
-                  <b>Weight:</b> 948 g
+                  <b>{t('detail_product.weight')}:</b> 948 g
                 </p>
               </TabPane>
-              <TabPane tab="Shipping" key="2">
-                <p>No support</p>
+              <TabPane tab={t('detail_product.shipping')} key="2">
+                <p>{t('detail_product.no_support')}</p>
               </TabPane>
-              <TabPane tab="Comments" key="3">
+              <TabPane tab={t('detail_product.comments')} key="3">
                 {comments.length > 0 && (
                   <List
                     dataSource={comments}
@@ -270,7 +383,7 @@ const DetailProductPage = () => {
                           onClick={handleSubmit}
                           type="primary"
                         >
-                          Add Comment
+                          {t('cta.add_comment')}
                         </Button>
                       </Form.Item>
                     </>
@@ -282,19 +395,18 @@ const DetailProductPage = () => {
         </div>
         <div className="related-item">
           <h2 className="related-item__title">Related Items</h2>
-          <Swiper slidesPerView={5} spaceBetween={30} className="ralated-item">
+          <Swiper
+            slidesPerView={numberShowRelatedProduct}
+            spaceBetween={30}
+            className="ralated-item"
+          >
             {relatedProducts &&
               relatedProducts.map((item, index) => (
                 <SwiperSlide key={index}>
                   <Product
                     {...item}
-                    price={
-                      item.sizes[0].price !== null &&
-                      item.sizes[0].price.toLocaleString('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                      })
-                    }
+                    price={item.sizes[0].price}
+                    id={item.key}
                   />
                 </SwiperSlide>
               ))}

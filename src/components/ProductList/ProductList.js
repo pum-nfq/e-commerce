@@ -1,27 +1,48 @@
+import { Button, List, Popover } from 'antd';
 import React from 'react';
-import 'antd/dist/antd.css';
+import { useTranslation } from 'react-i18next';
+
 import Product from '../Product/Product';
-import { List, Popover, Button } from 'antd';
 import './ProductList.scss';
 
-export default function ProductList({ title, data, sorter }) {
+export default function ProductList({ title, cover, data, sorter }) {
+  const { t } = useTranslation();
 
   const content = (
     <div>
-      <Button onClick={sorter} type='text'><strong>Sort by Price</strong></Button>
-      <Button onClick={sorter} type='text'><strong>Sort by Name</strong></Button>
-      <Button onClick={sorter} type='text'><strong>Sort by Brand</strong></Button>
-      <Button onClick={sorter} type='text'><strong>Default</strong></Button>
+      <Button onClick={sorter} type="text">
+        <strong>{t('cta.sort_price')}</strong>
+      </Button>
+      <Button onClick={sorter} type="text">
+        <strong>{t('cta.sort_name')}</strong>
+      </Button>
+      <Button onClick={sorter} type="text">
+        <strong>{t('cta.sort_brand')}</strong>
+      </Button>
+      <Button onClick={sorter} type="text">
+        <strong>{t('cta.default')}</strong>
+      </Button>
     </div>
-  )
+  );
 
   return (
     <div className="product-list">
-      <div className='product-list__header'>
-        <h2 className="product-list__title">{title}</h2>
-        <Popover content={content} trigger="click" placement="bottomLeft">
-          <Button type="text"><strong>SORT</strong></Button>
-        </Popover>
+      <div className="product-list__header">
+        {cover && (
+          <div className="product-list__cover">
+            <img src={cover} style={{ width: '100%' }} alt="product" />
+          </div>
+        )}
+        <div className="product-list__content">
+          <h2 className="product-list__title">
+            {t(`product_list.${title.toLowerCase()}`)}
+          </h2>
+          <Popover content={content} trigger="click" placement="bottomLeft">
+            <Button type="text">
+              <strong>{t('cta.sort')}</strong>
+            </Button>
+          </Popover>
+        </div>
       </div>
       <List
         className="product-list__list-antd"
