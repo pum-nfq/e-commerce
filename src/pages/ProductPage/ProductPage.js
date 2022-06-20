@@ -72,9 +72,11 @@ const ProductPage = () => {
   };
 
   const handleSort = (e) => {
+    console.log(e.target.innerText);
     switch (e.target.innerText) {
       // handle sort by price
       case 'Sort by Price':
+      case 'Sắp xếp theo giá':
         if (isSortRevert) {
           displayData = displayData.slice().sort((a, b) => {
             return a.sizes[0].price < b.sizes[0].price
@@ -97,6 +99,7 @@ const ProductPage = () => {
         break;
       // handle sort by name
       case 'Sort by Name':
+      case 'Sắp xếp theo tên':
         if (isSortRevert) {
           displayData = displayData.slice().sort((a, b) => {
             return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
@@ -111,6 +114,7 @@ const ProductPage = () => {
         break;
       // handle sort by brand
       case 'Sort by Brand':
+      case 'Sắp xếp theo thương hiệu':
         if (isSortRevert) {
           displayData = displayData.slice().sort((a, b) => {
             return a.brand < b.brand ? 1 : a.brand > b.brand ? -1 : 0;
