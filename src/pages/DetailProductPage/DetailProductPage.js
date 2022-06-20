@@ -25,7 +25,7 @@ import i18n from '../../i18n';
 import { getAllProduct } from '../../store/product/productSlice';
 import { shoppingList } from '../../store/selectors';
 import { addShoppingItem } from '../../store/shoppingList/shoppingListSlice';
-import sumUp from '../../utils/sumUp';
+import sumUp from '../../utils/sumUp/sumUp';
 import './DetailProductPage.scss';
 
 const DetailProductPage = () => {
