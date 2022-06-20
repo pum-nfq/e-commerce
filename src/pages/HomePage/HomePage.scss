@@ -195,3 +195,15 @@
     text-align: center;
   }
 }
+
+@media only screen and (max-width: 1024px) {
+  .video-intro {
+    width: auto;
+    height: 100%;
+    margin-bottom: 2rem;
+    & video {
+      position: relative;
+      object-fit: contain;
+    }
+  }
+}
