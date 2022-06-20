@@ -11,13 +11,15 @@ import {
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import moment from 'moment';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import Product from '../../components/Product/Product';
+import i18n from '../../i18n';
 import { getAllProduct } from '../../store/product/productSlice';
 import { shoppingList } from '../../store/selectors';
 import { updateShoppingList } from '../../store/shoppingList/shoppingListSlice';
@@ -41,6 +43,7 @@ const DetailProductPage = () => {
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
+  const { t } = useTranslation();
 
   useEffect(() => {
     localStorage.setItem('shoppingList', JSON.stringify(shoppingCart));
@@ -72,7 +75,7 @@ const DetailProductPage = () => {
     return () => window.removeEventListener('resize', updateSize);
   }, []);
 
-  useEffect(() => {
+  const getProductDetail = () => {
     const foundProductById = [];
     products.map((item) =>
       item.sizes.forEach((item2) => {
@@ -86,9 +89,29 @@ const DetailProductPage = () => {
       );
       setRelatedProducts(temp);
       setProduct(foundProductById[0]);
-      // setPrductSelectedSize(foundProductById[0].sizes[0]);
+
+      if (i18n.language === 'vi') {
+        setPrductSelectedSize({
+          ...foundProductById[0].sizes[0],
+          price: foundProductById[0].sizes[0].price * 23237,
+        });
+      } else {
+        setPrductSelectedSize(foundProductById[0].sizes[0]);
+      }
     }
-  }, [id, products]);
+  };
+
+  useEffect(() => {
+    getProductDetail();
+  }, [id, products, i18n.language]);
+
+  const clickSize = (product) => {
+    if (i18n.language === 'vi') {
+      setPrductSelectedSize({ ...product, price: product.price * 23237 });
+    } else {
+      setPrductSelectedSize(product);
+    }
+  };
 
   const handleUpdateShoppingList = () => {
     if (!productSelectedSize) {
@@ -176,12 +199,8 @@ const DetailProductPage = () => {
                 {product.name.toUpperCase()}
               </h1>
               <h2 className="detail-product__content__price">
-                {productSelectedSize.price
-                  ? productSelectedSize.price.toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                    })
-                  : 'Contact'}{' '}
+                {productSelectedSize &&
+                  t('price_product', { val: productSelectedSize.price })}{' '}
                 <i
                   style={{
                     color: '#999',
@@ -190,7 +209,11 @@ const DetailProductPage = () => {
                   }}
                 >
                   {productSelectedSize &&
-                    '( ' + productSelectedSize.quantity + ' products in stock)'}
+                    '(' +
+                      t('detail_product.products_in_stock', {
+                        quantity: productSelectedSize.quantity,
+                      }) +
+                      ')'}
                 </i>
               </h2>
             </Space>
@@ -206,19 +229,19 @@ const DetailProductPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please choose your size!',
+                      message: t('error.not_choose_size'),
                     },
                   ]}
                 >
                   <Radio.Group buttonStyle="solid">
                     <div className="detail-product__content__order__size-wrapper">
-                      {product.sizes.map((s, index) => (
+                      {product.sizes.map((product, index) => (
                         <Radio.Button
-                          value={s.size}
+                          value={product.size}
                           key={index}
-                          onChange={() => setPrductSelectedSize(s)}
+                          onChange={() => clickSize(product)}
                         >
-                          {s.size}
+                          {product.size}
                         </Radio.Button>
                       ))}
                     </div>
@@ -245,41 +268,40 @@ const DetailProductPage = () => {
                   htmlType="submit"
                   block
                 >
-                  BUY NOW
+                  {t('cta.buy_now')}
                 </Button>
               </div>
             </Form>
             <Tabs defaultActiveKey="1">
-              <TabPane tab="Description" key="1">
+              <TabPane tab={t('detail_product.description')} key="1">
                 <p style={{ marginBottom: '1rem' }}>
-                  The <i>{product.name}</i> fuses court and street style to give
-                  you a slam dunk sneaker. The mixed material upper features
-                  transparent mesh panels for breathability, while the
-                  collapsible heel brings feminine flair to Nike b-ball.
+                  {t('detail_product.description_content', {
+                    name: product.name,
+                  })}
                 </p>
-                <b style={{ fontSize: '1.25rem' }}>Product details</b>
+                <b style={{ fontSize: '1.25rem' }}>
+                  {t('detail_product.detail')}
+                </b>
                 <p>
-                  <b>Package Dimensions:</b> 33.71 x 20.9 x 11.4 cm
+                  <b>{t('detail_product.package_dimensions')}:</b> 33.71 x 20.9
+                  x 11.4 cm
                   <br />
-                  <b>Date First Available:</b> 17 December 2021
+                  <b>{t('detail_product.date_first_available')}:</b> 17 December
+                  2021
                   <br />
-                  <b>Manufacturer:</b> Nike
+                  <b>{t('detail_product.manufacturer')}:</b> Nike
                   <br />
                   <b>ASIN:</b> B09NMMX1NK
                   <br />
-                  <b>Item model number:</b> DJ0292-103
+                  <b>{t('detail_product.item_model_number')}:</b> DJ0292-103
                   <br />
-                  <b>Department:</b> Womens
-                  <br />
-                  <b>Manufacturer:</b> Nike Item
-                  <br />
-                  <b>Weight:</b> 948 g
+                  <b>{t('detail_product.weight')}:</b> 948 g
                 </p>
               </TabPane>
-              <TabPane tab="Shipping" key="2">
-                <p>No support</p>
+              <TabPane tab={t('detail_product.shipping')} key="2">
+                <p>{t('detail_product.no_support')}</p>
               </TabPane>
-              <TabPane tab="Comments" key="3">
+              <TabPane tab={t('detail_product.comments')} key="3">
                 {comments.length > 0 && (
                   <List
                     dataSource={comments}
@@ -313,7 +335,7 @@ const DetailProductPage = () => {
                           onClick={handleSubmit}
                           type="primary"
                         >
-                          Add Comment
+                          {t('cta.add_comment')}
                         </Button>
                       </Form.Item>
                     </>
@@ -335,13 +357,7 @@ const DetailProductPage = () => {
                 <SwiperSlide key={index}>
                   <Product
                     {...item}
-                    price={
-                      item.sizes[0].price !== null &&
-                      item.sizes[0].price.toLocaleString('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                      })
-                    }
+                    price={item.sizes[0].price}
                     id={item.key}
                   />
                 </SwiperSlide>

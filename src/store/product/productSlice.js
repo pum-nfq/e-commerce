@@ -61,6 +61,7 @@ export const productSlice = createSlice({
       state.listSearch = convertFuseToObj;
     },
     filterProduct: (state, { payload }) => {
+      console.log(payload);
       state.loading = true;
       if (payload.length !== 0) {
         // console.log(payload);
@@ -77,25 +78,41 @@ export const productSlice = createSlice({
         const filterPrices = current(state).list.filter((currentListItem) => {
           let filterPriceCheck = false;
 
-          if (payload.includes('UNDER $100') && !filterPriceCheck) {
+          if (
+            (payload.includes('Under $100') ||
+              payload.includes('Dưới 2.323.000 ₫')) &&
+            !filterPriceCheck
+          ) {
             filterPriceCheck = currentListItem.sizes.some(
               (itemSize) => itemSize.price < 100,
             );
           }
 
-          if (payload.includes('$100 - $300') && !filterPriceCheck) {
+          if (
+            (payload.includes('$100 - $300') ||
+              payload.includes('2.323.000 ₫ - 6.969.000 ₫')) &&
+            !filterPriceCheck
+          ) {
             filterPriceCheck = currentListItem.sizes.some(
               (itemSize) => itemSize.price >= 100 && itemSize.price <= 300,
             );
           }
 
-          if (payload.includes('$300 - $400') && !filterPriceCheck) {
+          if (
+            (payload.includes('$300 - $400') ||
+              payload.includes('6.969.000 ₫ - 9.292.000 ₫')) &&
+            !filterPriceCheck
+          ) {
             filterPriceCheck = currentListItem.sizes.some(
               (itemSize) => itemSize.price >= 300 && itemSize.price <= 400,
             );
           }
 
-          if (payload.includes('OVER $400') && !filterPriceCheck) {
+          if (
+            (payload.includes('Over $400') ||
+              payload.includes('Trên 9.292.000 ₫')) &&
+            !filterPriceCheck
+          ) {
             filterPriceCheck = currentListItem.sizes.some(
               (itemSize) => itemSize.price > 400,
             );
