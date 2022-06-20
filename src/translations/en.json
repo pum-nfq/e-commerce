@@ -25,6 +25,10 @@
     "size": "Size"
   },
   "home": {
+    "announcement": "For a better fit, we've updated our apparel sizing. To find your right size, make sure to check out our",
+    "announcement_link": "size guides",
+    "new_arrival": "NEW ARRIVAL",
+    "best_seller": "BEST-SELLER",
     "new_releases": "NEW RELEASES",
     "feature_blog": "FEATURE BLOGS"
   },

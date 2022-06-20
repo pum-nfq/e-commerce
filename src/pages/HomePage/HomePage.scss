@@ -8,9 +8,16 @@
 .home-title {
   width: 100%;
   text-align: center;
-  padding: 3rem 0;
   font-size: 18px;
   color: #999;
+  margin: 0;
+}
+
+.home-title-close {
+  margin-left: 8px;
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 .video-intro {
