@@ -37,7 +37,6 @@ export default function PaymentPage() {
   };
 
   const handleUpdateQuantityItem = (index, value) => {
-    // console.log(index, value);
     dispatch(updateShoppingItem({ index, value }));
   };
 

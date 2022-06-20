@@ -135,7 +135,6 @@ const DetailProductPage = () => {
         sizeOrder: productSelectedSize.size,
         numberOrder: 1,
       });
-    console.log(productSelectedSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productSelectedSize]);
 
