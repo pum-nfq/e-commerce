@@ -1,6 +1,7 @@
 import { Alert, Breadcrumb, Layout } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/exports';
 import { Link } from 'react-router-dom';
@@ -16,6 +17,7 @@ import EmptyCart from './EmptyCart/EmptyCart';
 import './PaymentPage.scss';
 
 export default function PaymentPage() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const cartList = useSelector(shoppingList);
   const [name, setName] = useState('');
@@ -105,9 +107,9 @@ export default function PaymentPage() {
             }}
           >
             <Breadcrumb.Item>
-              <Link to="/">HOME</Link>
+              <Link to="/">{t('checkout.home')}</Link>
             </Breadcrumb.Item>
-            <Breadcrumb.Item>CART</Breadcrumb.Item>
+            <Breadcrumb.Item>{t('checkout.cart')}</Breadcrumb.Item>
           </Breadcrumb>
           <div className="cart__content-wrapper">
             <div className="cart__content">

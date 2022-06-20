@@ -12,7 +12,9 @@ import {
 } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import i18n from '../../../i18n';
 import './CartWithItems.scss';
 
 const { Title } = Typography;
@@ -34,6 +36,7 @@ const validateMessages = {
 };
 
 export default function CartWithItems(props) {
+  const { t } = useTranslation();
   const {
     cartList,
     onChangePayment,
@@ -78,7 +81,7 @@ export default function CartWithItems(props) {
   }, [cartList]);
   const columns = useRef([
     {
-      title: 'Image',
+      title: () => t('checkout.image'),
       dataIndex: 'image',
       render: (_, record) => {
         return (
@@ -95,7 +98,7 @@ export default function CartWithItems(props) {
       },
     },
     {
-      title: 'Name',
+      title: () => t('checkout.name'),
       dataIndex: 'name',
     },
     {
@@ -103,11 +106,11 @@ export default function CartWithItems(props) {
       dataIndex: 'size',
     },
     {
-      title: 'Price',
+      title: () => t('checkout.price'),
       dataIndex: 'price',
     },
     {
-      title: 'Quantity',
+      title: () => t('checkout.quantity'),
       dataIndex: 'quantity',
       render: (_, record) => (
         <InputNumber
@@ -119,7 +122,7 @@ export default function CartWithItems(props) {
       ),
     },
     {
-      title: 'Amount',
+      title: () => t('checkout.amount'),
       dataIndex: 'amount',
     },
   ]);
@@ -132,7 +135,7 @@ export default function CartWithItems(props) {
   return (
     <div className="cart__content-divider">
       <div className="cart__cartInfo">
-        <Title level={4}>your cart</Title>
+        <Title level={4}>{t('checkout.your_cart')}</Title>
         <Table
           columns={columns.current}
           dataSource={productList}
@@ -148,7 +151,9 @@ export default function CartWithItems(props) {
               <>
                 <Table.Summary.Row className="cart__sum-wrapper">
                   <Table.Summary.Cell index={0} colSpan={5}>
-                    <span className="cart__sum-word">TOTAL:</span>
+                    <span className="cart__sum-word">
+                      {t('checkout.total')}
+                    </span>
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1}>
                     <span className="cart__sum-price">
@@ -166,7 +171,7 @@ export default function CartWithItems(props) {
       </div>
       <div className="cart__deliverInfo">
         <div className="cart__payments">
-          <Title level={4}>payment methods:</Title>
+          <Title level={4}>{t('checkout.payment_methods')}</Title>
           <div className="cart__payments-options">
             <Space direction="vertical">
               <Radio.Group
@@ -175,50 +180,35 @@ export default function CartWithItems(props) {
               >
                 <Radio value={1}>
                   <span className="cart__payments-options-words">
-                    Cash directly at store
+                    {t('checkout.cash_direct')}
                   </span>
                   {payment === 1 ? (
                     <div className="cart__payments-options-description">
-                      <p>
-                        - Customers who buy goods at the shop, please pay
-                        directly to the store:
-                      </p>
-                      <p>
-                        Address: Cai Khe Ward, Ninh Kieu District, Can Tho City
-                      </p>
-                      <p>
-                        - As soon as you complete the payment, the staff will
-                        send you the purchase invoice.
-                      </p>
+                      <p>{t('checkout.cash_direct_description1')}</p>
+                      <p>{t('checkout.cash_direct_description2')}</p>
+                      <p>{t('checkout.cash_direct_description3')}</p>
                     </div>
                   ) : null}
                 </Radio>
                 <Radio value={2}>
                   <span className="cart__payments-options-words">
-                    Cash on delivery
+                    {t('checkout.cash_deli')}
                   </span>
                   {payment === 2 ? (
                     <div className="cart__payments-options-description">
-                      <p>
-                        - You pay the delivery staff for the whole or the rest
-                        of the value of the purchased order (if you have paid a
-                        deposit)
-                      </p>
-                      <p>
-                        - This form of payment is only available for collection
-                        orders.
-                      </p>
+                      <p>{t('checkout.cash_deli_description1')}</p>
+                      <p>{t('checkout.cash_deli_description2')}</p>
                     </div>
                   ) : null}
                 </Radio>
                 <Radio value={3}>
-                  <span className="cart__payments-options-words">Banking</span>
+                  <span className="cart__payments-options-words">
+                    {' '}
+                    {t('checkout.banking')}
+                  </span>
                   {payment === 3 ? (
                     <div className="cart__payments-options-description">
-                      <p>
-                        - After placing the order successfully, please contact
-                        the hotline: 0833495422
-                      </p>
+                      <p>{t('checkout.banking_description')}</p>
                     </div>
                   ) : null}
                 </Radio>
@@ -227,7 +217,7 @@ export default function CartWithItems(props) {
           </div>
         </div>
         <div className="cart__form">
-          <Title level={4}>delivery information:</Title>
+          <Title level={4}> {t('checkout.deli_info')}</Title>
           <Form
             {...layout}
             name="nest-messages"
@@ -241,14 +231,14 @@ export default function CartWithItems(props) {
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your name!',
+                        message: t('checkout.input_name_requirement'),
                       },
                     ]}
                   >
                     <Input
                       value={name}
                       onInput={(e) => onChangeName(e.target.value)}
-                      placeholder="Enter your name..."
+                      placeholder={t('checkout.input_name')}
                     />
                   </Form.Item>
                 </Col>
@@ -258,14 +248,14 @@ export default function CartWithItems(props) {
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your phone number!',
+                        message: t('checkout.input_phone_requirement'),
                       },
                     ]}
                   >
                     <Input
                       value={phone}
                       onInput={(e) => onChangePhone(e.target.value)}
-                      placeholder="Enter your phone number..."
+                      placeholder={t('checkout.input_phone_requirement')}
                       type="tel"
                     />
                   </Form.Item>
@@ -278,14 +268,14 @@ export default function CartWithItems(props) {
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your name!',
+                      message: t('checkout.input_name_requirement'),
                     },
                   ]}
                 >
                   <Input
                     value={name}
                     onInput={(e) => onChangeName(e.target.value)}
-                    placeholder="Enter your name..."
+                    placeholder={t('checkout.input_name')}
                   />
                 </Form.Item>
                 <Form.Item
@@ -293,14 +283,14 @@ export default function CartWithItems(props) {
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your phone number!',
+                      message: t('checkout.input_phone_requirement'),
                     },
                   ]}
                 >
                   <Input
                     value={phone}
                     onInput={(e) => onChangePhone(e.target.value)}
-                    placeholder="Enter your phone number..."
+                    placeholder={t('checkout.input_phone')}
                     type="tel"
                   />
                 </Form.Item>
@@ -319,7 +309,7 @@ export default function CartWithItems(props) {
                 value={email}
                 onInput={(e) => onChangeEmail(e.target.value)}
                 type="email"
-                placeholder="Enter your email..."
+                placeholder={t('checkout.input_email')}
               />
             </Form.Item>
             <Form.Item
@@ -327,20 +317,20 @@ export default function CartWithItems(props) {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your address!',
+                  message: t('checkout.input_address_requirement'),
                 },
               ]}
             >
               <Input
                 value={address}
                 onInput={(e) => onChangeAddress(e.target.value)}
-                placeholder="Enter your address..."
+                placeholder={t('checkout.input_address')}
               />
             </Form.Item>
             <Form.Item name={['user', 'website']}>
               <TextArea
                 rows={4}
-                placeholder="Other requirements... (optional)"
+                placeholder={t('checkout.input_requirements')}
                 maxLength={6}
                 value={requirements}
                 onInput={(e) => onChangeRequirements(e.target.value)}
@@ -348,7 +338,7 @@ export default function CartWithItems(props) {
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
               <Button type="primary" htmlType="submit" onClick={onSubmit}>
-                check out
+                {t('checkout.checkout')}
               </Button>
             </Form.Item>
           </Form>
