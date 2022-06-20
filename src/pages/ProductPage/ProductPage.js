@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Filter from '../../components/Filter/Filter';
 import ProductList from '../../components/ProductList/ProductList';
+import i18n from '../../i18n';
 import {
   filterProduct,
   getAllProduct,
@@ -39,15 +40,19 @@ const ProductPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setFilters([]);
+  }, [i18n.language]);
+
   const handleFilter = (e) => {
     if (e.target.checked) {
       setFilters((prev) => {
-        prev.push(e.target.value.toUpperCase());
+        prev.push(e.target.value);
         return prev;
       });
     } else {
       setFilters((prev) => {
-        const index = prev.indexOf(e.target.value.toUpperCase());
+        const index = prev.indexOf(e.target.value);
         if (index !== -1) {
           prev.splice(index, 1);
         }

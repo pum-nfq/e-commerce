@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SwiperCore, { Autoplay, Pagination } from 'swiper';
@@ -67,6 +68,7 @@ const HomePage = () => {
   const [slidesPerView, setSlidesPerView] = useState(4);
   const productList = useSelector((state) => state.product.list);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   SwiperCore.use([Autoplay]);
 
@@ -220,7 +222,7 @@ const HomePage = () => {
       </div>
 
       <div className="new-release">
-        <h2 className="new-release__heading">new releases</h2>
+        <h2 className="new-release__heading">{t('home.new_releases')}</h2>
         <Swiper
           slidesPerView={slidesPerView}
           spaceBetween={30}
@@ -242,7 +244,7 @@ const HomePage = () => {
         </Swiper>
       </div>
       <div className="feature-blog">
-        <h2 className="feature-blog__heading">feature blogs</h2>
+        <h2 className="feature-blog__heading">{t('home.feature_blog')}</h2>
         <Swiper
           slidesPerView={slidesPerView}
           spaceBetween={30}

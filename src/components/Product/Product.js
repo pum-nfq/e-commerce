@@ -1,12 +1,24 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Image } from 'antd';
 import 'antd/dist/antd.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import i18n from '../../i18n';
 import './Product.scss';
 
 export default function Product({ id, image, brand, name, price }) {
+  const [currencyPrice, setCurrencyPrice] = useState(price);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    if (i18n.language === 'vi') {
+      setCurrencyPrice(price * 23237);
+    } else {
+      setCurrencyPrice(price);
+    }
+  }, [i18n.language]);
   return (
     <div className="product-card">
       <div
@@ -32,12 +44,9 @@ export default function Product({ id, image, brand, name, price }) {
         <p className="product-card__text">{name}</p>
       </Link>
       <p className="product-card__price">
-        {price
-          ? price.toLocaleString('en-US', {
-              style: 'currency',
-              currency: 'USD',
-            })
-          : 'Contact us'}
+        {price !== null
+          ? t('price_product', { val: currencyPrice })
+          : t('price_product_null')}
       </p>
       <Button
         className="product-card__button"
@@ -45,7 +54,7 @@ export default function Product({ id, image, brand, name, price }) {
         type="text"
         icon={<PlusOutlined />}
       >
-        QUICK ADD
+        {t('cta.quick_add')}
       </Button>
     </div>
   );

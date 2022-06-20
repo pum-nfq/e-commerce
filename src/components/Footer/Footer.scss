@@ -35,8 +35,26 @@
       }
     }
   }
-  &__copy-right {
-    color: #999;
+  &__bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &__copy-right {
+      color: #999;
+    }
+
+    &__lang-btn {
+      color: white;
+      position: relative;
+      & img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 }
 
@@ -58,15 +76,21 @@
         'second . third'
         'fourth fourth fourth';
     }
-    &__copy-right {
-      text-align: center;
+    &__bottom {
+      flex-direction: column;
+      align-items: center;
+      &__copy-right {
+        text-align: center;
+      }
     }
   }
 }
 @media only screen and (max-width: 425px) {
   .footer-wrapper {
-    &__copy-right {
-      font-size: 12px;
+    &__bottom {
+      &__copy-right {
+        font-size: 12px;
+      }
     }
   }
 }
