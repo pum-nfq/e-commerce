@@ -1,4 +1,3 @@
-import 'antd/dist/antd.less';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
