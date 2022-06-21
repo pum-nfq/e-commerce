@@ -5,13 +5,17 @@
 }
 
 .spiner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
   &__icon {
     font-size: 72px;
     color: black;
+  }
+}
+
+.back-top {
+  background-color: black;
+  border: none;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
   }
 }

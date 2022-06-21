@@ -73,6 +73,7 @@ export const productSlice = createSlice({
               (sizeItem) =>
                 // eslint-disable-next-line eqeqeq
                 payload.findIndex(
+                  // eslint-disable-next-line eqeqeq
                   (itemPayload) => itemPayload == sizeItem.size,
                 ) !== -1,
             ) !== -1,

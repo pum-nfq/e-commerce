@@ -71,7 +71,7 @@ const DetailProductPage = () => {
   }, [notiStatus]);
 
   useEffect(() => {
-    dispatch(getAllProduct());
+    if (products.length === 0) dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
     window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -271,6 +271,7 @@ const DetailProductPage = () => {
               className="detail-product__content__order"
               name="order"
               autoComplete="off"
+              initialValues={{ numberOrder: 1, radioValue: radioValue }}
             >
               <Space direction="vertical">
                 <p>SIZE: </p>
@@ -285,7 +286,6 @@ const DetailProductPage = () => {
                 >
                   <Radio.Group
                     buttonStyle="solid"
-                    defaultValue={radioValue}
                     value={radioValue}
                     onChange={(e) => setRadioValue(e.target.value)}
                   >
@@ -318,7 +318,6 @@ const DetailProductPage = () => {
                     bordered={false}
                     className="detail-product__content__order__number-order"
                     size="large"
-                    defaultValue={1}
                   />
                 </Form.Item>
 
