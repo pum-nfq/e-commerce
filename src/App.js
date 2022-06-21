@@ -2,7 +2,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import 'antd/dist/antd.min.css';
 import { Footer } from 'antd/lib/layout/layout';
-import { Suspense } from 'react';
+import { useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
@@ -14,15 +14,15 @@ import PaymentPage from './pages/PaymentPage/PaymentPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 
 function App() {
+  const loading = useSelector((state) => state.product.loading);
   return (
-    <Suspense
-      fallback={
-        <Spin
-          indicator={<LoadingOutlined spin className="spiner__icon" />}
-          className="spiner"
-        />
-      }
-    >
+    <>
+      <Spin
+        indicator={<LoadingOutlined spin className="spiner__icon" />}
+        className="spiner"
+        spinning={loading}
+      />
+
       <div className="app">
         <Routes>
           <Route
@@ -44,7 +44,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
-    </Suspense>
+    </>
   );
 }
 
