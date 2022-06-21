@@ -21,29 +21,29 @@ function App() {
         indicator={<LoadingOutlined spin className="spiner__icon" />}
         className="spiner"
         spinning={loading}
-      />
-
-      <div className="app">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Navbar />
-                <Outlet />
-                <Footer />
-              </>
-            }
-          >
-            <Route index element={<HomePage />} />
-            <Route path="product" element={<ProductPage />} />
-            <Route path="detail/:id" element={<DetailProductPage />} />
-            <Route path="cart" element={<PaymentPage />} />
-          </Route>
-          <Route path="admin" element={<AdminPage />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </div>
+      >
+        <div className="app">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Outlet />
+                  <Footer />
+                </>
+              }
+            >
+              <Route index element={<HomePage />} />
+              <Route path="product" element={<ProductPage />} />
+              <Route path="detail/:id" element={<DetailProductPage />} />
+              <Route path="cart" element={<PaymentPage />} />
+            </Route>
+            <Route path="admin" element={<AdminPage />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </div>
+      </Spin>
     </>
   );
 }
