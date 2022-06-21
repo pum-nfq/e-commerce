@@ -246,8 +246,8 @@ const HomePage = () => {
           autoplay={{ delay: 1500 }}
           modules={[Pagination]}
         >
-          {productList.map((productData) => (
-            <SwiperSlide>
+          {productList.map((productData, index) => (
+            <SwiperSlide key={index}>
               <Product
                 {...productData}
                 price={productData.sizes[0].price}
@@ -268,8 +268,8 @@ const HomePage = () => {
           autoplay={{ delay: 5000 }}
           modules={[Pagination]}
         >
-          {featureBlogs.map((item) => (
-            <SwiperSlide>
+          {featureBlogs.map((item, index) => (
+            <SwiperSlide key={index}>
               <FeatureCard {...item} />
             </SwiperSlide>
           ))}

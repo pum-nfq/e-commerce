@@ -271,6 +271,7 @@ const DetailProductPage = () => {
               className="detail-product__content__order"
               name="order"
               autoComplete="off"
+              initialValues={{ numberOrder: 1, radioValue: radioValue }}
             >
               <Space direction="vertical">
                 <p>SIZE: </p>
@@ -285,7 +286,6 @@ const DetailProductPage = () => {
                 >
                   <Radio.Group
                     buttonStyle="solid"
-                    defaultValue={radioValue}
                     value={radioValue}
                     onChange={(e) => setRadioValue(e.target.value)}
                   >
@@ -318,7 +318,6 @@ const DetailProductPage = () => {
                     bordered={false}
                     className="detail-product__content__order__number-order"
                     size="large"
-                    defaultValue={1}
                   />
                 </Form.Item>
 
