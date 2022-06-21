@@ -1,19 +1,17 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import 'antd/dist/antd.min.css';
-import { Suspense, lazy } from 'react';
+import { Footer } from 'antd/lib/layout/layout';
+import { Suspense } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
-const Footer = lazy(() => import('./components/Footer/Footer'));
-const Navbar = lazy(() => import('./components/Navbar'));
-const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
-const AdminPage = lazy(() => import('./pages/AdminPage/AdminPage'));
-const DetailProductPage = lazy(() =>
-  import('./pages/DetailProductPage/DetailProductPage'),
-);
-const PageNotFound = lazy(() => import('./pages/PageNotFound/PageNotFound'));
-const ProductPage = lazy(() => import('./pages/ProductPage/ProductPage'));
-const PaymentPage = lazy(() => import('./pages/PaymentPage/PaymentPage'));
+import Navbar from './components/Navbar/Navbar';
+import AdminPage from './pages/AdminPage/AdminPage';
+import DetailProductPage from './pages/DetailProductPage/DetailProductPage';
+import HomePage from './pages/HomePage/HomePage';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
+import ProductPage from './pages/ProductPage/ProductPage';
 
 function App() {
   return (
