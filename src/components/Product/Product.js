@@ -2,13 +2,14 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Image } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import i18n from '../../i18n';
 import './Product.scss';
 
 export default function Product({ id, image, brand, name, price }) {
   const [currencyPrice, setCurrencyPrice] = useState(price);
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export default function Product({ id, image, brand, name, price }) {
         block
         type="text"
         icon={<PlusOutlined />}
+        onClick={() => navigate(`/detail/${id}`)}
       >
         {t('cta.quick_add')}
       </Button>
