@@ -1,10 +1,10 @@
 import { LoadingOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
 import { BackTop, Button, Spin } from 'antd';
 import 'antd/dist/antd.min.css';
-import { Footer } from 'antd/lib/layout/layout';
 import { useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
+import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
 import AdminPage from './pages/AdminPage/AdminPage';
 import DetailProductPage from './pages/DetailProductPage/DetailProductPage';
@@ -17,6 +17,15 @@ function App() {
   const loading = useSelector((state) => state.product.loading);
   return (
     <>
+      <BackTop>
+        <Button
+          size="large"
+          shape="circle"
+          type="primary"
+          className="back-top"
+          icon={<VerticalAlignTopOutlined />}
+        />
+      </BackTop>
       <Spin
         indicator={<LoadingOutlined spin className="spiner__icon" />}
         className="spiner"
@@ -42,15 +51,6 @@ function App() {
             <Route path="admin" element={<AdminPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
-          <BackTop>
-            <Button
-              size="large"
-              shape="circle"
-              type="primary"
-              className="back-top"
-              icon={<VerticalAlignTopOutlined />}
-            />
-          </BackTop>
         </div>
       </Spin>
     </>
