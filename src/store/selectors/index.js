@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
-import sumUp from '../../utils/sumUp';
+import sumUp from '../../utils/sumUp/sumUp';
 
 export const productList = (state) => state.product.list;
 export const searchFilter = (state) => state.searchFilter.text;
