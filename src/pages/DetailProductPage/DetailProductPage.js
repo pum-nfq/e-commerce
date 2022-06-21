@@ -71,7 +71,7 @@ const DetailProductPage = () => {
   }, [notiStatus]);
 
   useEffect(() => {
-    dispatch(getAllProduct());
+    if (!products) dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
     window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps

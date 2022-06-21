@@ -92,7 +92,7 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getAllProduct());
+    if (!productList) dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
