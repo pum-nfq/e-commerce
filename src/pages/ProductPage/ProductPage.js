@@ -40,7 +40,7 @@ const ProductPage = () => {
   }
 
   useEffect(() => {
-    if (!productList) dispatch(getAllProduct());
+    if (productList.length === 0) dispatch(getAllProduct());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
