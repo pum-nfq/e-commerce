@@ -1,5 +1,5 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import { LoadingOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
+import { BackTop, Button, Spin } from 'antd';
 import 'antd/dist/antd.min.css';
 import { Footer } from 'antd/lib/layout/layout';
 import { useSelector } from 'react-redux';
@@ -42,6 +42,15 @@ function App() {
             <Route path="admin" element={<AdminPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
+          <BackTop>
+            <Button
+              size="large"
+              shape="circle"
+              type="primary"
+              className="back-top"
+              icon={<VerticalAlignTopOutlined />}
+            />
+          </BackTop>
         </div>
       </Spin>
     </>

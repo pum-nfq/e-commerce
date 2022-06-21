@@ -10,3 +10,12 @@
     color: black;
   }
 }
+
+.back-top {
+  background-color: black;
+  border: none;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
