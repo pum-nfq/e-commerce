@@ -49,7 +49,7 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    dispatch(getAllProduct(productsList));
+    if (!productsList) dispatch(getAllProduct(productsList));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
