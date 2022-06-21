@@ -14,7 +14,6 @@ import TextArea from 'antd/lib/input/TextArea';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import i18n from '../../../i18n';
 import './CartWithItems.scss';
 
 const { Title } = Typography;
