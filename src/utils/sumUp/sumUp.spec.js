@@ -30,7 +30,6 @@ describe('utils/sumUp', () => {
     ];
     expect(sumUp(input)).toEqual(output);
   });
-
   it('should return an array of product without over the quantity', () => {
     const input = [
       {
