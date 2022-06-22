@@ -53,7 +53,7 @@ export const productSlice = createSlice({
   reducers: {
     searchProduct: (state, { payload }) => {
       const options = {
-        keys: ['name', 'brand', 'id'],
+        keys: ['name', 'brand', 'key'],
       };
       const fuse = new Fuse(current(state).list, options);
       const value = fuse.search(payload);
