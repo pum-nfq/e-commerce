@@ -69,6 +69,14 @@ export default function PaymentPage() {
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem('shoppingList', JSON.stringify(cartList));
   }, [cartList]);
 
