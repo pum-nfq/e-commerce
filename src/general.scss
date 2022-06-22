@@ -12,10 +12,11 @@
 }
 
 .back-top {
-  background-color: black;
+  background-color: #555;
   border: none;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+  &:hover,
+  &:focus {
+    background-color: #222;
   }
 }
