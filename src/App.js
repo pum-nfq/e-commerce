@@ -1,6 +1,5 @@
 import { LoadingOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
-import { BackTop, Button, Spin } from 'antd';
-import 'antd/dist/antd.min.css';
+import { BackTop, Button, ConfigProvider, Spin } from 'antd';
 import { useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
@@ -12,6 +11,12 @@ import HomePage from './pages/HomePage/HomePage';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 import ProductPage from './pages/ProductPage/ProductPage';
+
+ConfigProvider.config({
+  theme: {
+    primaryColor: '#000',
+  },
+});
 
 function App() {
   const loading = useSelector((state) => state.product.loading);
