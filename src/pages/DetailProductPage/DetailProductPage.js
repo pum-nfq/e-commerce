@@ -59,6 +59,14 @@ const DetailProductPage = () => {
   }, [shoppingCart]);
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, []);
+
+  useEffect(() => {
     if (notiStatus) {
       const notification = document.querySelector('.notification__wrapper');
       notification.classList.add('notification__wrapper--display');

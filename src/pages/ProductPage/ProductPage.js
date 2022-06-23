@@ -41,6 +41,11 @@ const ProductPage = () => {
 
   useEffect(() => {
     if (productList.length === 0) dispatch(getAllProduct());
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

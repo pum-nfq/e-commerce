@@ -86,6 +86,11 @@ const HomePage = () => {
         setSlidesPerView(4);
       }
     });
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
     return () => {
       window.removeEventListener('resize', () => {});
     };
